@@ -7,25 +7,36 @@ import GBInput from "@/src/components/form/GBInput";
 import { loginSchema } from "@/src/schema";
 import { Button } from "@nextui-org/button";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/src/services/Auth";
 
 export interface ILoginFormProps {}
 export default function LoginForm({}: ILoginFormProps) {
-  const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // // Handle login logic, e.g., sending a POST request to the login API
-    // const res = await fetch("/api/auth/login", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // });
+  const {
+    mutate: handleLogin,
+    isPending,
+    isError,
+    error,
+    isSuccess,
+    data,
+  } = useMutation({
+    mutationKey: ["USER_SIGNUP"],
+    mutationFn: async (userData: FieldValues) => await loginUser(userData),
+  });
 
-    // if (res.ok) {
-    //   // Redirect on successful login
-    //   redirect("/dashboard");
-    // } else {
-    //   // Handle login error
-    //   console.log("Login failed");
-    // }
-    console.log(data);
+  // Parse the error message from the backend
+  const backendError =
+    isError && error instanceof Error ? JSON.parse(error.message) : null;
+
+  if (isError) {
+    toast.error(backendError.message || "Something went wrong");
+  }
+  if (isSuccess) {
+    toast.success(data.message);
+  }
+  const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
+    handleLogin(data);
   };
   return (
     <div>
@@ -36,8 +47,14 @@ export default function LoginForm({}: ILoginFormProps) {
       >
         <GBInput label="Email" name="email" type="email" required />
         <GBInput label="Password" name="password" type="password" required />
-        <Button radius="sm" className="mt-3" size="sm" type="submit">
-          Login
+        <Button
+          radius="sm"
+          className="mt-3"
+          size="sm"
+          type="submit"
+          isDisabled={isPending}
+        >
+          {isPending ? "Loading..." : "Login"}
         </Button>
       </GBForm>
     </div>

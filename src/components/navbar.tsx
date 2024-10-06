@@ -7,17 +7,15 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
-import { Logo } from "@/src/components/icons";
+import logo from "@/src/assets/logo-transparent.png";
+import Image from "next/image";
 
 export const Navbar = () => {
   return (
@@ -25,7 +23,7 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
+            <Image src={logo} alt="logo" className="size-8" />
             <p className="font-bold text-inherit">Gardenbook</p>
           </NextLink>
         </NavbarBrand>
