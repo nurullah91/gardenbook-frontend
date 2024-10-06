@@ -1,20 +1,19 @@
 import { Link } from "@nextui-org/link";
-import React from "react";
+import LoginForm from "./LoginForm";
 
-const Login = () => {
+export default function LoginPage() {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="font-bold text-center text-rose-400 text-3xl">
-        Login page
+    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
+      <h1 className="text-3xl text-center">
+        <span className="text-blue-400 font-bold">G</span>arden
+        <span className="text-blue-400 font-bold">B</span>ook Login
       </h1>
-      <Link
-        href="/"
-        className="bg-slate-300 py-2 px-3 text-gray-800 rounded-md mt-6"
-      >
-        Go to Home
-      </Link>
+      <LoginForm />
+      <div>
+        <p className="text-sm">
+          New to Gardenbook? <Link href="/signup">signup</Link>
+        </p>
+      </div>
     </div>
   );
-};
-
-export default Login;
+}

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { TUser } from "./types";
 
 const AuthRoutes = ["/login", "/signup"];
 
@@ -14,7 +15,7 @@ const roleBasedRoutes = {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const user = undefined;
+  const user: TUser | undefined = undefined;
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
