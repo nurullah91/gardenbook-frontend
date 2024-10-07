@@ -1,5 +1,6 @@
 import { Link } from "@nextui-org/link";
 import React from "react";
+
 import SignupForm from "./SignupForm";
 
 const Singnup = () => {

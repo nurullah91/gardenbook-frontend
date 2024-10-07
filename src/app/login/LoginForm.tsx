@@ -1,18 +1,24 @@
 "use client";
-import { redirect } from "next/navigation"; // To handle redirection
+import { useRouter, useSearchParams } from "next/navigation"; // To handle redirection
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import GBForm from "@/src/components/form/GBForm";
-import GBInput from "@/src/components/form/GBInput";
-import { loginSchema } from "@/src/schema";
 import { Button } from "@nextui-org/button";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+
 import { loginUser } from "@/src/services/Auth";
+import { loginSchema } from "@/src/schema";
+import GBInput from "@/src/components/form/GBInput";
+import GBForm from "@/src/components/form/GBForm";
+import { useUser } from "@/src/context/user.provider";
 
 export interface ILoginFormProps {}
 export default function LoginForm({}: ILoginFormProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const redirect = searchParams.get("redirect");
+  const { setIsLoading: userLoading } = useUser();
   const {
     mutate: handleLogin,
     isPending,
@@ -37,7 +43,19 @@ export default function LoginForm({}: ILoginFormProps) {
   }
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleLogin(data);
+    userLoading(true);
   };
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
+    }
+  }, [isPending, isSuccess]);
+
   return (
     <div>
       <GBForm
@@ -45,16 +63,16 @@ export default function LoginForm({}: ILoginFormProps) {
         resolver={zodResolver(loginSchema)}
         // defaultValues={{ email: "", password: "" }}
       >
-        <GBInput label="Email" name="email" type="email" required />
-        <GBInput label="Password" name="password" type="password" required />
+        <GBInput required label="Email" name="email" type="email" />
+        <GBInput required label="Password" name="password" type="password" />
         <Button
-          radius="sm"
           className="mt-3"
+          isDisabled={isPending}
+          radius="sm"
           size="sm"
           type="submit"
-          isDisabled={isPending}
         >
-          {isPending ? "Loading..." : "Login"}
+          {isPending ? "Logging in..." : "Login"}
         </Button>
       </GBForm>
     </div>

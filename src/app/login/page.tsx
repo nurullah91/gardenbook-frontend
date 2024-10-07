@@ -1,4 +1,5 @@
 import { Link } from "@nextui-org/link";
+
 import LoginForm from "./LoginForm";
 
 export default function LoginPage() {

@@ -1,6 +1,9 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+import { NextResponse } from "next/server";
+
 import { TUser } from "./types";
+import { getCurrentUser } from "./services/Auth";
 
 const AuthRoutes = ["/login", "/signup"];
 
@@ -12,16 +15,18 @@ const roleBasedRoutes = {
 };
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const user: TUser | undefined = undefined;
+  const user: TUser | null = await getCurrentUser();
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
       return NextResponse.next();
     } else {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(
+        new URL(`/login?redirect=${pathname}`, request.url),
+      );
     }
   }
 
@@ -38,5 +43,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/profile", "/admin", "/login", "/signup"],
+  matcher: ["/profile", "/profile/:page*", "/admin", "/login", "/signup"],
 };

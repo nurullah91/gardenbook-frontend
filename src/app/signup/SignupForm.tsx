@@ -1,15 +1,15 @@
 "use client";
 //import { redirect } from "next/navigation"; // To handle redirection
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@nextui-org/button";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import GBForm from "@/src/components/form/GBForm";
 import GBInput from "@/src/components/form/GBInput";
 import { signupSchema } from "@/src/schema";
-import { Button } from "@nextui-org/button";
-import { FieldValues, SubmitHandler } from "react-hook-form";
 import { signupUser } from "@/src/services/Auth";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 export interface ILoginFormProps {}
 export default function SignupForm({}: ILoginFormProps) {
@@ -38,23 +38,24 @@ export default function SignupForm({}: ILoginFormProps) {
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleSignup(data);
   };
+
   return (
     <div>
-      <GBForm onSubmit={handleSubmit} resolver={zodResolver(signupSchema)}>
-        <GBInput name="password" label="Password" type="password" required />
-        <GBInput name="name.firstName" label="First Name" required />
-        <GBInput name="name.middleName" label="Middle Name" />
-        <GBInput name="name.lastName" label="Last Name" required />
-        <GBInput name="email" label="Email" type="email" required />
-        <GBInput name="phone" label="Phone" required />
-        <GBInput name="address" label="Address" required />
+      <GBForm resolver={zodResolver(signupSchema)} onSubmit={handleSubmit}>
+        <GBInput required label="Password" name="password" type="password" />
+        <GBInput required label="First Name" name="name.firstName" />
+        <GBInput label="Middle Name" name="name.middleName" />
+        <GBInput required label="Last Name" name="name.lastName" />
+        <GBInput required label="Email" name="email" type="email" />
+        <GBInput required label="Phone" name="phone" />
+        <GBInput required label="Address" name="address" />
 
         <Button
-          radius="sm"
           className="mt-3"
+          isDisabled={isPending}
+          radius="sm"
           size="sm"
           type="submit"
-          isDisabled={isPending}
         >
           {isPending ? "Loading..." : "Signup"}
         </Button>

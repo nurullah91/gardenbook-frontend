@@ -29,13 +29,13 @@ export default function GBInput({
     <div className="mt-3">
       <Input
         {...register(name)}
-        errorMessage={errors[name] ? (errors[name].message as string) : ""}
+        errorMessage={errors?.[name] ? (errors?.[name]?.message as string) : ""}
         isInvalid={!!errors[name]}
-        variant={variant}
-        size={size}
-        required={required}
-        type={type}
         label={label}
+        required={required}
+        size={size}
+        type={type}
+        variant={variant}
       />
     </div>
   );

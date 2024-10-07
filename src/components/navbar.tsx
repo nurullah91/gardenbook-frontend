@@ -11,11 +11,13 @@ import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
+import Image from "next/image";
+
+import NavbarButtons from "./NavbarButtons";
 
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
 import logo from "@/src/assets/logo-transparent.png";
-import Image from "next/image";
 
 export const Navbar = () => {
   return (
@@ -23,7 +25,7 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Image src={logo} alt="logo" className="size-8" />
+            <Image alt="logo" className="size-8" src={logo} />
             <p className="font-bold text-inherit">Gardenbook</p>
           </NextLink>
         </NavbarBrand>
@@ -33,7 +35,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  "data-[active=true]:text-primary data-[active=true]:font-medium",
                 )}
                 color="foreground"
                 href={item.href}
@@ -51,12 +53,14 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
+          <NavbarButtons />
         </NavbarItem>
 
-        <NavbarItem className="hidden md:flex"></NavbarItem>
+        <NavbarItem className="hidden md:flex" />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+        <NavbarButtons />
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
@@ -70,8 +74,8 @@ export const Navbar = () => {
                   index === 2
                     ? "primary"
                     : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href="#"
                 size="lg"
