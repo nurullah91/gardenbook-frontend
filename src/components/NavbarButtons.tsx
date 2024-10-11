@@ -40,7 +40,7 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
       {user?.role === "user" && (
         <Button onPress={handleOpen}>Create a post</Button>
       )}
-      <CreatePostModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      <CreatePostModal isOpen={isOpen} onClose={onClose} />
       {user?.role ? (
         <div className="ml-4">
           <Dropdown placement="bottom-end">

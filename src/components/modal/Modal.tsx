@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -7,53 +9,54 @@ import {
   ModalFooter,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import TextEditor from "../TextEditor/TextEditor";
 
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpen: () => void;
 }
 
-export default function CreatePostModal({
-  isOpen,
-  onOpen,
-  onClose,
-}: ModalProps) {
-  //   const {isOpen, onOpen, onClose} = useDisclosure();
+export default function CreatePostModal({ isOpen, onClose }: ModalProps) {
+  const [content, setContent] = useState("");
+
+  const handleSubmit = () => {
+    const postData = {
+      content,
+    };
+    // Send postData to the API
+    console.log(content);
+    onClose();
+  };
 
   return (
     <>
-      <Modal size={"2xl"} isOpen={isOpen} onClose={onClose}>
+      <Modal
+        size={"2xl"}
+        isOpen={isOpen}
+        onClose={onClose}
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+      >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                Create New Post
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod.
-                </p>
+                <TextEditor value={content} onChange={setContent} />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button
+                  color="primary"
+                  onPress={onClose}
+                  onClick={handleSubmit}
+                >
+                  Submit
                 </Button>
               </ModalFooter>
             </>
