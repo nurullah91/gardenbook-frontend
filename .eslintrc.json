@@ -40,7 +40,7 @@
     "react-hooks/exhaustive-deps": "off",
     "jsx-a11y/click-events-have-key-events": "warn",
     "jsx-a11y/interactive-supports-focus": "warn",
-    "prettier/prettier": "warn",
+    "prettier/prettier": "off",
     "no-unused-vars": "off",
     "unused-imports/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "warn",
@@ -53,7 +53,7 @@
       }
     ],
     "import/order": [
-      "warn",
+      "off",
       {
         "groups": [
           "type",
@@ -77,7 +77,7 @@
     ],
     "react/self-closing-comp": "warn",
     "react/jsx-sort-props": [
-      "warn",
+      "off",
       {
         "callbacksLast": true,
         "shorthandFirst": true,

@@ -1,6 +1,12 @@
 import { Link } from "@nextui-org/link";
-
 import LoginForm from "./LoginForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description:
+    "About our gardenbook. Share and explore your thoughts about gardening",
+};
 
 export default function LoginPage() {
   return (
