@@ -18,7 +18,7 @@ const TextEditor = ({
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ align: [] }],
       [{ color: [] }, { background: [] }],
-      ["link", "image"],
+      ["link"],
       ["clean"],
     ],
   };
