@@ -20,6 +20,18 @@ export type TUser = {
   updatedAt: Date;
 };
 
+export type TPost = {
+  _id: string;
+  post: string;
+  postPhotos?: string[];
+  user: TUser;
+  category: string;
+  contentType: "free" | "premium";
+  upvoteCount: number;
+  downvoteCount: number;
+  commentCount: number;
+  isDeleted: boolean;
+};
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };

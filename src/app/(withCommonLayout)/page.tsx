@@ -6,6 +6,8 @@ export default function Home() {
       <h1 className="font-bold text-center text-rose-400 text-3xl">
         Welcome to Gardenbook
       </h1>
+
+      {/* @ts-ignore */}
       <Posts />
     </section>
   );

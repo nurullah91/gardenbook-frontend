@@ -15,17 +15,23 @@ import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
 import CreatePostModal from "./modal/Modal";
+import { protectedRoutes } from "../constants";
+import { usePathname, useRouter } from "next/navigation";
 
 export interface INavbarButtonsProps {}
+
 export default function NavbarButtons({}: INavbarButtonsProps) {
   const { user, setIsLoading: userLoading } = useUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const pathname = usePathname();
+  const router = useRouter();
+
   const handleLogout = () => {
     logout();
     userLoading(true);
-    // if (protectedRoutes.some((route) => pathname.match(route))) {
-    //   router.push("/");
-    // }
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/login");
+    }
   };
 
   // const handleNavigation = (pathname: string) => {

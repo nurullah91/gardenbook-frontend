@@ -1,0 +1,100 @@
+/* PostContent.module.css */
+
+/* General Post Container */
+.postContainer {
+  padding: 16px;
+  font-family: "Arial", sans-serif;
+  color: #575757;
+}
+
+/* Headings */
+.postContainer h1,
+.postContainer h2,
+.postContainer h3,
+.postContainer h4,
+.postContainer h5,
+.postContainer h6 {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.postContainer h1 {
+  font-size: 2.5rem;
+}
+
+.postContainer h2 {
+  font-size: 1.75rem;
+  text-decoration: underline;
+}
+
+.postContainer h3 {
+  font-size: 1.5rem;
+}
+
+.postContainer h4 {
+  font-size: 1.25rem;
+}
+
+.postContainer h5 {
+  font-size: 1rem;
+}
+
+.postContainer h6 {
+  font-size: 0.875rem;
+}
+
+/* Paragraph */
+.postContainer p {
+  text-align: start;
+}
+
+/* Bold Text */
+.postContainer strong {
+  font-weight: bold;
+}
+
+/* Underlined Text */
+.postContainer u {
+  text-decoration: underline;
+}
+
+/* Links */
+.postContainer a {
+  color: #1a73e8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.postContainer a:hover {
+  text-decoration: underline;
+  color: #0049b7;
+}
+
+/* Lists */
+.postContainer ul,
+.postContainer ol {
+  margin-left: 20px;
+}
+
+.postContainer ul li,
+.postContainer ol li {
+  margin-bottom: 8px;
+}
+
+/* Blockquote */
+.postContainer blockquote {
+  border-left: 4px solid #ddd;
+  padding-left: 16px;
+  color: #555;
+  margin: 16px 0;
+  font-style: italic;
+  background-color: #f9f9f9;
+}
+
+/* Images */
+.postContainer img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 16px 0;
+}

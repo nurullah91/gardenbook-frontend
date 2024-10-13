@@ -24,6 +24,7 @@ const TextEditor = ({
   };
 
   return (
+    //@ts-ignore
     <ReactQuill
       value={value}
       onChange={onChange}
