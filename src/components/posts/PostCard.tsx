@@ -3,7 +3,9 @@ import { TPost } from "@/src/types";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import PostContent from "./PostContent";
 import Image from "next/image";
+import moment from "moment";
 import styles from "./postContent.module.css";
+import { VerifyBadgeIcon } from "../icons";
 
 interface PostCardProps {
   postData: TPost;
@@ -19,7 +21,9 @@ const PostCard: React.FC<PostCardProps> = ({ postData }) => {
     upvoteCount,
     downvoteCount,
     commentCount,
+    createdAt,
   } = postData;
+  const formattedDate = moment(createdAt).format("Do MMM YY, h:mm a");
 
   return (
     <div className="shadow-md rounded-lg overflow-hidden mb-6">
@@ -33,8 +37,21 @@ const PostCard: React.FC<PostCardProps> = ({ postData }) => {
           alt={`${user.name.firstName} ${user.name.lastName}`}
         />
         <div className="ml-3">
-          <h4 className="text-lg font-semibold">{`${user.name.firstName}  ${user.name?.middleName ? user.name.middleName : ""} ${user.name.lastName}`}</h4>
-          <p className="text-sm text-gray-500">{category}</p>
+          <div className="flex gap-2 items-center justify-start">
+            <h4 className="text-lg font-semibold cursor-pointer">
+              {`${user.name.firstName}  ${user.name?.middleName ? user.name.middleName : ""} ${user.name.lastName}`}{" "}
+            </h4>
+            {user.plan === "premium" && (
+              <span title="Premium user">
+                <VerifyBadgeIcon size={18} />
+              </span>
+            )}
+          </div>
+
+          <p className="text-sm text-gray-500 cursor-pointer">{category}</p>
+          <p className="text-xs text-gray-500 cursor-pointer">
+            {formattedDate}
+          </p>
         </div>
       </div>
 
@@ -45,7 +62,7 @@ const PostCard: React.FC<PostCardProps> = ({ postData }) => {
 
       {/* Post Photos */}
       {postPhotos?.length && postPhotos.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4">
+        <div>
           <ImageGallery images={postPhotos} />
         </div>
       )}

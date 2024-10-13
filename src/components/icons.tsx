@@ -213,3 +213,36 @@ export const NextUILogo: React.FC<IconSvgProps> = (props) => {
     </svg>
   );
 };
+
+export const VerifyBadgeIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {/* Scalloped outer shape */}
+      <path
+        d="M12 2c1.38 0 2.7.55 3.66 1.54l.9.9c.28.28.64.5 1.03.63l1.17.38c1.42.46 2.27 1.91 1.94 3.35l-.25 1.2c-.08.38-.03.79.15 1.14l.53 1.09c.65 1.33.26 2.94-.93 3.83l-.93.69c-.3.22-.54.52-.68.88l-.4 1.12c-.46 1.28-1.71 2.06-3.05 1.85l-1.15-.18c-.42-.07-.85 0-1.22.2l-1.05.56c-1.26.67-2.83.27-3.66-.93l-.7-.94a1.877 1.877 0 0 0-.86-.68l-1.17-.4c-1.42-.49-2.22-1.94-1.84-3.38l.28-1.17c.09-.37.04-.76-.15-1.09L2.91 9.3c-.66-1.33-.28-2.94.91-3.84l.91-.7c.29-.22.52-.52.66-.87l.37-1.16C6.29 2.47 7.78 1.6 9.23 2.03l1.2.33c.39.1.81.04 1.15-.16l1.08-.54C11.88 2.03 12.94 2 12 2z"
+        fill="#1DA1F2" // Adjusted the color to match the blue verify badge
+      />
+
+      {/* White Checkmark */}
+      <path
+        d="M10 12.5l2 2 4-4.5"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

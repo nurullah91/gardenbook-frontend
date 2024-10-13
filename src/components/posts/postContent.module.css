@@ -2,9 +2,7 @@
 
 /* General Post Container */
 .postContainer {
-  padding: 16px;
   font-family: "Arial", sans-serif;
-  color: #575757;
 }
 
 /* Headings */
@@ -89,12 +87,4 @@
   margin: 16px 0;
   font-style: italic;
   background-color: #f9f9f9;
-}
-
-/* Images */
-.postContainer img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 16px 0;
 }

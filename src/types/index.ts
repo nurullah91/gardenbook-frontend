@@ -30,6 +30,8 @@ export type TPost = {
   upvoteCount: number;
   downvoteCount: number;
   commentCount: number;
+  createdAt: string;
+  updatedAt: string;
   isDeleted: boolean;
 };
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
