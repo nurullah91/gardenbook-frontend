@@ -16,3 +16,7 @@ export const signupSchema = z.object({
   phone: z.string(),
   address: z.string().min(1, "Address is required"),
 });
+
+export const CommentSchema = z.object({
+  comment: z.string().min(1, { message: "Write something" }),
+});

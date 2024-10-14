@@ -6,7 +6,6 @@ import {
   createPost,
   createUpvote,
 } from "../services/Post";
-import { TComment } from "../types";
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData>({
@@ -51,9 +50,9 @@ export const useDownvotePost = () => {
     },
   });
 };
-export const useCommentPost = () => {
-  return useMutation<any, Error, TComment>({
-    mutationKey: ["upvote"],
+export const useCreateCommentOnPost = () => {
+  return useMutation<any, Error, any>({
+    mutationKey: ["comment"],
     mutationFn: async (commentData) => await createComment(commentData),
 
     onSuccess: () => {

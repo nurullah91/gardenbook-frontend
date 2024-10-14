@@ -1,6 +1,6 @@
 import axiosInstance from "@/src/lib/AxiosInstance";
-import PostCard from "./PostCard";
 import { TPost } from "@/src/types";
+import PostCard from "./PostCard";
 // import { getAllPosts } from "@/src/services/Post";
 
 export interface IPostsProps {}

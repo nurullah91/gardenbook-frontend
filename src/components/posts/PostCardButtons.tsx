@@ -17,18 +17,27 @@ import { useDownvotePost, useUpvotePost } from "@/src/hooks/post.hook";
 
 export interface IPostCardButtonsProps {
   post: TPost;
+  commentHandler: () => void;
 }
-export default function PostCardButtons({ post }: IPostCardButtonsProps) {
+export default function PostCardButtons({
+  post,
+  commentHandler,
+}: IPostCardButtonsProps) {
   const { upvoteCount, downvoteCount, commentCount, contentType, _id } = post;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const { user } = useUser();
-  const { mutate: handleVotePost, isPending: upvotePending } = useUpvotePost();
-  const { mutate: handleDownvotePost, isPending: downvotePending } =
+  const { mutate: handleVotePost, isPending: isUpvotePending } =
+    useUpvotePost();
+  const { mutate: handleDownvotePost, isPending: isDownvotePending } =
     useDownvotePost();
 
   const handleModalOpen = () => {
     onOpen();
+  };
+
+  const handleRedirect = () => {
+    router.push("/login");
   };
 
   const handleUpvote = (id: string) => {
@@ -57,14 +66,6 @@ export default function PostCardButtons({ post }: IPostCardButtonsProps) {
     }
   };
 
-  const handleComment = (id: string) => {
-    if (user) {
-      console.log(id);
-    } else {
-      handleModalOpen();
-    }
-  };
-
   const handleShare = (id: string) => {
     navigator.clipboard
       .writeText(`https://gardenbook-client.vercel.app/post/${id}`)
@@ -74,10 +75,6 @@ export default function PostCardButtons({ post }: IPostCardButtonsProps) {
       .catch(() => {
         toast.error("Failed to copy the link");
       });
-  };
-
-  const handleRedirect = () => {
-    router.push("/login");
   };
 
   return (
@@ -98,45 +95,49 @@ export default function PostCardButtons({ post }: IPostCardButtonsProps) {
       <div className="flex justify-between items-center p-4 border-t">
         <div className="flex space-x-4">
           {/* upvote */}
-          <button
-            className="flex items-center text-gray-600 hover:text-blue-600"
-            onClick={() => handleUpvote(_id)}
-            disabled={upvotePending}
-          >
-            <Tooltip content="upvote">
+          <Tooltip content="upvote">
+            <button
+              className="flex items-center text-gray-600 hover:text-blue-600"
+              onClick={() => handleUpvote(_id)}
+              disabled={isUpvotePending}
+            >
               <Image src={likeImage} alt="vote" width={40} height={40} />
-            </Tooltip>
-            <span>{upvoteCount}</span>
-          </button>
+              <span>{upvoteCount}</span>
+            </button>
+          </Tooltip>
 
           {/* Down Vote */}
-          <button
-            className="flex items-center text-gray-600 hover:text-red-600"
-            onClick={() => handleDownvote(_id)}
-          >
-            <Tooltip content="downvote">
+          <Tooltip content="downvote">
+            <button
+              className="flex items-center text-gray-600 hover:text-red-600"
+              onClick={() => handleDownvote(_id)}
+              disabled={isDownvotePending}
+            >
               <AiTwotoneDislike className="text-3xl" />
-            </Tooltip>
-            <span>{downvoteCount}</span>
-          </button>
+              <span>{downvoteCount}</span>
+            </button>
+          </Tooltip>
 
           {/* Comment */}
-          <button className="flex items-center text-gray-600 hover:text-green-600">
-            <Tooltip content="comment" onClick={() => handleComment(_id)}>
+          <Tooltip content="comment">
+            <button
+              className="flex items-center text-gray-600 hover:text-green-600"
+              onClick={commentHandler}
+            >
               <Image src={commentImage} alt="vote" width={30} height={30} />
-            </Tooltip>
-            <span>{commentCount}</span>
-          </button>
+              <span>{commentCount}</span>
+            </button>
+          </Tooltip>
 
           {/* Share */}
-          <button
-            className="flex items-center text-gray-600 hover:text-green-600"
-            onClick={() => handleShare(_id)}
-          >
-            <Tooltip content="Share">
+          <Tooltip content="Share">
+            <button
+              className="flex items-center text-gray-600 hover:text-green-600"
+              onClick={() => handleShare(_id)}
+            >
               <ShareIcon />
-            </Tooltip>
-          </button>
+            </button>
+          </Tooltip>
         </div>
 
         <Tooltip content="Free content">

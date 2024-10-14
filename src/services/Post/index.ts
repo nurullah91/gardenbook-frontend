@@ -87,9 +87,9 @@ export const createDownvote = async (votingData: any): Promise<any> => {
   }
 };
 
-export const createComment = async (votingData: TComment): Promise<any> => {
+export const createComment = async (commentData: any): Promise<any> => {
   try {
-    const { data } = await axiosInstance.post("/comment/create", votingData, {
+    const { data } = await axiosInstance.post("/comment/create", commentData, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -100,11 +100,11 @@ export const createComment = async (votingData: TComment): Promise<any> => {
 
     return data;
   } catch (error) {
-    throw new Error("Failed to vote on post");
+    throw new Error("Failed to comment on post");
   }
 };
 
-export const getSinglePostComments = async (postId: TComment): Promise<any> => {
+export const getSinglePostComments = async (postId: string): Promise<any> => {
   try {
     const { data } = await axiosInstance.get(`/comment/${postId}`);
 

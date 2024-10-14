@@ -6,7 +6,7 @@ import DOMPurify from "dompurify";
 interface IPostContentProps {
   postContent: string;
 }
-export default function PostContent({ postContent }: IPostContentProps) {
+export default function PostText({ postContent }: IPostContentProps) {
   const [sanitizedHTML, setSanitizedHTML] = useState("");
 
   useEffect(() => {
