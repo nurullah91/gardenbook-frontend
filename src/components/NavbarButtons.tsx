@@ -14,9 +14,9 @@ import { useUser } from "../context/user.provider";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
-import CreatePostModal from "./modal/Modal";
 import { protectedRoutes } from "../constants";
 import { usePathname, useRouter } from "next/navigation";
+import CreatePostModal from "./posts/CreatePost";
 
 export interface INavbarButtonsProps {}
 
@@ -34,9 +34,6 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
     }
   };
 
-  // const handleNavigation = (pathname: string) => {
-  //   // router.push(pathname);
-  // };
   const handleOpen = () => {
     onOpen();
   };

@@ -5,7 +5,7 @@ import { TPost } from "@/src/types";
 
 export interface IPostsProps {}
 export default async function Posts({}: IPostsProps) {
-  const { data: posts } = await axiosInstance.get("/posts?contentType=free");
+  const { data: posts } = await axiosInstance.get("/posts?contentType=all");
   // const posts = await getAllPosts();
   // console.log(posts);
 

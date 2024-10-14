@@ -34,6 +34,20 @@ export type TPost = {
   updatedAt: string;
   isDeleted: boolean;
 };
+
+export type TVote = {
+  post: string;
+  user: string;
+  type?: string;
+};
+
+export type TComment = {
+  user: TUser | string;
+  post: TPost | string;
+  comment: string;
+  upVoters?: TUser[];
+  downVoters?: TUser[];
+};
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
