@@ -16,6 +16,8 @@ export type TUser = {
   planValidity: string;
   profilePhoto: string;
   coverPhoto: string;
+  totalDownvoteGained: number;
+  totalUpvoteGained: number;
   status: "active" | "blocked";
   createdAt: Date;
   updatedAt: Date;

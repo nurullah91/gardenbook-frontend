@@ -20,3 +20,14 @@ export const signupSchema = z.object({
 export const CommentSchema = z.object({
   comment: z.string().min(1, { message: "Write something" }),
 });
+
+export const updateUserSchema = z.object({
+  name: z.object({
+    firstName: z.string().min(1, "First name is required").optional(),
+    middleName: z.string().optional(),
+    lastName: z.string().min(1, "Last name is required").optional(),
+  }),
+  phone: z.string().min(7, "Please enter a valid phone number").optional(),
+  address: z.string().min(1, "Address cannot be empty").optional(),
+  bio: z.string().min(1, "Bio cannot be empty").optional(),
+});

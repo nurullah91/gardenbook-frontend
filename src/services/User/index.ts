@@ -68,3 +68,71 @@ export const getUsersFollower = async (userId: string): Promise<any> => {
     throw new Error("Failed to get the user's follower");
   }
 };
+
+export const updateProfilePicture = async (
+  formData: FormData,
+  userId: string
+): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/users/update-profile/${userId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    revalidateTag("follower");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update profile picture");
+  }
+};
+
+export const updateCoverPhoto = async (
+  formData: FormData,
+  userId: string
+): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/users/update-cover/${userId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    revalidateTag("follower");
+    revalidateTag("user");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update cover photo");
+  }
+};
+
+export const updateUser = async (userData: any, userId: any): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/users/update-user/${userId}`,
+      userData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    revalidateTag("users");
+    revalidateTag("followers");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update user details");
+  }
+};

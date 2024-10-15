@@ -41,9 +41,7 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
 
   return (
     <div className="flex items-center gap-3">
-      {user?.role === "user" && (
-        <Button onPress={handleOpen}>Create a post</Button>
-      )}
+      {user?.role && <Button onPress={handleOpen}>Create a post</Button>}
       <CreatePostModal isOpen={isOpen} onClose={onClose} />
       {user?.role ? (
         <div className="ml-4">
