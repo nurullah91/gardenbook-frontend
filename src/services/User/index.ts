@@ -136,3 +136,20 @@ export const updateUser = async (userData: any, userId: any): Promise<any> => {
     throw new Error("Failed to update user details");
   }
 };
+
+export const makePayment = async (userData: any): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(`/payment`, userData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    revalidateTag("users");
+    revalidateTag("followers");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to payment");
+  }
+};

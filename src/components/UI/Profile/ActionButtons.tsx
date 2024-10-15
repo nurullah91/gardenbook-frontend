@@ -14,13 +14,22 @@ import GBForm from "../../form/GBForm";
 import GBInput from "../../form/GBInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUserSchema } from "@/src/schema";
+import { useRouter } from "next/navigation";
+import { FiPlus } from "react-icons/fi";
+import { getFormateTime } from "@/src/utils/getFormateTime";
 
 export interface IActionButtonsProps {
   userData: TUser;
 }
 export default function ActionButtons({ userData }: IActionButtonsProps) {
+  const router = useRouter();
   const { user } = useUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    mutate: updateUserData,
+    isPending,
+    isSuccess,
+  } = useUpdateUserData(user?._id);
 
   const defaultValues = {
     name: {
@@ -37,11 +46,9 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
     onOpen();
   };
 
-  const {
-    mutate: updateUserData,
-    isPending,
-    isSuccess,
-  } = useUpdateUserData(user?._id);
+  const handleGetPremium = () => {
+    router.push("/checkout");
+  };
 
   const handleSubmit = (values: FieldValues) => {
     // Send postData to the API
@@ -56,30 +63,70 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
     <div className="flex gap-2 items-center">
       {user?._id === userData?._id && (
         <div>
-          {userData?.plan === "basic" && userData?.totalUpvoteGained === 0 && (
-            <div>
-              <Button
-                isDisabled={userData.totalDownvoteGained > 1}
-                radius="sm"
-                size="sm"
-                color="primary"
-              >
-                Get Premium
-              </Button>
-            </div>
-          )}
+          {user.role !== "admin" &&
+            userData?.plan === "basic" &&
+            userData?.totalUpvoteGained > 0 && (
+              <div>
+                <Button
+                  radius="sm"
+                  size="sm"
+                  color="primary"
+                  onClick={handleGetPremium}
+                >
+                  Verify account
+                </Button>
+              </div>
+            )}
           {userData?.plan === "premium" && (
             <div>
-              <Button radius="sm" size="sm" color="primary" isDisabled>
-                Your premium access will end {userData.planValidity}
-              </Button>
+              <Tooltip
+                content={` Your premium access will end 
+                ${getFormateTime(userData.planValidity)}`}
+              >
+                <Button radius="sm" size="sm" color="primary">
+                  Verified
+                </Button>
+              </Tooltip>
             </div>
           )}
         </div>
       )}
 
-      {user?._id === userData._id && (
+      {user?._id === userData._id ? (
         <div>
+          {/* Modal for update user */}
+          <GBModal
+            isOpen={isOpen}
+            onClose={onClose}
+            modalTitle="Change profile picture"
+            footerCancelButtonText="Cancel"
+          >
+            <GBForm
+              resolver={zodResolver(updateUserSchema)}
+              onSubmit={handleSubmit}
+              defaultValues={defaultValues}
+            >
+              <GBInput required label="First Name" name="name.firstName" />
+              <GBInput label="Middle Name" name="name.middleName" />
+              <GBInput required label="Last Name" name="name.lastName" />
+              <GBInput required label="Phone" name="phone" />
+              <GBInput required label="Address" name="address" />
+              <GBInput required label="Bio" name="bio" />
+
+              <Button
+                className="mt-3"
+                isDisabled={isPending}
+                radius="sm"
+                size="sm"
+                color="primary"
+                type="submit"
+              >
+                {isPending ? "Loading..." : "Update"}
+              </Button>
+            </GBForm>
+          </GBModal>
+
+          {/* Modal for get premium  */}
           <GBModal
             isOpen={isOpen}
             onClose={onClose}
@@ -119,6 +166,13 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
               <FaEdit className="text-3xl" />
             </button>
           </Tooltip>
+        </div>
+      ) : (
+        <div className="mr-3">
+          <Button radius="sm" size="sm" color="primary">
+            <FiPlus className="text-xl" />
+            Follow
+          </Button>
         </div>
       )}
     </div>
