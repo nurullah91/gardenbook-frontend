@@ -17,6 +17,7 @@ import { useDisclosure } from "@nextui-org/modal";
 import { protectedRoutes } from "../constants";
 import { usePathname, useRouter } from "next/navigation";
 import CreatePostModal from "./posts/CreatePost";
+import Link from "next/link";
 
 export interface INavbarButtonsProps {}
 
@@ -60,8 +61,12 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user?.email}</p>
               </DropdownItem>
-              <DropdownItem key="settings">Dashboard</DropdownItem>
-              <DropdownItem key="team_settings">Profile</DropdownItem>
+              <DropdownItem key="settings">
+                <Link href={`/${user.role}/dashboard`}>Dashboard</Link>
+              </DropdownItem>
+              <DropdownItem key="team_settings">
+                <Link href={`/profile/${user._id}`}>Profile</Link>
+              </DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                 Logout
               </DropdownItem>

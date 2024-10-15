@@ -10,9 +10,12 @@ import GBForm from "@/src/components/form/GBForm";
 import GBInput from "@/src/components/form/GBInput";
 import { signupSchema } from "@/src/schema";
 import { signupUser } from "@/src/services/Auth";
+import { useRouter } from "next/navigation";
 
 export interface ILoginFormProps {}
 export default function SignupForm({}: ILoginFormProps) {
+  const router = useRouter();
+
   const {
     mutate: handleSignup,
     isPending,
@@ -34,6 +37,7 @@ export default function SignupForm({}: ILoginFormProps) {
   }
   if (isSuccess) {
     toast.success(data.message);
+    router.push("/");
   }
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleSignup(data);

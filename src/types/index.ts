@@ -8,6 +8,7 @@ export type TUser = {
     lastName: string;
   };
   email: string;
+  bio: string;
   role: "admin" | "user";
   phone: string;
   address: string;
@@ -42,11 +43,14 @@ export type TVote = {
 };
 
 export type TComment = {
-  user: TUser | string;
-  post: TPost | string;
+  _id: string;
+  user: TUser;
+  post: TPost;
   comment: string;
-  upVoters?: TUser[];
-  downVoters?: TUser[];
+  upVoters: TUser[];
+  downVoters: TUser[];
+  createdAt: string;
+  updatedAt?: string;
 };
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;

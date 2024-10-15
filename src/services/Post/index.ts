@@ -2,7 +2,6 @@
 
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { TComment } from "@/src/types";
 import { revalidateTag } from "next/cache";
 
 export const createPost = async (formData: FormData): Promise<any> => {
@@ -116,3 +115,15 @@ export const getSinglePostComments = async (postId: string): Promise<any> => {
     throw new Error("Failed to get comments of the post");
   }
 };
+
+// export const getSingleUser = async (userId: string): Promise<any> => {
+//   try {
+//     const { data } = await axiosInstance.get(`/user/${userId}`);
+
+//     revalidateTag("user");
+
+//     return data;
+//   } catch (error) {
+//     throw new Error("Failed to get the user");
+//   }
+// };

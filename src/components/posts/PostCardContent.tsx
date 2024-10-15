@@ -6,6 +6,8 @@ import Image from "next/image";
 import moment from "moment";
 import styles from "./postContent.module.css";
 import { VerifyBadgeIcon } from "../icons";
+import Link from "next/link";
+import { Tooltip } from "@nextui-org/tooltip";
 
 interface PostCardContentProps {
   postData: TPost;
@@ -19,21 +21,29 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
     <div className="shadow-md rounded-lg overflow-hidden mb-6 px-10 py-8">
       {/* User Info Section */}
       <div className="flex items-center p-4">
-        <Image
-          width={48}
-          height={48}
-          className="rounded-full"
-          src={user.profilePhoto}
-          alt={`${user.name.firstName} ${user.name.lastName}`}
-        />
+        <Link href={`/profile/${user._id}`}>
+          <Image
+            width={48}
+            height={48}
+            className="rounded-full"
+            src={user.profilePhoto}
+            alt={`${user.name.firstName} ${user.name.lastName}`}
+          />
+        </Link>
         <div className="ml-3">
           <div className="flex gap-2 items-center justify-start">
-            <h4 className="text-lg font-semibold cursor-pointer">
-              {`${user.name.firstName}  ${user.name?.middleName ? user.name.middleName : ""} ${user.name.lastName}`}{" "}
-            </h4>
+            <Link href={`/profile/${user._id}`}>
+              <h4 className="text-lg font-semibold cursor-pointer">
+                {`${user.name.firstName} ${user.name?.middleName} ${user.name.lastName}`}
+              </h4>
+            </Link>
             {user.plan === "premium" && (
-              <span title="Premium user">
-                <VerifyBadgeIcon size={18} />
+              <span>
+                <Tooltip content="Verified premium user">
+                  <button>
+                    <VerifyBadgeIcon size={18} />
+                  </button>
+                </Tooltip>
               </span>
             )}
           </div>
