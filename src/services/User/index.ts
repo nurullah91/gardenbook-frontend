@@ -42,6 +42,7 @@ export const getSingleUser = async (userId: string): Promise<any> => {
     throw new Error("Failed to get the user");
   }
 };
+
 export const getUsersFollower = async (userId: string): Promise<any> => {
   try {
     const cookieStore = cookies();

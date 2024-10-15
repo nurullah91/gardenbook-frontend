@@ -1,6 +1,8 @@
 import { VerifyBadgeIcon } from "@/src/components/icons";
-import { getSingleUser, getUsersFollower } from "@/src/services/User";
-import { TUser } from "@/src/types";
+import PostCard from "@/src/components/posts/PostCard";
+import { getUserPosts } from "@/src/services/Post";
+import { getUsersFollower } from "@/src/services/User";
+import { TPost, TUser } from "@/src/types";
 import { Tooltip } from "@nextui-org/tooltip";
 import Image from "next/image";
 
@@ -10,12 +12,13 @@ export interface IProfileProps {
 export default async function Profile({ params }: IProfileProps) {
   const { userId } = params;
 
-  const data = await getSingleUser(userId);
-  const userData: TUser = data?.data;
   const followerData = await getUsersFollower(userId);
+  const userPosts = await getUserPosts(userId);
 
   const followers = followerData?.data?.followers;
   const following = followerData?.data?.following;
+  const userData: TUser = followerData?.data?.user;
+  console.log(userPosts);
 
   return (
     <div>
@@ -26,7 +29,7 @@ export default async function Profile({ params }: IProfileProps) {
             alt={`Cover Photo of ${userData.name?.firstName} ${userData.name?.middleName} ${userData.name?.lastName}`}
             width={1250}
             height={700}
-            className="w-full max-h-[400px]"
+            className="w-full max-h-[300px]"
           />
         </div>
 
@@ -34,8 +37,8 @@ export default async function Profile({ params }: IProfileProps) {
           <Image
             src={userData.profilePhoto}
             alt={`Profile Photo of ${userData.name?.firstName} ${userData.name?.middleName} ${userData.name?.lastName}`}
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             className="rounded-full"
           />
         </div>
@@ -72,6 +75,20 @@ export default async function Profile({ params }: IProfileProps) {
             Following {following?.length} people
           </p>
         </div>
+      </div>
+      <div>
+        {userPosts?.data?.length > 0 ? (
+          <div>
+            {" "}
+            {userPosts?.data?.map((postData: TPost, index: number) => (
+              <PostCard postData={postData} key={index} />
+            ))}
+          </div>
+        ) : (
+          <h2 className="text-2xl text-center font-bold mt-20">
+            No post to show
+          </h2>
+        )}
       </div>
     </div>
   );

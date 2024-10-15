@@ -18,7 +18,7 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
   const formattedDate = moment(createdAt).format("Do MMM YY, h:mm a");
 
   return (
-    <div className="shadow-md rounded-lg overflow-hidden mb-6 px-10 py-8">
+    <div>
       {/* User Info Section */}
       <div className="flex items-center p-4">
         <Link href={`/profile/${user._id}`}>

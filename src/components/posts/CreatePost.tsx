@@ -70,6 +70,7 @@ export default function CreatePostModal({ isOpen, onClose }: ICreatePostProps) {
         isOpen={isOpen}
         onClose={onClose}
         modalTitle="Create New Post"
+        footerCancelButtonText="Cancel"
         footerExtraButton={
           <Button color="primary" isDisabled={isPending} onClick={handleSubmit}>
             {isPending ? "Loading..." : "Post"}

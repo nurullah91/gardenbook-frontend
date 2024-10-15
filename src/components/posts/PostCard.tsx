@@ -16,7 +16,7 @@ export default function PostCard({ postData }: IPostCardProps) {
   };
 
   return (
-    <div>
+    <div className="shadow-md rounded-lg overflow-hidden mb-6 px-10 py-8 border-b">
       <PostCardContent postData={postData} />
 
       {/* Post Footer with Interactions */}

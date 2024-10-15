@@ -3,6 +3,7 @@
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 
 export const createPost = async (formData: FormData): Promise<any> => {
   try {
@@ -29,6 +30,32 @@ export const getAllPosts = async () => {
   const res = await fetch(`${envConfig.baseApi}/posts`, fetchOption);
 
   return res.json();
+};
+
+export const getUserPosts = async (userId: string): Promise<any> => {
+  try {
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    const fetchOption = {
+      next: {
+        tags: ["posts"],
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await fetch(
+      `${envConfig.baseApi}/posts/${userId}`,
+      fetchOption
+    );
+
+    return res.json();
+  } catch (error) {
+    throw new Error("Failed to get the user's follower");
+  }
 };
 
 export const getSinglePost = async (id: string) => {
