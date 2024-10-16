@@ -94,8 +94,8 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
 
       {user?._id === userData._id ? (
         <div>
-          {/* Modal for update user */}
-          <GBModal
+          {/* Modal for verify account */}
+          {/* <GBModal
             isOpen={isOpen}
             onClose={onClose}
             modalTitle="Change profile picture"
@@ -124,9 +124,9 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
                 {isPending ? "Loading..." : "Update"}
               </Button>
             </GBForm>
-          </GBModal>
+          </GBModal> */}
 
-          {/* Modal for get premium  */}
+          {/* Modal for update user  */}
           <GBModal
             isOpen={isOpen}
             onClose={onClose}

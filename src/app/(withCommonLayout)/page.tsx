@@ -1,10 +1,13 @@
-import Posts from "@/src/components/posts/posts";
+import DisplayPosts from "@/src/components/posts/DisplayPosts";
+import { getAllPosts } from "@/src/services/Post";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getAllPosts(1, 3);
+  const posts = data?.data;
+
   return (
     <section className="flex flex-col items-center justify-center gap-4">
-      {/* @ts-ignore */}
-      <Posts />
+      <DisplayPosts initialPosts={posts} initialMeta={data?.meta} />
     </section>
   );
 }
