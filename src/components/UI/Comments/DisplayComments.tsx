@@ -1,16 +1,12 @@
-"use client";
-
-import { useUser } from "@/src/context/user.provider";
 import { TComment } from "@/src/types";
 import { getTimeFromNow } from "@/src/utils/getTimeFromNow";
 import Link from "next/link";
+import CommentActionButtons from "./CommentActionButtons";
 
 export interface IDisplayCommentsProps {
   comment: TComment;
 }
 export default function DisplayComments({ comment }: IDisplayCommentsProps) {
-  const { user } = useUser();
-
   return (
     <div key={comment._id} className="flex items-start space-x-3">
       {/* User Avatar */}
@@ -47,11 +43,7 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
         </div>
       </div>
       {/* Extra options (e.g., ellipsis) */}
-      {user?._id === comment?.user?._id && (
-        <div className="relative">
-          <button className="">...</button>
-        </div>
-      )}
+      <CommentActionButtons comment={comment} />
     </div>
   );
 }

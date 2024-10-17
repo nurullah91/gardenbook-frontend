@@ -11,7 +11,6 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { categories } from "@/src/config/categories";
 import TextEditor from "../TextEditor/TextEditor";
 import { useDisclosure } from "@nextui-org/modal";
-import LoadingAnimation from "../UI/LoadingAnimation";
 
 export interface IPostManagementActionButtonsProps {
   postData: TPost;
@@ -30,11 +29,8 @@ export default function PostManagementActionButtons({
   const [imagePreviews, setImageImagePreviews] = useState<string[] | []>([]);
   const { user } = useUser();
 
-  const {
-    mutate: handleUpdatePost,
-    isPending: isUpdatePending,
-    isSuccess: isUpdateSuccess,
-  } = useUpdatePost(postData._id);
+  const { mutate: handleUpdatePost, isPending: isUpdatePending } =
+    useUpdatePost(postData?._id);
 
   const { mutate: handleDeletePost, isPending: isDeletePending } =
     useDeletePost();
@@ -56,11 +52,8 @@ export default function PostManagementActionButtons({
     }
     // Send postData to the API
     handleUpdatePost(formData);
-  };
-
-  if (isUpdateSuccess) {
     onClose();
-  }
+  };
 
   const handleImageChange = (e: FieldValues) => {
     const file = e.target.files[0];
@@ -81,11 +74,8 @@ export default function PostManagementActionButtons({
     handleDeletePost(postId);
   };
 
-  console.log(isUpdatePending);
-
   return (
     <div>
-      {isUpdatePending && <LoadingAnimation />}
       <GBModal
         isOpen={isOpen}
         onClose={onClose}
@@ -178,15 +168,17 @@ export default function PostManagementActionButtons({
           </div>
         </div>
       </GBModal>
-      <div className="flex flex-col gap-2">
-        <Button
-          isDisabled={isDeletePending}
-          onClick={() => handleDelete(postData._id)}
-        >
-          Delete
-        </Button>
-        <Button onClick={() => onOpen()}>Update</Button>
-      </div>
+      {user?._id === postData?.user?._id && (
+        <div className="flex flex-col gap-2">
+          <Button
+            isDisabled={isDeletePending}
+            onClick={() => handleDelete(postData?._id)}
+          >
+            Delete
+          </Button>
+          <Button onClick={() => onOpen()}>Update</Button>
+        </div>
+      )}
     </div>
   );
 }

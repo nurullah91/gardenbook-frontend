@@ -6,6 +6,7 @@ import {
   createPost,
   createUpvote,
   deleteSinglePost,
+  updateComment,
   updatePost,
 } from "../services/Post";
 import {
@@ -139,6 +140,38 @@ export const useUpdateUserData = (userId: any) => {
 
     onSuccess: () => {
       toast.success("User data updated successfully");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+// Comment on post hooks
+export const useUpdateComment = (commentId: string) => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["UPDATE_COMMENT"],
+    mutationFn: async (commentData) =>
+      await updateComment(commentData, commentId),
+
+    onSuccess: () => {
+      toast.success("Comment updated successfully");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useDeleteComment = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["DELETE_COMMENT"],
+    mutationFn: async (id) => await deleteSinglePost(id),
+
+    onSuccess: () => {
+      toast.success("Comment deleted successfully");
     },
 
     onError: (error) => {

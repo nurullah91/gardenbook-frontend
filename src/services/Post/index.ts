@@ -76,7 +76,7 @@ export const getUserPosts = async (userId: string): Promise<any> => {
     };
 
     const res = await fetch(
-      `${envConfig.baseApi}/posts/${userId}`,
+      `${envConfig.baseApi}/posts/user/${userId}`,
       fetchOption
     );
 
@@ -170,6 +170,28 @@ export const createComment = async (commentData: any): Promise<any> => {
     throw new Error("Failed to comment on post");
   }
 };
+export const updateComment = async (
+  commentData: string,
+  commentId: string
+): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(
+      `"/comment/${commentId}`,
+      commentData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    revalidateTag("comment");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update comment");
+  }
+};
 
 export const getSinglePostComments = async (postId: string): Promise<any> => {
   try {
@@ -181,5 +203,17 @@ export const getSinglePostComments = async (postId: string): Promise<any> => {
     return data;
   } catch (error) {
     throw new Error("Failed to get comments of the post");
+  }
+};
+
+export const deleteSingleComment = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.delete(`/comment/${id}`);
+
+    revalidateTag("comment");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to delete comment");
   }
 };

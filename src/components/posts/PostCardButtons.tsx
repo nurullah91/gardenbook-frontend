@@ -23,9 +23,16 @@ export default function PostCardButtons({
   post,
   commentHandler,
 }: IPostCardButtonsProps) {
-  const { upvoteCount, downvoteCount, commentCount, contentType, _id } = post;
+  // get comment Handler as props so that it can be handled for redirect or comment.
+
+  const upvoteCount = post?.upvoteCount;
+  const downvoteCount = post?.downvoteCount;
+  const commentCount = post?.commentCount;
+  const contentType = post?.contentType;
+  const _id = post?._id;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+
   const { user } = useUser();
   const { mutate: handleVotePost, isPending: isUpvotePending } =
     useUpvotePost();
@@ -124,7 +131,7 @@ export default function PostCardButtons({
               className="flex items-center text-gray-600 hover:text-green-600"
               onClick={commentHandler}
             >
-              <Image src={commentImage} alt="vote" width={30} height={30} />
+              <Image src={commentImage} alt="comment" width={30} height={30} />
               <span>{commentCount}</span>
             </button>
           </Tooltip>
