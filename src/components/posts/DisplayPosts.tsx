@@ -26,7 +26,7 @@ export default function DisplayPosts({
 }: IPostsProps) {
   const [currentPage, setCurrentPage] = useState(initialMeta.page);
   const [postToDisplay, setPostToDisplay] = useState<TPost[]>(initialPosts);
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.5 });
   const [loading, setLoading] = useState(false);
   const [hasMorePosts, setHasMorePosts] = useState(true); // Track if more posts are available
   const [meta, setMeta] = useState(initialMeta);

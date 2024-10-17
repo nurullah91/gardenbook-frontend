@@ -85,6 +85,7 @@ export const updateProfilePicture = async (
     );
 
     revalidateTag("follower");
+    revalidateTag("user");
 
     return data;
   } catch (error) {
@@ -151,5 +152,45 @@ export const makePayment = async (userData: any): Promise<any> => {
     return data;
   } catch (error) {
     throw new Error("Failed to payment");
+  }
+};
+
+export const followUser = async (followData: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/follower/follow-user",
+      followData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    revalidateTag("follower");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to follow");
+  }
+};
+
+export const unfollowUser = async (unfollowData: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/follower/unfollow-user",
+      unfollowData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    revalidateTag("follower");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to unfollow");
   }
 };

@@ -3,6 +3,7 @@ import PostCard from "@/src/components/posts/PostCard";
 import ActionButtons from "@/src/components/UI/Profile/ActionButtons";
 import ChangeCoverPhoto from "@/src/components/UI/Profile/ChangeCoverPhoto";
 import ChangeProfile from "@/src/components/UI/Profile/ChangeProfile";
+import DisplayFlowerFlowing from "@/src/components/UI/Profile/DisplayFlowerFlowing";
 import { getUserPosts } from "@/src/services/Post";
 import { getUsersFollower } from "@/src/services/User";
 import { TPost, TUser } from "@/src/types";
@@ -19,9 +20,11 @@ export default async function Profile({ params }: IProfileProps) {
   const followerData = await getUsersFollower(userId);
   const userPosts = await getUserPosts(userId);
 
-  const followers = followerData?.data?.followers;
-  const following = followerData?.data?.following;
-  const userData: TUser = followerData?.data?.user;
+  const userData: { user: TUser; followers: TUser[]; following: TUser[] } = {
+    user: followerData?.data?.user,
+    followers: followerData?.data?.followers,
+    following: followerData?.data?.following,
+  };
 
   return (
     <div>
@@ -29,14 +32,14 @@ export default async function Profile({ params }: IProfileProps) {
         <div>
           {/* Cover Photo */}
           <Image
-            src={userData.coverPhoto}
-            alt={`Cover Photo of ${userData.name?.firstName} ${userData.name?.middleName} ${userData.name?.lastName}`}
+            src={userData.user.coverPhoto}
+            alt={`Cover Photo of ${userData.user.name?.firstName} ${userData.user.name?.middleName} ${userData.user.name?.lastName}`}
             width={1250}
             height={700}
             className="w-full max-h-[300px]"
           />
           <div className="absolute right-5 bottom-3">
-            <ChangeCoverPhoto userData={userData} />
+            <ChangeCoverPhoto userData={userData.user} />
           </div>
         </div>
 
@@ -45,15 +48,15 @@ export default async function Profile({ params }: IProfileProps) {
           <div className="relative">
             <div className="w-[250px] h-[250px] ">
               <Image
-                src={userData.profilePhoto}
-                alt={`Profile Photo of ${userData.name?.firstName} ${userData.name?.middleName} ${userData.name?.lastName}`}
+                src={userData.user.profilePhoto}
+                alt={`Profile Photo of ${userData.user.name?.firstName} ${userData.user.name?.middleName} ${userData.user.name?.lastName}`}
                 width={250}
                 height={250}
                 className="rounded-full w-full h-full"
               />
             </div>
             <div className="absolute bottom-4 right-4">
-              <ChangeProfile userData={userData} />
+              <ChangeProfile userData={userData.user} />
             </div>
           </div>
         </div>
@@ -66,10 +69,10 @@ export default async function Profile({ params }: IProfileProps) {
           <div>
             <div className="flex items-center justify-center lg:justify-start gap-2">
               <h2 className="text-4xl font-bold">
-                {userData.name?.firstName} {userData.name?.middleName}
-                {userData.name?.lastName}
+                {userData.user.name?.firstName} {userData.user.name?.middleName}
+                {userData.user.name?.lastName}
               </h2>
-              {userData.plan === "premium" && (
+              {userData.user.plan === "premium" && (
                 <span>
                   <Tooltip content="Verified premium user">
                     <button>
@@ -80,30 +83,23 @@ export default async function Profile({ params }: IProfileProps) {
               )}
             </div>
             <p className="text-bold flex items-center gap-2">
-              <FaLocationDot className="text-xl" /> {userData.address}
+              <FaLocationDot className="text-xl" /> {userData.user.address}
             </p>
-            {userData.bio && (
+            {userData.user.bio && (
               <p className="mt-2">
                 <span className="font-bold">Bio:</span>{" "}
-                <span className="text-sm">{userData.bio}</span>
+                <span className="text-sm">{userData.user.bio}</span>
               </p>
             )}
 
-            <div className="flex gap-3 items-start mt-2">
-              <p className="hover:underline cursor-pointer text-xs">
-                Followed by {followers?.length} people
-              </p>
-              <p className="hover:underline cursor-pointer text-xs">
-                Following {following?.length} people
-              </p>
-            </div>
+            <DisplayFlowerFlowing userData={userData} />
 
             <div className="flex gap-3 items-start mt-2">
               <p className=" cursor-default text-xs">
-                Total downvote gained {userData?.totalUpvoteGained}
+                Total upvote gained {userData?.user.totalUpvoteGained}
               </p>
               <p className="cursor-default text-xs">
-                Total downvote gained {userData.totalDownvoteGained}
+                Total downvote gained {userData.user.totalDownvoteGained}
               </p>
             </div>
           </div>

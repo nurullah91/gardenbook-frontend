@@ -25,7 +25,7 @@ export default function CheckoutForm({}: ICheckoutFormProps) {
       user: user?._id,
       email: user?.email,
       paymentMethod: "AmarPay",
-      amount: 300,
+      amount: 500,
     };
 
     handleMakePayment(JSON.stringify(paymentData));

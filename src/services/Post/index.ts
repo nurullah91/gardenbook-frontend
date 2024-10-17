@@ -14,10 +14,35 @@ export const createPost = async (formData: FormData): Promise<any> => {
     });
 
     revalidateTag("posts");
+    revalidateTag("usersPosts");
 
     return data;
   } catch (error) {
     throw new Error("Failed to create post");
+  }
+};
+
+export const updatePost = async (
+  formData: FormData,
+  postId: string
+): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.patch(
+      `/posts/update-post/${postId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    revalidateTag("posts");
+    revalidateTag("usersPosts");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update post");
   }
 };
 
@@ -42,7 +67,7 @@ export const getUserPosts = async (userId: string): Promise<any> => {
 
     const fetchOption = {
       next: {
-        tags: ["posts"],
+        tags: ["usersPosts"],
       },
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -70,6 +95,19 @@ export const getSinglePost = async (id: string) => {
   const res = await fetch(`${envConfig.baseApi}/posts/${id}`, fetchOption);
 
   return res.json();
+};
+
+export const deleteSinglePost = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.delete(`/posts/${id}`);
+
+    revalidateTag("posts");
+    revalidateTag("usersPosts");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to delete post");
+  }
 };
 
 export const getSinglePostVoter = async (id: string) => {

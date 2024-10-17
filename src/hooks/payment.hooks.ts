@@ -8,7 +8,7 @@ export const useMakePayment = () => {
     mutationFn: async (postData) => await makePayment(postData),
 
     onSuccess: () => {
-      toast.success("Redirecting to payment getaway...");
+      toast.loading("Redirecting to payment getaway...");
     },
 
     onError: (error) => {

@@ -5,6 +5,8 @@ import {
   createDownvote,
   createPost,
   createUpvote,
+  deleteSinglePost,
+  updatePost,
 } from "../services/Post";
 import {
   updateCoverPhoto,
@@ -19,6 +21,35 @@ export const useCreatePost = () => {
 
     onSuccess: () => {
       toast.success("Post created successfully");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+export const useUpdatePost = (postId: string) => {
+  return useMutation<any, Error, FormData>({
+    mutationKey: ["UPDATE_POST"],
+    mutationFn: async (postData) => await updatePost(postData, postId),
+
+    onSuccess: () => {
+      toast.success("Post updated successfully");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["DELETE_POST"],
+    mutationFn: async (id) => await deleteSinglePost(id),
+
+    onSuccess: () => {
+      toast.success("Post deleted successfully");
     },
 
     onError: (error) => {

@@ -17,29 +17,41 @@ import { updateUserSchema } from "@/src/schema";
 import { useRouter } from "next/navigation";
 import { FiPlus } from "react-icons/fi";
 import { getFormateTime } from "@/src/utils/getFormateTime";
+import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hooks";
 
 export interface IActionButtonsProps {
-  userData: TUser;
+  userData: { user: TUser; followers: TUser[]; following: TUser[] };
 }
 export default function ActionButtons({ userData }: IActionButtonsProps) {
   const router = useRouter();
   const { user } = useUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
+    isOpen: isOpenForVerify,
+    onOpen: onOpenForVerify,
+    onClose: onCloseForVerify,
+  } = useDisclosure();
+
+  const {
     mutate: updateUserData,
     isPending,
     isSuccess,
   } = useUpdateUserData(user?._id);
 
+  const { mutate: followUser, isPending: followIsPending } = useFollowUser();
+
+  const { mutate: unfollowUser, isPending: unfollowIsPending } =
+    useUnfollowUser();
+
   const defaultValues = {
     name: {
-      firstName: userData.name.firstName,
-      middleName: userData.name.middleName,
-      lastName: userData.name.lastName,
+      firstName: userData.user.name.firstName,
+      middleName: userData.user.name.middleName,
+      lastName: userData.user.name.lastName,
     },
-    address: userData.address,
-    bio: userData.bio,
-    phone: userData.phone,
+    address: userData.user.address,
+    bio: userData.user.bio,
+    phone: userData.user.phone,
   };
 
   const handleOpen = () => {
@@ -47,9 +59,31 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
   };
 
   const handleGetPremium = () => {
-    router.push("/checkout");
+    if (userData?.user.totalUpvoteGained > 0) {
+      router.push("/checkout");
+    } else {
+      onOpenForVerify();
+    }
   };
 
+  const handleFollow = () => {
+    const followData = {
+      userId: user?._id,
+      targetUserId: userData.user._id,
+    };
+
+    // console.log(followData);
+    followUser(JSON.stringify(followData));
+  };
+
+  const handleUnFollow = () => {
+    const followData = {
+      userId: user?._id,
+      targetUserId: userData.user._id,
+    };
+
+    unfollowUser(JSON.stringify(followData));
+  };
   const handleSubmit = (values: FieldValues) => {
     // Send postData to the API
     updateUserData(JSON.stringify(values));
@@ -59,29 +93,31 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
     onClose();
   };
 
+  const isFollowingThisUser = userData?.followers.find(
+    (follower) => follower._id === user?._id
+  );
+
   return (
     <div className="flex gap-2 items-center">
-      {user?._id === userData?._id && (
+      {user?._id === userData?.user._id && (
         <div>
-          {user.role !== "admin" &&
-            userData?.plan === "basic" &&
-            userData?.totalUpvoteGained > 0 && (
-              <div>
-                <Button
-                  radius="sm"
-                  size="sm"
-                  color="primary"
-                  onClick={handleGetPremium}
-                >
-                  Verify account
-                </Button>
-              </div>
-            )}
-          {userData?.plan === "premium" && (
+          {user.role !== "admin" && userData?.user.plan === "basic" && (
+            <div>
+              <Button
+                radius="sm"
+                size="sm"
+                color="primary"
+                onClick={handleGetPremium}
+              >
+                Verify account
+              </Button>
+            </div>
+          )}
+          {userData?.user.plan === "premium" && (
             <div>
               <Tooltip
                 content={` Your premium access will end 
-                ${getFormateTime(userData.planValidity)}`}
+                ${getFormateTime(userData.user.planValidity)}`}
               >
                 <Button radius="sm" size="sm" color="primary">
                   Verified
@@ -92,45 +128,24 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
         </div>
       )}
 
-      {user?._id === userData._id ? (
+      {user?._id === userData.user._id ? (
         <div>
           {/* Modal for verify account */}
-          {/* <GBModal
-            isOpen={isOpen}
-            onClose={onClose}
-            modalTitle="Change profile picture"
-            footerCancelButtonText="Cancel"
+          <GBModal
+            isOpen={isOpenForVerify}
+            onClose={onCloseForVerify}
+            modalTitle="You are not eligible"
+            footerCancelButtonText="Ok"
           >
-            <GBForm
-              resolver={zodResolver(updateUserSchema)}
-              onSubmit={handleSubmit}
-              defaultValues={defaultValues}
-            >
-              <GBInput required label="First Name" name="name.firstName" />
-              <GBInput label="Middle Name" name="name.middleName" />
-              <GBInput required label="Last Name" name="name.lastName" />
-              <GBInput required label="Phone" name="phone" />
-              <GBInput required label="Address" name="address" />
-              <GBInput required label="Bio" name="bio" />
-
-              <Button
-                className="mt-3"
-                isDisabled={isPending}
-                radius="sm"
-                size="sm"
-                color="primary"
-                type="submit"
-              >
-                {isPending ? "Loading..." : "Update"}
-              </Button>
-            </GBForm>
-          </GBModal> */}
+            Sorry. Your are not eligible for verify your account. To verify your
+            account you need to gain at least 1 upvote for verify your account
+          </GBModal>
 
           {/* Modal for update user  */}
           <GBModal
             isOpen={isOpen}
             onClose={onClose}
-            modalTitle="Change profile picture"
+            modalTitle="Update info"
             footerCancelButtonText="Cancel"
           >
             <GBForm
@@ -169,10 +184,29 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
         </div>
       ) : (
         <div className="mr-3">
-          <Button radius="sm" size="sm" color="primary">
-            <FiPlus className="text-xl" />
-            Follow
-          </Button>
+          {isFollowingThisUser ? (
+            <Button
+              radius="sm"
+              size="sm"
+              color="primary"
+              onClick={handleUnFollow}
+              isDisabled={unfollowIsPending}
+            >
+              <FiPlus className="text-xl" />
+              Unfollow
+            </Button>
+          ) : (
+            <Button
+              radius="sm"
+              size="sm"
+              color="primary"
+              onClick={handleFollow}
+              isDisabled={followIsPending}
+            >
+              <FiPlus className="text-xl" />
+              Follow
+            </Button>
+          )}
         </div>
       )}
     </div>

@@ -8,6 +8,7 @@ import styles from "./postContent.module.css";
 import { VerifyBadgeIcon } from "../icons";
 import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
+import PostManagementActionButtons from "./PostManagementActionButtons";
 
 interface PostCardContentProps {
   postData: TPost;
@@ -19,40 +20,43 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
 
   return (
     <div>
-      {/* User Info Section */}
-      <div className="flex items-center p-4">
-        <Link href={`/profile/${user._id}`}>
-          <Image
-            width={48}
-            height={48}
-            className="rounded-full"
-            src={user.profilePhoto}
-            alt={`${user.name.firstName} ${user.name.lastName}`}
-          />
-        </Link>
-        <div className="ml-3">
-          <div className="flex gap-2 items-center justify-start">
-            <Link href={`/profile/${user._id}`}>
-              <h4 className="text-lg font-semibold cursor-pointer">
-                {`${user.name.firstName} ${user.name?.middleName} ${user.name.lastName}`}
-              </h4>
-            </Link>
-            {user.plan === "premium" && (
-              <span>
-                <Tooltip content="Verified premium user">
-                  <button>
-                    <VerifyBadgeIcon size={18} />
-                  </button>
-                </Tooltip>
-              </span>
-            )}
-          </div>
+      <div className="flex justify-between items-start">
+        {/* User Info Section */}
+        <div className="flex items-center p-4">
+          <Link href={`/profile/${user._id}`}>
+            <Image
+              width={48}
+              height={48}
+              className="rounded-full"
+              src={user.profilePhoto}
+              alt={`${user.name.firstName} ${user.name.lastName}`}
+            />
+          </Link>
+          <div className="ml-3">
+            <div className="flex gap-2 items-center justify-start">
+              <Link href={`/profile/${user._id}`}>
+                <h4 className="text-lg font-semibold cursor-pointer">
+                  {`${user.name.firstName} ${user.name?.middleName} ${user.name.lastName}`}
+                </h4>
+              </Link>
+              {user.plan === "premium" && (
+                <span>
+                  <Tooltip content="Verified premium user">
+                    <button>
+                      <VerifyBadgeIcon size={18} />
+                    </button>
+                  </Tooltip>
+                </span>
+              )}
+            </div>
 
-          <p className="text-sm text-gray-500 cursor-pointer">{category}</p>
-          <p className="text-xs text-gray-500 cursor-pointer">
-            {formattedDate}
-          </p>
+            <p className="text-sm text-gray-500 cursor-pointer">{category}</p>
+            <p className="text-xs text-gray-500 cursor-pointer">
+              {formattedDate}
+            </p>
+          </div>
         </div>
+        <PostManagementActionButtons postData={postData} />
       </div>
 
       {/* Post Content */}

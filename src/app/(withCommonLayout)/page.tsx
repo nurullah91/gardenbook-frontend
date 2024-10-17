@@ -2,7 +2,7 @@ import DisplayPosts from "@/src/components/posts/DisplayPosts";
 import { getAllPosts } from "@/src/services/Post";
 
 export default async function Home() {
-  const data = await getAllPosts(1, 3);
+  const data = await getAllPosts(1, 2);
   const posts = data?.data;
 
   return (
