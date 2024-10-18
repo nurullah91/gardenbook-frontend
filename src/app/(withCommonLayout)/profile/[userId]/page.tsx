@@ -1,5 +1,5 @@
 import { VerifyBadgeIcon } from "@/src/components/icons";
-import PostCard from "@/src/components/posts/PostCard";
+import PostCard from "@/src/components/UI/PostCard/PostCard";
 import ActionButtons from "@/src/components/UI/Profile/ActionButtons";
 import ChangeCoverPhoto from "@/src/components/UI/Profile/ChangeCoverPhoto";
 import ChangeProfile from "@/src/components/UI/Profile/ChangeProfile";

@@ -1,7 +1,7 @@
 "use client";
 
 import { TPost } from "@/src/types";
-import { ShareIcon } from "../icons";
+import { ShareIcon } from "../../icons";
 import { AiTwotoneDislike } from "react-icons/ai";
 import likeImage from "@/src/assets/like.svg";
 import commentImage from "@/src/assets/comment.svg";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useUser } from "@/src/context/user.provider";
 import { useDisclosure } from "@nextui-org/modal";
-import GBModal from "../modal/GBModal";
+import GBModal from "../../modal/GBModal";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

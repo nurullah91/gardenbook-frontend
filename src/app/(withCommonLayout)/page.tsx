@@ -1,4 +1,4 @@
-import DisplayPosts from "@/src/components/posts/DisplayPosts";
+import DisplayPosts from "@/src/components/UI/Home/DisplayPosts";
 import { getAllPosts } from "@/src/services/Post";
 
 export default async function Home() {

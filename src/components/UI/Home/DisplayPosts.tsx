@@ -1,12 +1,12 @@
 "use client";
 
 import { TPost } from "@/src/types";
-import PostCard from "./PostCard";
+import PostCard from "../PostCard/PostCard";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { getAllPosts } from "@/src/services/Post";
 import { toast } from "sonner";
-import PostCardSkeleton from "../UI/PostCardSkeleton";
+import PostCardSkeleton from "../PostCard/PostCardSkeleton";
 
 export interface IPostsProps {
   initialPosts: TPost[];

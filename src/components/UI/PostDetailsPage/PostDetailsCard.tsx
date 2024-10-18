@@ -1,17 +1,17 @@
 "use client";
 
 import { TPost } from "@/src/types";
-import PostCardButtons from "./PostCardButtons";
+import PostCardButtons from "../PostCard/PostCardButtons";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDisclosure } from "@nextui-org/modal";
 import { useUser } from "@/src/context/user.provider";
-import GBModal from "../modal/GBModal";
+import GBModal from "../../modal/GBModal";
 import { Button } from "@nextui-org/button";
 import { useState } from "react";
-import GBForm from "../form/GBForm";
+import GBForm from "../../form/GBForm";
 import { FieldValues } from "react-hook-form";
-import GBInput from "../form/GBInput";
+import GBInput from "../../form/GBInput";
 import { IoIosSend } from "react-icons/io";
 import { CommentSchema } from "@/src/schema";
 import { useCreateCommentOnPost } from "@/src/hooks/post.hook";

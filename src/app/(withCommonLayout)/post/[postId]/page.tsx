@@ -1,5 +1,5 @@
-import PostCardContent from "@/src/components/posts/PostCardContent";
-import PostDetailsCard from "@/src/components/posts/PostDetailsCard";
+import PostCardContent from "@/src/components/UI/PostCard/PostCardContent";
+import PostDetailsCard from "@/src/components/UI/PostDetailsPage/PostDetailsCard";
 import DisplayComments from "@/src/components/UI/Comments/DisplayComments";
 
 import { getSinglePost, getSinglePostComments } from "@/src/services/Post";

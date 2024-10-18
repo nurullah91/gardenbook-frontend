@@ -17,7 +17,6 @@ import GBInput from "../../form/GBInput";
 import { IoIosSend } from "react-icons/io";
 import { FieldValues } from "react-hook-form";
 import { useState } from "react";
-import { toast } from "sonner";
 export interface ICommentActionButtonsProps {
   comment: TComment;
 }

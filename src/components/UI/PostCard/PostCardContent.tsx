@@ -1,14 +1,14 @@
 import { TPost } from "@/src/types";
 
-import ImageGallery from "../ImageGallery/ImageGallery";
+import ImageGallery from "../../ImageGallery/ImageGallery";
 import PostText from "./PostText";
 import Image from "next/image";
 import moment from "moment";
 import styles from "./postContent.module.css";
-import { VerifyBadgeIcon } from "../icons";
+import { VerifyBadgeIcon } from "../../icons";
 import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
-import PostManagementActionButtons from "./PostManagementActionButtons";
+import PostManagementActionButtons from "../../posts/PostManagementActionButtons";
 
 interface PostCardContentProps {
   postData: TPost;
