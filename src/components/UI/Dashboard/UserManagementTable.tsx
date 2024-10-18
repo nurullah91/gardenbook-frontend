@@ -160,10 +160,10 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
 
       <Table isStriped aria-label="Example static collection table">
         <TableHeader>
-          <TableColumn>Name</TableColumn>
+          <TableColumn>USER</TableColumn>
           <TableColumn>ROLE</TableColumn>
           <TableColumn>STATUS</TableColumn>
-          <TableColumn>Actions</TableColumn>
+          <TableColumn>ACTIONS</TableColumn>
         </TableHeader>
         <TableBody>
           {users?.map((user: TUser) => (
@@ -256,7 +256,7 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
                       onClick={() => handleDeleteModal(user._id)}
                       className="text-lg text-danger cursor-pointer active:opacity-50"
                     >
-                      <MdDeleteForever />
+                      <MdDeleteForever className="text-xl" />
                     </button>
                   </Tooltip>
                 </div>
