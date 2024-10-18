@@ -175,8 +175,8 @@ export const updateComment = async (
   commentId: string
 ): Promise<any> => {
   try {
-    const { data } = await axiosInstance.post(
-      `"/comment/${commentId}`,
+    const { data } = await axiosInstance.patch(
+      `/comment/update/${commentId}`,
       commentData,
       {
         headers: {

@@ -18,8 +18,8 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
         />
       </Link>
       {/* Comment Content */}
-      <div className="flex flex-col  px-4 py-2 rounded-xl relative">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-col rounded-xl relative">
+        <div className="">
           <Link href={`/profile/${comment.user?._id}`}>
             <h4 className="text-sm font-semibold">
               {comment.user?.name?.firstName}
@@ -27,8 +27,8 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
               {comment.user?.name?.lastName}
             </h4>
           </Link>
+          <p className="text-sm mt-2">{comment.comment}</p>
         </div>
-        <p className="text-sm">{comment.comment}</p>
         {/* Comment actions */}
         <div className="flex items-center space-x-2 mt-1 text-xs text-gray-500">
           <span className="mr-2">{getTimeFromNow(comment.createdAt)}</span>

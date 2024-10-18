@@ -11,6 +11,12 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { categories } from "@/src/config/categories";
 import TextEditor from "../TextEditor/TextEditor";
 import { useDisclosure } from "@nextui-org/modal";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
 
 export interface IPostManagementActionButtonsProps {
   postData: TPost;
@@ -170,13 +176,28 @@ export default function PostManagementActionButtons({
       </GBModal>
       {user?._id === postData?.user?._id && (
         <div className="flex flex-col gap-2">
-          <Button
-            isDisabled={isDeletePending}
-            onClick={() => handleDelete(postData?._id)}
-          >
-            Delete
-          </Button>
-          <Button onClick={() => onOpen()}>Update</Button>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button variant="flat" size="sm">
+                ...
+              </Button>
+            </DropdownTrigger>
+
+            <DropdownMenu aria-label="Static Actions">
+              <DropdownItem key="edit" onClick={() => onOpen()}>
+                Edit
+              </DropdownItem>
+              <DropdownItem
+                key="delete"
+                className="text-danger"
+                color="danger"
+                isDisabled={isDeletePending}
+                onClick={() => handleDelete(postData?._id)}
+              >
+                Delete
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
       )}
     </div>

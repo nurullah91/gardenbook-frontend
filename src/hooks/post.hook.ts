@@ -5,6 +5,7 @@ import {
   createDownvote,
   createPost,
   createUpvote,
+  deleteSingleComment,
   deleteSinglePost,
   updateComment,
   updatePost,
@@ -168,7 +169,7 @@ export const useUpdateComment = (commentId: string) => {
 export const useDeleteComment = () => {
   return useMutation<any, Error, string>({
     mutationKey: ["DELETE_COMMENT"],
-    mutationFn: async (id) => await deleteSinglePost(id),
+    mutationFn: async (id) => await deleteSingleComment(id),
 
     onSuccess: () => {
       toast.success("Comment deleted successfully");
