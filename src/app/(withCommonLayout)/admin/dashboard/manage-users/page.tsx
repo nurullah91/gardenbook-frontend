@@ -4,11 +4,20 @@ import { TUser } from "@/src/types";
 
 export interface IManageUsersProps {}
 export default async function ManageUsers({}: IManageUsersProps) {
-  const data = await getAllUsers();
-  const users: TUser[] = data?.data;
+  let users: TUser[] = [];
+
+  try {
+    const data = await getAllUsers();
+
+    users = data?.data || [];
+  } catch (error) {
+    console.log(error);
+  }
 
   return (
     <div>
+      <h2 className="text-4xl text-center">Manage users</h2>
+      {/* @ts-ignore*/}
       <UserManagementTable users={users} />
     </div>
   );
