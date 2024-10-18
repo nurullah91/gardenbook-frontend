@@ -1,11 +1,10 @@
 "use client";
 
 import { TPost } from "@/src/types";
-import { ShareIcon } from "../../icons";
-import { AiTwotoneDislike } from "react-icons/ai";
 import likeImage from "@/src/assets/like.svg";
 import commentImage from "@/src/assets/comment.svg";
 import Image from "next/image";
+import { RiShareForwardLine } from "react-icons/ri";
 import { Tooltip } from "@nextui-org/tooltip";
 import { useUser } from "@/src/context/user.provider";
 import { useDisclosure } from "@nextui-org/modal";
@@ -102,7 +101,7 @@ export default function PostCardButtons({
       <div className="flex justify-between items-center p-4 border-t mt-2">
         <div className="flex space-x-4">
           {/* upvote */}
-          <Tooltip content="upvote">
+          <Tooltip content="Upvote">
             <button
               className="flex items-center text-gray-600 hover:text-blue-600"
               onClick={() => handleUpvote(_id)}
@@ -114,13 +113,19 @@ export default function PostCardButtons({
           </Tooltip>
 
           {/* Down Vote */}
-          <Tooltip content="downvote">
+          <Tooltip content="Downvote">
             <button
               className="flex items-center text-gray-600 hover:text-red-600"
               onClick={() => handleDownvote(_id)}
               disabled={isDownvotePending}
             >
-              <AiTwotoneDislike className="text-3xl" />
+              <Image
+                src={likeImage}
+                alt="vote"
+                width={40}
+                height={40}
+                className="transform scale-y-[-1]"
+              />
               <span>{downvoteCount}</span>
             </button>
           </Tooltip>
@@ -139,10 +144,10 @@ export default function PostCardButtons({
           {/* Share */}
           <Tooltip content="Share">
             <button
-              className="flex items-center text-gray-600 hover:text-green-600"
+              className="flex items-center text-gray-600 hover:text-blue-600"
               onClick={() => handleShare(_id)}
             >
-              <ShareIcon />
+              <RiShareForwardLine className="text-3xl" />
             </button>
           </Tooltip>
         </div>

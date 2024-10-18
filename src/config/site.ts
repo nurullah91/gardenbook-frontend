@@ -5,7 +5,7 @@ export const siteConfig = {
   description: "Share and explore your thoughts about gardening",
   navItems: [
     {
-      label: "Home",
+      label: "Feed",
       href: "/",
     },
     {

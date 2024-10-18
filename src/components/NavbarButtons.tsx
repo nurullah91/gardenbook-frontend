@@ -18,6 +18,7 @@ import { protectedRoutes } from "../constants";
 import { usePathname, useRouter } from "next/navigation";
 import CreatePostModal from "./posts/CreatePost";
 import Link from "next/link";
+import { FiPlus } from "react-icons/fi";
 
 export interface INavbarButtonsProps {}
 
@@ -41,7 +42,11 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
 
   return (
     <div className="flex items-center gap-3">
-      {user?.role && <Button onPress={handleOpen}>Create a post</Button>}
+      {user?.role && (
+        <Button onPress={handleOpen} variant="flat">
+          <FiPlus className="text-xl" /> Post
+        </Button>
+      )}
       <CreatePostModal isOpen={isOpen} onClose={onClose} />
       {user?.role ? (
         <div className="ml-4">

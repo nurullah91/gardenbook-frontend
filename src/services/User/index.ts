@@ -138,6 +138,19 @@ export const updateUser = async (userData: any, userId: any): Promise<any> => {
   }
 };
 
+export const deleteUser = async (userId: any): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.delete(`/users/${userId}`);
+
+    revalidateTag("users");
+    revalidateTag("followers");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update user details");
+  }
+};
+
 export const makePayment = async (userData: any): Promise<any> => {
   try {
     const { data } = await axiosInstance.post(`/payment`, userData, {
