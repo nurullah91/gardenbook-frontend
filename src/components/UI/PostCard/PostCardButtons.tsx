@@ -163,7 +163,9 @@ export default function PostCardButtons({
               <FaFilePdf className="text-2xl" />
             </button>
           </Tooltip>
-          <Tooltip content="Free content">
+          <Tooltip
+            content={`${contentType === "free" ? "Free content" : "Premium content"}`}
+          >
             <div
               className={`text-gray-500 text-sm px-3 py-1 border-2 ${contentType === "free" ? "border-green-500" : "border-orange-500"} rounded-full`}
             >

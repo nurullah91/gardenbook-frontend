@@ -14,6 +14,7 @@ export const createPost = async (formData: FormData): Promise<any> => {
     });
 
     revalidateTag("posts");
+    revalidateTag("photos");
     revalidateTag("usersPosts");
 
     return data;
@@ -38,12 +39,27 @@ export const updatePost = async (
     );
 
     revalidateTag("posts");
+    revalidateTag("photos");
     revalidateTag("usersPosts");
 
     return data;
   } catch (error) {
     throw new Error("Failed to update post");
   }
+};
+
+export const getLatestPhotos = async () => {
+  const fetchOption = {
+    next: {
+      tags: ["posts"],
+    },
+  };
+  const res = await fetch(
+    `${envConfig.baseApi}/posts/photos/latest-photos`,
+    fetchOption
+  );
+
+  return res.json();
 };
 
 export const getAllPosts = async (page: number, limit: number) => {
