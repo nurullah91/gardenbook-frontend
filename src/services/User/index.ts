@@ -17,6 +17,57 @@ export const getAllUsers = async (): Promise<any> => {
   }
 };
 
+export const getActiveUsers = async (): Promise<any> => {
+  try {
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    const fetchOption = {
+      next: {
+        tags: ["activeUsers"],
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await fetch(
+      `${envConfig.baseApi}/users/active/get-all-users`,
+      fetchOption
+    );
+
+    return res.json();
+  } catch (error) {
+    throw new Error("Failed to get active users data");
+  }
+};
+export const getMonthlyPayments = async (): Promise<any> => {
+  try {
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    const fetchOption = {
+      next: {
+        tags: ["monthlyPayments"],
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await fetch(
+      `${envConfig.baseApi}/payment/get-monthly-payments`,
+      fetchOption
+    );
+
+    return res.json();
+  } catch (error) {
+    throw new Error("Failed to get monthly payments");
+  }
+};
+
 export const getSingleUser = async (userId: string): Promise<any> => {
   try {
     const cookieStore = cookies();

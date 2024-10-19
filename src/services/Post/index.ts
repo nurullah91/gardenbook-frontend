@@ -86,6 +86,32 @@ export const getUserPosts = async (userId: string): Promise<any> => {
   }
 };
 
+export const getMonthlyPosts = async (): Promise<any> => {
+  try {
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    const fetchOption = {
+      next: {
+        tags: ["monthlyPosts"],
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await fetch(
+      `${envConfig.baseApi}/posts/get-monthly-posts`,
+      fetchOption
+    );
+
+    return res.json();
+  } catch (error) {
+    throw new Error("Failed to get monthly posts");
+  }
+};
+
 export const getSinglePost = async (id: string) => {
   const fetchOption = {
     next: {
