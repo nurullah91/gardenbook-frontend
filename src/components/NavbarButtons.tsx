@@ -64,11 +64,17 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user?.email}</p>
               </DropdownItem>
-              <DropdownItem key="settings">
-                <Link href={`/${user.role}/dashboard`}>Dashboard</Link>
+              <DropdownItem key="dashboard">
+                {user.role === "admin" && (
+                  <Link href={`/${user.role}/dashboard`}>Dashboard</Link>
+                )}
               </DropdownItem>
-              <DropdownItem key="team_settings">
+
+              <DropdownItem key="profile">
                 <Link href={`/profile/${user._id}`}>Profile</Link>
+              </DropdownItem>
+              <DropdownItem key="change_password">
+                <Link href="/change-password">Change password</Link>
               </DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                 Logout

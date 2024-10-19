@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { revalidateTag } from "next/cache";
 
 export const signupUser = async (userData: FieldValues) => {
   try {
@@ -79,5 +80,24 @@ export const getNewAccessToken = async () => {
     return res.data;
   } catch (error) {
     throw new Error("Failed to get new access token");
+  }
+};
+export const changePassword = async (passwordData: string): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/auth/change-password",
+      passwordData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    revalidateTag("user");
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update password");
   }
 };

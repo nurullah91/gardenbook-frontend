@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { deleteUser, followUser, unfollowUser } from "../services/User";
+import { changePassword } from "../services/Auth";
 
 export const useFollowUser = () => {
   return useMutation<any, Error, string>({
@@ -39,6 +40,21 @@ export const useDeleteUser = () => {
 
     onSuccess: () => {
       toast.success("User deleted successfully");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useChangePassword = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["CHANGE_PASSWORD"],
+    mutationFn: async (passwordData) => await changePassword(passwordData),
+
+    onSuccess: () => {
+      toast.success("Password changed successfully");
     },
 
     onError: (error) => {

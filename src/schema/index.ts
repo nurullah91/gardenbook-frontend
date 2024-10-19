@@ -4,6 +4,11 @@ export const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
+
+export const changePasswordSchema = z.object({
+  oldPassword: z.string().nonempty({ message: "Old Password cannot be empty" }),
+  newPassword: z.string().min(6, "Password must be at least 6 characters"),
+});
 // Define the schema
 export const signupSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
