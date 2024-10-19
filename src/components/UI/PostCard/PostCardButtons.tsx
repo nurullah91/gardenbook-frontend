@@ -13,6 +13,8 @@ import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useDownvotePost, useUpvotePost } from "@/src/hooks/post.hook";
+import { generatePDF } from "@/src/utils/generatePDF";
+import { FaFilePdf } from "react-icons/fa6";
 
 export interface IPostCardButtonsProps {
   post: TPost;
@@ -140,7 +142,8 @@ export default function PostCardButtons({
               <span>{commentCount}</span>
             </button>
           </Tooltip>
-
+        </div>
+        <div className="flex gap-3 items-center">
           {/* Share */}
           <Tooltip content="Share">
             <button
@@ -150,15 +153,24 @@ export default function PostCardButtons({
               <RiShareForwardLine className="text-3xl" />
             </button>
           </Tooltip>
-        </div>
 
-        <Tooltip content="Free content">
-          <div
-            className={`text-gray-500 text-sm px-3 py-1 border-2 ${contentType === "free" ? "border-green-500" : "border-orange-500"} rounded-full`}
-          >
-            <span className="font-semibold">{contentType}</span>
-          </div>
-        </Tooltip>
+          {/* PDF */}
+          <Tooltip content="Download pdf">
+            <button
+              className="flex items-center text-gray-600 hover:text-blue-600"
+              onClick={() => generatePDF(_id)}
+            >
+              <FaFilePdf className="text-2xl" />
+            </button>
+          </Tooltip>
+          <Tooltip content="Free content">
+            <div
+              className={`text-gray-500 text-sm px-3 py-1 border-2 ${contentType === "free" ? "border-green-500" : "border-orange-500"} rounded-full`}
+            >
+              <span className="font-semibold">{contentType}</span>
+            </div>
+          </Tooltip>
+        </div>
       </div>
     </div>
   );

@@ -38,6 +38,7 @@
 		"clsx": "2.1.1",
 		"dompurify": "^3.1.7",
 		"framer-motion": "~11.1.1",
+		"html2pdf.js": "^0.10.2",
 		"intl-messageformat": "^10.5.0",
 		"jwt-decode": "^4.0.0",
 		"lightgallery": "^2.7.2",
