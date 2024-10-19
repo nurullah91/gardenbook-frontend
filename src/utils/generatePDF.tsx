@@ -1,5 +1,5 @@
 export const generatePDF = async (id: string) => {
-  const html2pdf = (await import("html2pdf.js")).default;
+  const html2pdf = require("html2pdf.js");
 
   const element = document.getElementById(id);
   const options = {
