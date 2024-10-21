@@ -27,7 +27,7 @@ const Quotes = () => {
   }, []);
 
   return (
-    <div className="gardening-quote w-full h-fit lg:h-[120px]">
+    <div className="gardening-quote w-full h-fit lg:h-[120px] mb-6">
       <p>&quot;{quote.text}&quot;</p>
       <h4>- {quote.author || "Unknown"}</h4>
     </div>

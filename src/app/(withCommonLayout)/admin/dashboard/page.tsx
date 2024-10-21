@@ -1,17 +1,13 @@
+import React from "react";
+
+import WelcomeAnimation from "@/src/components/UI/Dashboard/WelcomeAnimation";
+
 export interface IDashboardProps {}
 export default function Dashboard({}: IDashboardProps) {
   return (
-    <div>
-      <h1
-        style={{
-          fontWeight: "bold",
-          textAlign: "center",
-          color: "#f43f5e",
-          fontSize: "1.875rem",
-        }}
-      >
-        This is Dashboard component
-      </h1>
+    <div className="">
+      <h1 className="text-3xl font-bold text-center">Gardenbook Dashboard</h1>
+      <WelcomeAnimation />
     </div>
   );
 }

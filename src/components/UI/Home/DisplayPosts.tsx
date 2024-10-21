@@ -7,44 +7,36 @@ import { useInView } from "react-intersection-observer";
 import { getAllPosts } from "@/src/services/Post";
 import { toast } from "sonner";
 import PostCardSkeleton from "../PostCard/PostCardSkeleton";
+import { useUser } from "@/src/context/user.provider";
 
-export interface IPostsProps {
-  initialPosts: TPost[];
-  initialMeta: {
-    total: number;
-    totalPage: number;
-    limit: number;
-    page: number;
-  };
-}
+export default function DisplayPosts() {
+  const { user, posts, setPosts, postMeta } = useUser();
 
-const NUMBER_OF_POSTS_TO_FETCH = 2;
-
-export default function DisplayPosts({
-  initialPosts,
-  initialMeta,
-}: IPostsProps) {
-  const [currentPage, setCurrentPage] = useState(initialMeta.page);
-  const [postToDisplay, setPostToDisplay] = useState<TPost[]>(initialPosts);
+  const [currentPage, setCurrentPage] = useState(postMeta.page);
   const { ref, inView } = useInView({ threshold: 0.5 });
   const [loading, setLoading] = useState(false);
   const [hasMorePosts, setHasMorePosts] = useState(true); // Track if more posts are available
-  const [meta, setMeta] = useState(initialMeta);
+  const [meta, setMeta] = useState(postMeta);
 
   const loadMorePosts = async () => {
     if (loading) return;
 
     setLoading(true);
+
+    const queries = [
+      { name: "page", value: currentPage + 1 },
+      { name: "limit", value: 2 },
+      { name: "contentType", value: user?.plan === "premium" ? "all" : "free" },
+      { name: "sort", value: "-createdAt" },
+    ];
+
     try {
       // fetch next page post
-      const response = await getAllPosts(
-        currentPage + 1,
-        NUMBER_OF_POSTS_TO_FETCH
-      );
+      const response = await getAllPosts(queries);
       const newPosts = response.data;
       const newMeta = response.meta;
 
-      setPostToDisplay((prevPosts) => [...prevPosts, ...newPosts]);
+      setPosts((prevPosts) => [...prevPosts, ...newPosts]);
 
       setMeta(newMeta);
       setCurrentPage(newMeta.page);
@@ -64,9 +56,17 @@ export default function DisplayPosts({
   const restartFetching = async () => {
     setLoading(true);
     try {
-      const response = await getAllPosts(1, NUMBER_OF_POSTS_TO_FETCH);
+      const response = await getAllPosts([
+        { name: "page", value: 1 },
+        { name: "limit", value: 2 },
+        {
+          name: "contentType",
+          value: user?.plan === "premium" ? "all" : "free",
+        },
+        { name: "sort", value: "-createdAt" },
+      ]);
 
-      setPostToDisplay(response.data);
+      setPosts(response.data);
       setMeta(response.meta);
       setCurrentPage(1);
       setHasMorePosts(true);
@@ -90,8 +90,8 @@ export default function DisplayPosts({
 
   return (
     <div>
-      {postToDisplay &&
-        postToDisplay.map((post: TPost, index: number) => (
+      {posts &&
+        posts.map((post: TPost, index: number) => (
           <PostCard postData={post} key={index} />
         ))}
 

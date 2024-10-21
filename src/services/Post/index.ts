@@ -2,6 +2,7 @@
 
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { TQueryParam } from "@/src/types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -62,16 +63,20 @@ export const getLatestPhotos = async () => {
   return res.json();
 };
 
-export const getAllPosts = async (page: number, limit: number) => {
+export const getAllPosts = async (args: TQueryParam[]) => {
+  const params = new URLSearchParams();
+
+  if (args) {
+    args.forEach((item: TQueryParam) => {
+      params.append(item.name, item.value as string);
+    });
+  }
   const fetchOption = {
     next: {
       tags: ["posts"],
     },
   };
-  const res = await fetch(
-    `${envConfig.baseApi}/posts?page=${page}&limit=${limit}`,
-    fetchOption
-  );
+  const res = await fetch(`${envConfig.baseApi}/posts?${params}`, fetchOption);
 
   return res.json();
 };

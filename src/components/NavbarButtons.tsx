@@ -42,11 +42,6 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
 
   return (
     <div className="flex items-center gap-3">
-      {user?.role && (
-        <Button onPress={handleOpen} variant="flat">
-          <FiPlus className="text-xl" /> Post
-        </Button>
-      )}
       <CreatePostModal isOpen={isOpen} onClose={onClose} />
       {user?.role ? (
         <div className="ml-4">
@@ -64,6 +59,18 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user?.email}</p>
               </DropdownItem>
+
+              <DropdownItem key="post" className="h-14 gap-2">
+                <Button
+                  onPress={handleOpen}
+                  variant="bordered"
+                  fullWidth
+                  size="sm"
+                >
+                  <FiPlus className="text-xl" /> Post
+                </Button>
+              </DropdownItem>
+
               <DropdownItem key="dashboard">
                 {user.role === "admin" && (
                   <Link href={`/${user.role}/dashboard`}>Dashboard</Link>

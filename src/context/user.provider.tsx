@@ -8,20 +8,53 @@ import {
   useState,
 } from "react";
 
-import { TUser } from "../types";
+import { TPost, TUser } from "../types";
 import { getCurrentUser } from "../services/Auth";
+import { getAllPosts } from "../services/Post";
+
+export interface IMeta {
+  total: number;
+  totalPage: number;
+  limit: number;
+  page: number;
+}
 
 interface IUserProviderValues {
   user: TUser | null;
   isLoading: boolean;
   setUser: (user: TUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  posts: TPost[];
+  postMeta: IMeta;
+  setPosts: Dispatch<SetStateAction<TPost[]>>;
+  setPostMeta: Dispatch<SetStateAction<IMeta>>;
 }
+
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<TUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState<TPost[]>([]);
+  const [postMeta, setPostMeta] = useState<IMeta>({
+    total: 0,
+    totalPage: 0,
+    limit: 0,
+    page: 0,
+  });
+
+  const handleInitialPosts = async () => {
+    const postQuery = [
+      { name: "contentType", value: "free" },
+      { name: "page", value: 1 },
+      { name: "limit", value: 2 },
+      { name: "sort", value: "-createdAt" },
+    ];
+    const data = await getAllPosts(postQuery);
+
+    setPosts(data.data);
+    setPostMeta(data.meta);
+  };
 
   const handleUser = async () => {
     const user = await getCurrentUser();
@@ -31,10 +64,23 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    handleInitialPosts();
+  }, []);
+
+  useEffect(() => {
     handleUser();
   }, [isLoading]);
 
-  const providerValues = { user, setUser, isLoading, setIsLoading };
+  const providerValues = {
+    user,
+    setUser,
+    isLoading,
+    setIsLoading,
+    posts,
+    setPosts,
+    postMeta,
+    setPostMeta,
+  };
 
   return (
     <UserContext.Provider value={providerValues}>
@@ -43,6 +89,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Hook
 export const useUser = () => {
   const context = useContext(UserContext);
 

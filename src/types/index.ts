@@ -57,3 +57,8 @@ export type TComment = {
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
+
+export type TQueryParam = {
+  name: string;
+  value: number | string | React.Key;
+};

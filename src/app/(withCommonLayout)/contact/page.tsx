@@ -1,58 +1,71 @@
+import ContactForm from "@/src/components/form/ContactForm";
+import Link from "next/link";
+import { FaFacebook } from "react-icons/fa6";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+
 export interface IContactProps {}
 export default function Contact({}: IContactProps) {
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-      <p className="mb-8">
-        We&apos;d love to hear from you! Please fill out the form below and
-        we&apos;ll get in touch with you shortly.
-      </p>
-      <div className="bg-white shadow-md rounded p-6">
-        <form>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="name">
-              Name
-            </label>
-            <input
-              className="w-full px-3 py-2 border border-gray-300 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Name"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="w-full px-3 py-2 border border-gray-300 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Your Email"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="message">
-              Message
-            </label>
-            <textarea
-              className="w-full px-3 py-2 border border-gray-300 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:scale-105 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              id="message"
-              name="message"
-              rows={4}
-              placeholder="Your Message"
-            />
-          </div>
-          <button
-            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-600"
-            type="submit"
-          >
-            Send Message
-          </button>
-        </form>
+    <section>
+      <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+        <ContactForm />
       </div>
-    </div>
+
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 mb-12 w-full">
+        <div className="mt-8">
+          <h3 className="text-2xl font-semibold mb-2">Get in Touch</h3>
+          <p className="text-md text-gray-600">
+            Email:{" "}
+            <a
+              href="mailto:info@example.com"
+              className="text-blue-500 hover:underline transition ease-in-out duration-200"
+            >
+              info@example.com
+            </a>
+          </p>
+          <p className="text-md text-gray-600">
+            Phone:{" "}
+            <a
+              href="tel:+1234567890"
+              className="text-blue-500 hover:underline transition ease-in-out duration-200"
+            >
+              +1 (234) 567-890
+            </a>
+          </p>
+          <p className="text-md text-gray-600">
+            Address: 1234 Example St, City, Country
+          </p>
+        </div>
+        <div className="mt-8">
+          <h3 className="text-2xl font-semibold mb-2">Business Hours</h3>
+          <ul className="text-md text-gray-600">
+            <li>Monday - Friday: 9:00 AM - 6:00 PM</li>
+            <li>Saturday: 10:00 AM - 4:00 PM</li>
+            <li>Sunday: Closed</li>
+          </ul>
+        </div>
+        <div className="mt-8">
+          <h3 className="text-2xl font-semibold mb-2 text-center">Follow Us</h3>
+          <div className="flex justify-center space-x-4">
+            <Link
+              href="https://www.facebook.com/nurullahbhuiyan91"
+              className="text-blue-500 hover:text-blue-700 transition ease-in-out duration-200"
+            >
+              <FaFacebook className="text-3xl" />
+            </Link>
+            <Link href="https://twitter.com/BMNurullah">
+              <FaSquareXTwitter className="text-3xl" />
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/nurullahbhuiyan91/"
+              className="text-blue-500 hover:text-blue-700 transition ease-in-out duration-200"
+            >
+              <FaLinkedin className="text-3xl" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

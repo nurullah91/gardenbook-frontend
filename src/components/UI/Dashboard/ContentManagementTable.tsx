@@ -113,7 +113,7 @@ export default function ContentManagementTable({ posts }: { posts: TPost[] }) {
                       href={`/post/${post._id}`}
                       className="text-lg text-default-400 cursor-pointer active:opacity-50"
                     >
-                      <FaEye />
+                      <FaEye className="text-2xl" />
                     </Link>
                   </Tooltip>
 
@@ -122,7 +122,7 @@ export default function ContentManagementTable({ posts }: { posts: TPost[] }) {
                       onClick={() => handleDeleteModal(post._id)}
                       className="text-lg text-danger cursor-pointer active:opacity-50"
                     >
-                      <MdDeleteForever className="text-xl" />
+                      <MdDeleteForever className="text-3xl" />
                     </button>
                   </Tooltip>
                 </div>

@@ -208,7 +208,7 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
                       href={`/profile/${user._id}`}
                       className="text-lg text-default-400 cursor-pointer active:opacity-50"
                     >
-                      <FaEye />
+                      <FaEye className="text-2xl" />
                     </Link>
                   </Tooltip>
                   <Tooltip
@@ -226,9 +226,9 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
                       className="text-lg text-default-400 cursor-pointer active:opacity-50"
                     >
                       {user.status === "active" ? (
-                        <GoBlocked />
+                        <GoBlocked className="text-red-600 text-2xl" />
                       ) : (
-                        <VscVmActive />
+                        <VscVmActive className="text-green-600 text-2xl" />
                       )}
                     </button>
                   </Tooltip>
@@ -245,9 +245,9 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
                       className="text-lg text-default-400 cursor-pointer active:opacity-50"
                     >
                       {user.role === "admin" ? (
-                        <FaAngleDoubleDown />
+                        <FaAngleDoubleDown className="text-2xl" />
                       ) : (
-                        <FaAngleDoubleUp />
+                        <FaAngleDoubleUp className="text-2xl" />
                       )}
                     </button>
                   </Tooltip>
@@ -256,7 +256,7 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
                       onClick={() => handleDeleteModal(user._id)}
                       className="text-lg text-danger cursor-pointer active:opacity-50"
                     >
-                      <MdDeleteForever className="text-xl" />
+                      <MdDeleteForever className="text-3xl" />
                     </button>
                   </Tooltip>
                 </div>

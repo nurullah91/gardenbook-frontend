@@ -6,7 +6,10 @@ export interface IManageUsersProps {}
 export default async function ManageContent({}: IManageUsersProps) {
   try {
     // Fetch the data from server action
-    const data = await getAllPosts(1, 20);
+    const data = await getAllPosts([
+      { name: "page", value: 1 },
+      { name: "limit", value: 20 },
+    ]);
 
     const posts: TPost[] = data.data;
 
