@@ -4,7 +4,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative flex flex-col h-screen">
       <Navbar />
-      <main>{children}</main>
+      <main className="mt-20">{children}</main>
     </div>
   );
 }
