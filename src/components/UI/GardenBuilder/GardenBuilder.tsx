@@ -1,19 +1,23 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
+
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 // Types for garden elements
 interface GardenElement {
   id: string;
-  type: "plant" | "text";
+  type: string;
   content: string;
-  x: number;
-  y: number;
   rotation: number;
+  layout: { i: string; x: number; y: number; w: number; h: number };
 }
 
 // Drag item types for DnD
@@ -24,24 +28,31 @@ interface DragItem {
 
 const GardenBuilder = () => {
   const [gardenElements, setGardenElements] = useState<GardenElement[]>([]);
-
+  const [nextId, setNextId] = useState(0); // Keeps track of IDs for elements
   const gardenRef = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: ["plant", "text"],
     drop: (item: DragItem, monitor) => {
       const offset = monitor.getSourceClientOffset();
+
       if (!offset) return;
 
       const newElement: GardenElement = {
-        id: Math.random().toString(),
+        id: `element-${nextId}`,
         type: item.type,
         content: item.content,
-        x: offset.x,
-        y: offset.y,
         rotation: 0,
+        layout: {
+          i: `element-${nextId}`,
+          x: 0,
+          y: 0,
+          w: 2,
+          h: 2,
+        },
       };
 
+      setNextId(nextId + 1);
       setGardenElements((prev) => [...prev, newElement]);
     },
   });
@@ -78,6 +89,7 @@ const GardenBuilder = () => {
       const dataURL = canvas.toDataURL("image/png");
 
       const link = document.createElement("a");
+
       link.href = dataURL;
       link.download = "garden_design.png";
       link.click();
@@ -121,33 +133,41 @@ const GardenBuilder = () => {
         className="garden-canvas border border-dashed border-gray-400 p-4 h-96 relative"
       >
         <div ref={gardenRef}>
-          {gardenElements.map((el) => (
-            <div
-              key={el.id}
-              className="absolute"
-              style={{
-                left: el.x,
-                top: el.y,
-                transform: `rotate(${el.rotation}deg)`,
-              }}
-            >
-              {el.content}
-              <div className="rotate-buttons mt-2">
-                <button
-                  className="mr-2 p-1 bg-blue-500 text-white"
-                  onClick={() => rotateElement(el.id, 15)}
-                >
-                  Rotate +15°
-                </button>
-                <button
-                  className="p-1 bg-red-500 text-white"
-                  onClick={() => rotateElement(el.id, -15)}
-                >
-                  Rotate -15°
-                </button>
+          <ResponsiveGridLayout
+            className="layout"
+            layouts={{ lg: gardenElements.map((el) => el.layout) }}
+            breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+            cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+            rowHeight={10}
+            compactType={null}
+            preventCollision={true}
+            onLayoutChange={(layout) => {
+              const updatedElements = gardenElements.map((el) => {
+                const layoutItem = layout.find((item) => item.i === el.id);
+
+                if (layoutItem) {
+                  return {
+                    ...el,
+                    layout: layoutItem,
+                  };
+                }
+
+                return el;
+              });
+
+              setGardenElements(updatedElements);
+            }}
+          >
+            {gardenElements.map((el) => (
+              <div
+                key={el.id}
+                className="garden-item border-2 border-gray-600 w-full h-full flex items-center justify-center"
+                data-grid={el.layout}
+              >
+                {el.content}
               </div>
-            </div>
-          ))}
+            ))}
+          </ResponsiveGridLayout>
         </div>
       </div>
 
