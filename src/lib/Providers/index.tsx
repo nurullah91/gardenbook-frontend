@@ -9,6 +9,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 
 import UserProvider from "@/src/context/user.provider";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 export interface ProvidersProps {
   children: React.ReactNode;
   themeProps?: ThemeProviderProps;
@@ -23,7 +25,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
       <QueryClientProvider client={queryClient}>
         <NextUIProvider navigate={router.push}>
           <Toaster richColors position="top-center" />
-          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+          <DndProvider backend={HTML5Backend}>
+            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+          </DndProvider>
         </NextUIProvider>
       </QueryClientProvider>
     </UserProvider>

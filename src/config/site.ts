@@ -20,6 +20,10 @@ export const siteConfig = {
       label: "Gallery",
       href: "/latest-photos",
     },
+    {
+      label: "Garden Plan",
+      href: "/garden-plan",
+    },
   ],
   navMenuItems: [
     {

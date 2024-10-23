@@ -75,7 +75,7 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
           </div>
 
           {/* Post Photos */}
-          {postPhotos?.length && postPhotos.length > 0 && (
+          {postPhotos && postPhotos.length > 0 && (
             <div>
               <ImageGallery images={postPhotos} />
             </div>
