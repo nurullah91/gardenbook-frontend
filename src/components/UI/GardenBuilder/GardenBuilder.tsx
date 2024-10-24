@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDrag, useDrop } from "react-dnd";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
@@ -17,7 +16,15 @@ interface GardenElement {
   type: string;
   content: string;
   rotation: number;
-  layout: { i: string; x: number; y: number; w: number; h: number };
+  layout: {
+    i: string;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    minW?: number;
+    minH?: number;
+  };
 }
 
 // Drag item types for DnD
@@ -30,6 +37,7 @@ const GardenBuilder = () => {
   const [gardenElements, setGardenElements] = useState<GardenElement[]>([]);
   const [nextId, setNextId] = useState(0); // Keeps track of IDs for elements
   const gardenRef = useRef<HTMLDivElement>(null);
+  const dropRef = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: ["plant", "text"],
@@ -49,6 +57,8 @@ const GardenBuilder = () => {
           y: 0,
           w: 2,
           h: 2,
+          minW: 0,
+          minH: 0,
         },
       };
 
@@ -58,30 +68,52 @@ const GardenBuilder = () => {
   });
 
   const Plant = ({ content }: { content: string }) => {
+    const ref = useRef<HTMLDivElement>(null); // Create a ref to hold the DOM element
     const [, drag] = useDrag({
       type: "plant",
       item: { type: "plant", content },
     });
 
+    // Apply both the ref and drag function
+    useEffect(() => {
+      if (ref.current) {
+        drag(ref.current);
+      }
+    }, [drag]);
+
     return (
-      <div ref={drag} className="plant-icon cursor-pointer p-2">
+      <div ref={ref} className="plant-icon cursor-pointer p-2">
         {content}
       </div>
     );
   };
 
   const TextElement = ({ content }: { content: string }) => {
+    const ref = useRef<HTMLDivElement>(null); // Create a ref to hold the DOM element
     const [, drag] = useDrag({
       type: "text",
       item: { type: "text", content },
     });
 
+    // Apply both the ref and drag function
+    useEffect(() => {
+      if (ref.current) {
+        drag(ref.current);
+      }
+    }, [drag]);
+
     return (
-      <div ref={drag} className="text-icon cursor-pointer p-2">
+      <div ref={ref} className="text-icon cursor-pointer p-2">
         {content}
       </div>
     );
   };
+
+  useEffect(() => {
+    if (dropRef.current) {
+      drop(dropRef.current); // Manually attach the drop target
+    }
+  }, [drop]);
 
   const downloadGardenAsImage = async () => {
     if (gardenRef.current) {
@@ -111,14 +143,6 @@ const GardenBuilder = () => {
     }
   };
 
-  const rotateElement = (id: string, angle: number) => {
-    setGardenElements((prev) =>
-      prev.map((el) =>
-        el.id === id ? { ...el, rotation: el.rotation + angle } : el
-      )
-    );
-  };
-
   return (
     <div className="garden-builder-container p-4">
       <div className="toolbar flex gap-4 mb-4">
@@ -126,16 +150,23 @@ const GardenBuilder = () => {
         <Plant content="🌿 Plant 2" />
         <TextElement content="Flower Bed" />
         <TextElement content="Vegetable Patch" />
+        <TextElement content="Footpath" />
       </div>
 
       <div
-        ref={drop}
-        className="garden-canvas border border-dashed border-gray-400 p-4 h-96 relative"
+        ref={dropRef}
+        className="garden-canvas border border-dashed border-gray-300 p-4  relative"
       >
         <div ref={gardenRef}>
           <ResponsiveGridLayout
             className="layout"
-            layouts={{ lg: gardenElements.map((el) => el.layout) }}
+            layouts={{
+              lg: gardenElements.map((el) => ({
+                ...el.layout,
+                minW: el.layout.minW,
+                minH: el.layout.minH,
+              })),
+            }}
             breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
             cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
             rowHeight={10}
@@ -149,6 +180,8 @@ const GardenBuilder = () => {
                   return {
                     ...el,
                     layout: layoutItem,
+                    minW: el.layout.minW,
+                    minH: el.layout.minH,
                   };
                 }
 
@@ -161,7 +194,7 @@ const GardenBuilder = () => {
             {gardenElements.map((el) => (
               <div
                 key={el.id}
-                className="garden-item border-2 border-gray-600 w-full h-full flex items-center justify-center"
+                className={`garden-item border-2 border-gray-600 flex items-center justify-center w-full h-full ${el.content === "Footpath" ? "bg-gray-400" : "bg-green-200"} overflow-hidden`}
                 data-grid={el.layout}
               >
                 {el.content}

@@ -55,7 +55,11 @@ The platform aims to foster a vibrant community where users can post gardening a
 
 This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+> [!NOTE]
+>
+> ### Unique Feature of this project.
+>
+> You can create a garden plan for your garden by drag drop and resize the element. Also after making your plan you can download your plan as png or pdf format.
 
 ## Technologies Used
 
