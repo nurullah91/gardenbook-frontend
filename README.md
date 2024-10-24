@@ -53,11 +53,9 @@ The platform aims to foster a vibrant community where users can post gardening a
 > - /
 > - /post/:postId
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
-
 > [!NOTE]
 >
-> ### Unique Feature of this project.
+> **Unique Feature of this project.**
 >
 > You can create a garden plan for your garden by drag drop and resize the element. Also after making your plan you can download your plan as png or pdf format.
 
@@ -70,6 +68,17 @@ This is a template for creating applications using Next.js 14 (app directory) an
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
+- Tanstack query
+- Axios
+- html2canvas
+- html2pdf.js
+- lightgallery
+- lottie react
+- React grid layout
+- Rechart js
+- React quill
+- Sonner
+- Zod
 
 ## Local installation guideline
 
