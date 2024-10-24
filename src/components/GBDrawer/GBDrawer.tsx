@@ -34,7 +34,6 @@ const GBDrawer: React.FC = () => {
       { name: "contentType", value: user?.plan === "premium" ? "all" : "free" },
       { name: "sort", value: "upvoteCount" },
     ].filter((item) => item.value !== undefined);
-    // Fetch Room Data with pagination and search
 
     const posts = await getAllPosts(queryParams);
 
@@ -47,23 +46,27 @@ const GBDrawer: React.FC = () => {
       { name: "contentType", value: contentType },
       { name: "sort", value: sortOrder },
     ];
-    // Fetch Room Data with pagination and search
 
     const posts = await getAllPosts(queryParams);
 
     setPosts(posts?.data);
   };
 
-  const handleReset = () => {
-    setContentType("free");
+  const handleReset = async () => {
+    const queryParams = [
+      { name: "contentType", value: user?.plan === "premium" ? "all" : "free" },
+      { name: "sort", value: "-createdAt" },
+    ].filter((item) => item.value !== undefined);
 
-    setSortOrder("-createdAt");
+    const posts = await getAllPosts(queryParams);
 
-    setSearch("");
+    setPosts(posts?.data);
   };
 
   useEffect(() => {
-    handleSearch();
+    if (debouncedSearch) {
+      handleSearch();
+    }
   }, [debouncedSearch]);
 
   useEffect(() => {

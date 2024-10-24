@@ -21,6 +21,12 @@ The platform aims to foster a vibrant community where users can post gardening a
 7. **Advanced Search and Filter:** Implement search and filtering features that allow users to find relevant gardening content based on category, popularity, and other parameters.
 8. **Admin dashboard** for managing users, posts, payments, and community moderation.
 
+> [!NOTE]
+>
+> **Unique Feature of this project.**
+>
+> You can create a garden plan for your garden by drag drop and resize the element. Also after making your plan you can download your plan as png or pdf format.
+
 #### Pages:
 
 - **Login/Registration Page:** Forms for user sign-up and login with secure authentication.
@@ -52,12 +58,6 @@ The platform aims to foster a vibrant community where users can post gardening a
 >
 > - /
 > - /post/:postId
-
-> [!NOTE]
->
-> **Unique Feature of this project.**
->
-> You can create a garden plan for your garden by drag drop and resize the element. Also after making your plan you can download your plan as png or pdf format.
 
 ## Technologies Used
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
-import { useDeleteComment, useUpdateComment } from "@/src/hooks/post.hook";
+import { useDeleteComment } from "@/src/hooks/post.hook";
 import { TComment } from "@/src/types";
 import { Button } from "@nextui-org/button";
 import {
@@ -10,38 +10,21 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import GBForm from "../../form/GBForm";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CommentSchema } from "@/src/schema";
-import GBInput from "../../form/GBInput";
-import { IoIosSend } from "react-icons/io";
-import { FieldValues } from "react-hook-form";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 export interface ICommentActionButtonsProps {
   comment: TComment;
+  setCommentFocus: Dispatch<SetStateAction<boolean>>;
 }
 export default function CommentActionButtons({
   comment,
+  setCommentFocus,
 }: ICommentActionButtonsProps) {
-  const [commentFocus, setCommentFocus] = useState(false);
-  const { mutate: handleUpdateComment, isPending: isUpdatePending } =
-    useUpdateComment(comment?._id);
-
-  const { mutate: handleDeletePost, isPending: isDeletePending } =
+  const { mutate: handleDeleteComment, isPending: isDeletePending } =
     useDeleteComment();
-
   const { user } = useUser();
 
   const handleDelete = (commentId: string) => {
-    handleDeletePost(commentId);
-  };
-
-  const handleCommentPost = (value: FieldValues) => {
-    const commentData = {
-      comment: value.comment,
-    };
-
-    handleUpdateComment(JSON.stringify(commentData));
+    handleDeleteComment(commentId);
   };
 
   return (
@@ -69,28 +52,6 @@ export default function CommentActionButtons({
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-      )}
-
-      {/* Update comment field */}
-      {commentFocus && (
-        <div className="mb-10 relative">
-          <GBForm
-            onSubmit={handleCommentPost}
-            resolver={zodResolver(CommentSchema)}
-            defaultValues={comment}
-          >
-            <GBInput label="" name="comment" />
-            <button
-              type="submit"
-              className="absolute right-2 top-1"
-              disabled={isUpdatePending}
-            >
-              <IoIosSend
-                className={`${isUpdatePending ? "text-gray-500" : "text-blue-500"} text-2xl`}
-              />
-            </button>
-          </GBForm>
-        </div>
       )}
     </div>
   );
