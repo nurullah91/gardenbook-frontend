@@ -1,27 +1,24 @@
 import { Link } from "@nextui-org/link";
-import LoginForm from "./LoginForm";
 import { Metadata } from "next";
+import ResetPasswordForm from "./ResetPasswordForm";
 
 export const metadata: Metadata = {
-  title: "Login",
+  title: "Reset Password",
   description:
     "About our gardenbook. Share and explore your thoughts about gardening",
 };
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   return (
     <div style={{ maxWidth: "400px", margin: "0 auto", padding: "2rem" }}>
-      <h1 className="text-3xl text-center">
+      <h1 className="text-xl text-center">
         <span className="text-blue-400 font-bold">G</span>arden
-        <span className="text-blue-400 font-bold">B</span>ook Login
+        <span className="text-blue-400 font-bold">B</span>ook Reset Password
       </h1>
-      <LoginForm />
       <div>
-        <p className="text-xs mt-2">
-          New to Gardenbook?{" "}
-          <Link href="/signup" className="text-xs font-bold">
-            signup
-          </Link>
+        <ResetPasswordForm />
+        <p className="text-sm">
+          New to Gardenbook? <Link href="/signup">signup</Link>
         </p>
       </div>
     </div>

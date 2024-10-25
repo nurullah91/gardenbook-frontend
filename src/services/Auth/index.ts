@@ -6,6 +6,7 @@ import { FieldValues } from "react-hook-form";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
+import envConfig from "@/src/config/envConfig";
 
 export const signupUser = async (userData: FieldValues) => {
   try {
@@ -99,5 +100,58 @@ export const changePassword = async (passwordData: string): Promise<any> => {
     return data;
   } catch (error) {
     throw new Error("Failed to update password");
+  }
+};
+
+export const forgetPassword = async (userData: string) => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/auth/forget-password",
+      userData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (data.success) {
+      return data;
+    }
+  } catch (error: any) {
+    // Throw the error with the response from the backend
+    if (error.response) {
+      throw new Error(JSON.stringify(error.response.data)); // Stringify the response for passing it as a string
+    }
+    throw new Error(error.message || "Something went wrong");
+  }
+};
+
+export const resetPassword = async (
+  token: string,
+  passwordData: string
+): Promise<any> => {
+  try {
+    const fetchOption = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: passwordData,
+    };
+
+    const res = await fetch(
+      `${envConfig.baseApi}/auth/reset-password`,
+      fetchOption
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to reset password");
+    }
+
+    return res.json();
+  } catch (error) {
+    throw new Error("Failed to reset password");
   }
 };

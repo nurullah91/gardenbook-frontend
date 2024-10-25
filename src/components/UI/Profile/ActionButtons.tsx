@@ -72,7 +72,6 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
       targetUserId: userData.user._id,
     };
 
-    // console.log(followData);
     followUser(JSON.stringify(followData));
   };
 

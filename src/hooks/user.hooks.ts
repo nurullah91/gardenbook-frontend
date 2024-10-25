@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { deleteUser, followUser, unfollowUser } from "../services/User";
-import { changePassword } from "../services/Auth";
+import {
+  changePassword,
+  forgetPassword,
+  resetPassword,
+} from "../services/Auth";
 
 export const useFollowUser = () => {
   return useMutation<any, Error, string>({
@@ -55,6 +59,29 @@ export const useChangePassword = () => {
 
     onSuccess: () => {
       toast.success("Password changed successfully");
+    },
+
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useForgetPassword = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["FORGET_PASSWORD"],
+    mutationFn: async (passwordData) => await forgetPassword(passwordData),
+  });
+};
+
+export const useResetPassword = (token: string) => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["RESET_PASSWORD"],
+    mutationFn: async (passwordData) =>
+      await resetPassword(token, passwordData),
+
+    onSuccess: () => {
+      toast.success("Password reset successfully");
     },
 
     onError: (error) => {
