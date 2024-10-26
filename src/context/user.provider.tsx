@@ -11,6 +11,7 @@ import {
 import { TPost, TUser } from "../types";
 import { getCurrentUser } from "../services/Auth";
 import { getAllPosts } from "../services/Post";
+import { toast } from "sonner";
 
 export interface IMeta {
   total: number;
@@ -28,6 +29,7 @@ interface IUserProviderValues {
   postMeta: IMeta;
   setPosts: Dispatch<SetStateAction<TPost[]>>;
   setPostMeta: Dispatch<SetStateAction<IMeta>>;
+  handleLoginExpiry: () => void;
 }
 
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
@@ -71,6 +73,12 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     handleUser();
   }, [isLoading]);
 
+  const handleLoginExpiry = () => {
+    setUser(null);
+    setIsLoading(false);
+    toast("Your session has expired. Please log in again.");
+  };
+
   const providerValues = {
     user,
     setUser,
@@ -80,6 +88,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     setPosts,
     postMeta,
     setPostMeta,
+    handleLoginExpiry,
   };
 
   return (

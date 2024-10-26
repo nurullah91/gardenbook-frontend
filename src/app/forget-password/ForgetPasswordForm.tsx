@@ -18,7 +18,6 @@ export default function ForgetPasswordForm({}: IForgetPasswordFormProps) {
     isSuccess,
     data,
   } = useForgetPassword();
-
   // Parse the error message from the backend
   const backendError =
     isError && error instanceof Error ? JSON.parse(error.message) : null;
