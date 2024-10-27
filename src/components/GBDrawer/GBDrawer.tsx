@@ -6,12 +6,15 @@ import { SearchIcon } from "../icons";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { getAllPosts } from "@/src/services/Post";
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { RxCross2 } from "react-icons/rx";
 
 const GBDrawer: React.FC = () => {
   const { user, setPosts } = useUser();
   const [search, setSearch] = useState<string>("");
   const [contentType, setContentType] = useState<string>("free");
   const [sortOrder, setSortOrder] = useState<string>("-createdAt");
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   // debounce the search functionality
   const [debouncedSearch, setDebouncedSearch] = useState(search);
@@ -75,62 +78,73 @@ const GBDrawer: React.FC = () => {
 
   return (
     <div className="shadow-lg p-4 shadow-blue-600/30 md:h-screen h-fit md:w-60 w-full rounded-md">
-      <h2 className="text-xl font-bold">
-        <Input
-          classNames={{
-            base: "w-full h-6",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-          }}
-          placeholder="Type to search..."
-          size="sm"
-          startContent={<SearchIcon size={18} />}
-          onChange={(e) => setSearch(e.target.value)}
-          type="search"
-        />
-      </h2>
-      <div className="flex flex-col gap-3 mt-5">
-        <div>
-          <Button
+      <div className="block md:hidden">
+        <button onClick={() => setOpenDrawer(!openDrawer)}>
+          {openDrawer ? (
+            <RxCross2 className="text-2xl" />
+          ) : (
+            <HiOutlineMenuAlt1 className="text-2xl" />
+          )}
+        </button>
+      </div>
+      <div className={`md:flex flex-col ${openDrawer ? "block" : "hidden"}`}>
+        <div className="text-xl font-bold">
+          <Input
+            classNames={{
+              base: "w-full h-6",
+              mainWrapper: "h-full",
+              input: "text-small",
+              inputWrapper:
+                "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+            }}
+            placeholder="Type to search..."
             size="sm"
-            fullWidth
-            onClick={() => setSortOrder("upvoteCount")}
-          >
-            Sort by upvote
-          </Button>
+            startContent={<SearchIcon size={18} />}
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+          />
         </div>
-        {user?.plan === "premium" && (
-          <div className="flex flex-row md:flex-col gap-3 flex-wrap sm:flex-nowrap">
+        <div className="flex flex-col gap-3 mt-5">
+          <div>
             <Button
-              variant="shadow"
               size="sm"
               fullWidth
-              onClick={() => setContentType("premium")}
+              onClick={() => setSortOrder("upvoteCount")}
             >
-              Premium content
-            </Button>
-            <Button
-              variant="shadow"
-              size="sm"
-              fullWidth
-              onClick={() => setContentType("free")}
-            >
-              Free content
-            </Button>
-            <Button
-              variant="shadow"
-              size="sm"
-              fullWidth
-              onClick={() => setContentType("all")}
-            >
-              All content
+              Sort by upvote
             </Button>
           </div>
-        )}
+          {user?.plan === "premium" && (
+            <div className="flex flex-row md:flex-col gap-3 flex-wrap sm:flex-nowrap">
+              <Button
+                variant="shadow"
+                size="sm"
+                fullWidth
+                onClick={() => setContentType("premium")}
+              >
+                Premium content
+              </Button>
+              <Button
+                variant="shadow"
+                size="sm"
+                fullWidth
+                onClick={() => setContentType("free")}
+              >
+                Free content
+              </Button>
+              <Button
+                variant="shadow"
+                size="sm"
+                fullWidth
+                onClick={() => setContentType("all")}
+              >
+                All content
+              </Button>
+            </div>
+          )}
 
-        <Button onClick={handleReset}>Reset</Button>
+          <Button onClick={handleReset}>Reset</Button>
+        </div>
       </div>
     </div>
   );

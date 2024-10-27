@@ -34,7 +34,7 @@ export const loginUser = async (userData: FieldValues) => {
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
       cookies().set("refreshToken", data?.data?.refreshToken);
-
+      console.log(data);
       return data;
     }
   } catch (error: any) {
