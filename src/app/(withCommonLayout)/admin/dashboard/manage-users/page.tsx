@@ -1,12 +1,17 @@
 import UserManagementTable from "@/src/components/UI/Dashboard/UserManagementTable";
+import { getAllUsers } from "@/src/services/User";
+import { TUser } from "@/src/types";
 
 export interface IManageUsersProps {}
 export default async function ManageUsers({}: IManageUsersProps) {
   try {
+    const data = await getAllUsers();
+    const users: TUser[] = data?.data;
+
     return (
       <div>
         <h2 className="text-4xl text-center">Manage users</h2>
-        <UserManagementTable />
+        <UserManagementTable users={users} />
       </div>
     );
   } catch (error) {
@@ -17,7 +22,8 @@ export default async function ManageUsers({}: IManageUsersProps) {
             Oops! Something went wrong.
           </h1>
           <p className="text-lg mb-6">
-            We encountered an unexpected error. Please try again
+            We encountered an unexpected error.May be your login has been
+            expired. Please logout and try again after login
           </p>
 
           <div className="mt-4">

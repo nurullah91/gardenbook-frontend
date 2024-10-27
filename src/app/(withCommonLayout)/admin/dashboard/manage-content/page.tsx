@@ -27,7 +27,8 @@ export default async function ManageContent({}: IManageUsersProps) {
             Oops! Something went wrong.
           </h1>
           <p className="text-lg mb-6">
-            We encountered an unexpected error. Please try again
+            We encountered an unexpected error.May be your login has been
+            expired. Please logout and try again after login
           </p>
 
           <div className="mt-4">

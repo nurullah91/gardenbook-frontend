@@ -20,28 +20,15 @@ import Link from "next/link";
 import { useDisclosure } from "@nextui-org/modal";
 import GBModal from "../../modal/GBModal";
 import { Button } from "@nextui-org/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUpdateUserData } from "@/src/hooks/post.hook";
 import { toast } from "sonner";
 import { useDeleteUser } from "@/src/hooks/user.hooks";
-import { getAllUsers } from "@/src/services/User";
 
-export default function UserManagementTable() {
+export default function UserManagementTable({ users }: { users: TUser[] }) {
   const [selectedUser, setSelectedUser] = useState("");
   const [statusToChange, setStatusToChange] = useState("");
   const [roleToChange, setRoleToChange] = useState("");
-  const [users, setUsers] = useState<TUser[]>([]);
-
-  const fetchUsers = async () => {
-    const data = await getAllUsers();
-    console.log(data);
-
-    setUsers(data?.data);
-  };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   const {
     isOpen: isOpenForDelete,
