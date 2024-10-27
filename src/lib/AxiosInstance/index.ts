@@ -2,7 +2,6 @@ import axios from "axios";
 import envConfig from "@/src/config/envConfig";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { logout } from "@/src/services/Auth";
 
 const axiosInstance = axios.create({
   baseURL: envConfig.baseApi,
@@ -29,8 +28,11 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error?.response?.data?.message === "jwt expired") {
-      console.log("jwt expired");
+    const config = error.config;
+
+    if (error?.response?.status === 401 && !config?.sent) {
+      config.sent = true;
+
       const cookiesStore = cookies();
 
       cookiesStore.delete("accessToken");
@@ -40,7 +42,7 @@ axiosInstance.interceptors.response.use(
       // logout();
     }
 
-    // return Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 
