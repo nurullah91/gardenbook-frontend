@@ -76,6 +76,7 @@ export const getAllPosts = async (args: TQueryParam[]) => {
       tags: ["posts"],
     },
   };
+
   const res = await fetch(`${envConfig.baseApi}/posts?${params}`, fetchOption);
 
   return res.json();

@@ -36,10 +36,8 @@ axiosInstance.interceptors.response.use(
       const cookiesStore = cookies();
 
       cookiesStore.delete("accessToken");
-      cookiesStore.delete("refreshToken");
-      // window.location.href = "/login";
+
       redirect("/login");
-      // logout();
     }
 
     return Promise.reject(error);

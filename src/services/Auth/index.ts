@@ -14,7 +14,6 @@ export const signupUser = async (userData: FieldValues) => {
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
-      cookies().set("refreshToken", data?.data?.refreshToken);
 
       return data;
     }
@@ -33,8 +32,7 @@ export const loginUser = async (userData: FieldValues) => {
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
-      cookies().set("refreshToken", data?.data?.refreshToken);
-      console.log(data);
+
       return data;
     }
   } catch (error: any) {
@@ -48,7 +46,6 @@ export const loginUser = async (userData: FieldValues) => {
 
 export const logout = () => {
   cookies().delete("accessToken");
-  cookies().delete("refreshToken");
 };
 
 export const getCurrentUser = async () => {
@@ -65,24 +62,24 @@ export const getCurrentUser = async () => {
   return decodedToken;
 };
 
-export const getNewAccessToken = async () => {
-  try {
-    const refreshToken = cookies().get("refreshToken")?.value;
+// export const getNewAccessToken = async () => {
+//   try {
+//     const refreshToken = cookies().get("refreshToken")?.value;
 
-    const res = await axiosInstance({
-      url: "/auth/refresh-token",
-      method: "POST",
-      withCredentials: true,
-      headers: {
-        cookie: `refreshToken=${refreshToken}`,
-      },
-    });
+//     const res = await axiosInstance({
+//       url: "/auth/refresh-token",
+//       method: "POST",
+//       withCredentials: true,
+//       headers: {
+//         cookie: `refreshToken=${refreshToken}`,
+//       },
+//     });
 
-    return res.data;
-  } catch (error) {
-    throw new Error("Failed to get new access token");
-  }
-};
+//     return res.data;
+//   } catch (error) {
+//     throw new Error("Failed to get new access token");
+//   }
+// };
 export const changePassword = async (passwordData: string): Promise<any> => {
   try {
     const { data } = await axiosInstance.post(

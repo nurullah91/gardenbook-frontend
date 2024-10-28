@@ -114,7 +114,7 @@ export default async function Profile({ params }: IProfileProps) {
       <div>
         {userPosts?.data?.length > 0 ? (
           <div>
-            {" "}
+            <h3 className="text-2xl font-bold border-b-2 mb-6 py-2">Posts</h3>
             {userPosts?.data?.map((postData: TPost, index: number) => (
               <PostCard postData={postData} key={index} />
             ))}

@@ -100,7 +100,7 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
     if (isUserUpdateSuccess) {
       toast.success("User status updated");
     }
-    onClosePromote();
+    onCloseBlock();
   };
 
   return (

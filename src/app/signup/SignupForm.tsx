@@ -11,11 +11,15 @@ import GBInput from "@/src/components/form/GBInput";
 import { signupSchema } from "@/src/schema";
 import { signupUser } from "@/src/services/Auth";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { useUser } from "@/src/context/user.provider";
 
 export interface ILoginFormProps {}
 export default function SignupForm({}: ILoginFormProps) {
   const router = useRouter();
-
+  const [show, setShow] = useState(false);
+  const { setIsLoading: userLoading } = useUser();
   const {
     mutate: handleSignup,
     isPending,
@@ -41,12 +45,27 @@ export default function SignupForm({}: ILoginFormProps) {
   }
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleSignup(data);
+    userLoading(true);
   };
 
   return (
     <div>
       <GBForm resolver={zodResolver(signupSchema)} onSubmit={handleSubmit}>
-        <GBInput required label="Password" name="password" type="password" />
+        <div className="relative">
+          <GBInput
+            required
+            label="Password"
+            name="password"
+            type={`${show ? "text" : "password"}`}
+          />
+          <button
+            type="button"
+            className="absolute top-5 right-2"
+            onClick={() => setShow(!show)}
+          >
+            {show ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
         <GBInput required label="First Name" name="name.firstName" />
         <GBInput label="Middle Name" name="name.middleName" />
         <GBInput required label="Last Name" name="name.lastName" />

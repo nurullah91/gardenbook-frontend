@@ -56,6 +56,7 @@ export default function PostDetailsCard({ postData }: IPostDetailsCardProps) {
     handleCommentOnPost(JSON.stringify(commentData));
     if (isCommentOnPostSuccess) {
       toast.success("Comment added");
+      setCommentFocus(false);
     }
     if (isError) {
       toast.error("Failed to add comment");

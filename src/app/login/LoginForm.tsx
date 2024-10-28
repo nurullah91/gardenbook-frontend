@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { loginUser } from "@/src/services/Auth";
 import { loginSchema } from "@/src/schema";
@@ -44,21 +44,16 @@ export default function LoginForm({}: ILoginFormProps) {
   }
   if (isSuccess) {
     toast.success(data.message);
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
   }
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleLogin(data);
     userLoading(true);
   };
-
-  useEffect(() => {
-    if (!isPending && isSuccess) {
-      if (redirect) {
-        router.push(redirect);
-      } else {
-        router.push("/");
-      }
-    }
-  }, [isPending, isSuccess]);
 
   return (
     <div>
