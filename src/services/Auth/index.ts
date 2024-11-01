@@ -2,15 +2,18 @@
 
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
-import { FieldValues } from "react-hook-form";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
 import envConfig from "@/src/config/envConfig";
 
-export const signupUser = async (userData: FieldValues) => {
+export const signupUser = async (userData: string) => {
   try {
-    const { data } = await axiosInstance.post("/auth/signup", userData);
+    const { data } = await axiosInstance.post("/auth/signup", userData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
@@ -18,17 +21,21 @@ export const signupUser = async (userData: FieldValues) => {
       return data;
     }
   } catch (error: any) {
-    // Throw the error with the response from the backend
-    if (error.response) {
-      throw new Error(JSON.stringify(error.response.data)); // Stringify the response for passing it as a string
-    }
-    throw new Error(error.message || "Something went wrong");
+    // Return the error message for notify user
+    return {
+      success: false,
+      message: error?.response?.data?.message,
+    };
   }
 };
 
-export const loginUser = async (userData: FieldValues) => {
+export const loginUser = async (userData: string) => {
   try {
-    const { data } = await axiosInstance.post("/auth/login", userData);
+    const { data } = await axiosInstance.post("/auth/login", userData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
@@ -36,11 +43,11 @@ export const loginUser = async (userData: FieldValues) => {
       return data;
     }
   } catch (error: any) {
-    // Throw the error with the response from the backend
-    if (error.response) {
-      throw new Error(JSON.stringify(error.response.data)); // Stringify the response for passing it as a string
-    }
-    throw new Error(error.message || "Something went wrong");
+    // Return the error message for notify user
+    return {
+      success: false,
+      message: error?.response?.data?.message,
+    };
   }
 };
 

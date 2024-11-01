@@ -4,10 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { loginUser } from "@/src/services/Auth";
 import { loginSchema } from "@/src/schema";
 import GBInput from "@/src/components/form/GBInput";
 import GBForm from "@/src/components/form/GBForm";
@@ -15,6 +13,7 @@ import { useUser } from "@/src/context/user.provider";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { Link } from "@nextui-org/link";
+import { useLoginUser } from "@/src/hooks/user.hooks";
 
 export interface ILoginFormProps {}
 export default function LoginForm({}: ILoginFormProps) {
@@ -23,35 +22,23 @@ export default function LoginForm({}: ILoginFormProps) {
   const router = useRouter();
   const redirect = searchParams.get("redirect");
   const { setIsLoading: userLoading } = useUser();
-  const {
-    mutate: handleLogin,
-    isPending,
-    isError,
-    error,
-    isSuccess,
-    data,
-  } = useMutation({
-    mutationKey: ["USER_SIGNUP"],
-    mutationFn: async (userData: FieldValues) => await loginUser(userData),
-  });
+  const { mutate: handleLogin, isPending, data } = useLoginUser();
 
-  // Parse the error message from the backend
-  const backendError =
-    isError && error instanceof Error ? JSON.parse(error.message) : null;
-
-  if (isError) {
-    toast.error(backendError.message || "Something went wrong");
-  }
-  if (isSuccess) {
-    toast.success(data.message);
-    if (redirect) {
-      router.push(redirect);
-    } else {
-      router.push("/");
+  useEffect(() => {
+    if (data && !data?.success) {
+      toast.error(data?.message as string);
+    } else if (data && data?.success) {
+      toast.success(data.message);
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/");
+      }
     }
-  }
+  }, [data]);
+
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
-    handleLogin(data);
+    handleLogin(JSON.stringify(data));
     userLoading(true);
   };
 

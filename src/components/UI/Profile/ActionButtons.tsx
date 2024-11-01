@@ -1,7 +1,6 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
-import { useUpdateUserData } from "@/src/hooks/post.hook";
 import { TUser } from "@/src/types";
 import { useDisclosure } from "@nextui-org/modal";
 import { FieldValues } from "react-hook-form";
@@ -17,7 +16,11 @@ import { updateUserSchema } from "@/src/schema";
 import { useRouter } from "next/navigation";
 import { FiPlus } from "react-icons/fi";
 import { getFormateTime } from "@/src/utils/getFormateTime";
-import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hooks";
+import {
+  useFollowUser,
+  useUnfollowUser,
+  useUpdateUserData,
+} from "@/src/hooks/user.hooks";
 
 export interface IActionButtonsProps {
   userData: { user: TUser; followers: TUser[]; following: TUser[] };

@@ -74,7 +74,7 @@ const GBDrawer: React.FC = () => {
 
   useEffect(() => {
     handlePremiumContent();
-  }, [contentType]);
+  }, [contentType, sortOrder]);
 
   return (
     <div className="shadow-lg p-4 shadow-blue-600/30 md:h-screen h-fit md:w-60 w-full rounded-md">

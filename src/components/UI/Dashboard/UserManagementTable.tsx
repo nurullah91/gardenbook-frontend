@@ -21,9 +21,8 @@ import { useDisclosure } from "@nextui-org/modal";
 import GBModal from "../../modal/GBModal";
 import { Button } from "@nextui-org/button";
 import { useState } from "react";
-import { useUpdateUserData } from "@/src/hooks/post.hook";
 import { toast } from "sonner";
-import { useDeleteUser } from "@/src/hooks/user.hooks";
+import { useDeleteUser, useUpdateUserData } from "@/src/hooks/user.hooks";
 
 export default function UserManagementTable({ users }: { users: TUser[] }) {
   const [selectedUser, setSelectedUser] = useState("");

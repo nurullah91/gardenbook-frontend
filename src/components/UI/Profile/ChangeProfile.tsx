@@ -9,9 +9,9 @@ import { useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
-import { useUpdateProfilePicture } from "@/src/hooks/post.hook";
 import { TUser } from "@/src/types";
 import { IoMdAdd } from "react-icons/io";
+import { useUpdateProfilePicture } from "@/src/hooks/user.hooks";
 
 export interface IChangeProfileProps {
   userData: TUser;
