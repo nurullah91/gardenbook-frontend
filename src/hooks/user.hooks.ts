@@ -100,14 +100,6 @@ export const useResetPassword = (token: string) => {
     mutationKey: ["RESET_PASSWORD"],
     mutationFn: async (passwordData) =>
       await resetPassword(token, passwordData),
-
-    onSuccess: () => {
-      toast.success("Password reset successfully");
-    },
-
-    onError: (error) => {
-      toast.error(error.message);
-    },
   });
 };
 export const useUpdateProfilePicture = (userId: any) => {

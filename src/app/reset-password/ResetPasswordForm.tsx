@@ -23,22 +23,18 @@ export default function ResetPasswordForm({}: IResetPasswordFormProps) {
   const {
     mutate: handleReset,
     isPending,
-    isError,
-    error,
-    isSuccess,
     data,
   } = useResetPassword(resetToken as string);
 
-  // Parse the error message from the backend
-  const backendError =
-    isError && error instanceof Error ? JSON.parse(error.message) : null;
+  useEffect(() => {
+    if (data && data?.success) {
+      toast.success(data.message);
+      router.push("/login");
+    } else if (data && !data?.success) {
+      toast.error(data?.message as string);
+    }
+  }, [data]);
 
-  if (isError) {
-    toast.error(backendError.message || "Something went wrong");
-  }
-  if (isSuccess) {
-    toast.success(data.message);
-  }
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     const resetPasswordData = {
       ...data,
@@ -47,12 +43,6 @@ export default function ResetPasswordForm({}: IResetPasswordFormProps) {
 
     handleReset(JSON.stringify(resetPasswordData));
   };
-
-  useEffect(() => {
-    if (!isPending && isSuccess) {
-      router.push("/login");
-    }
-  }, [isPending, isSuccess]);
 
   return (
     <div>

@@ -18,7 +18,7 @@ export default function ResetPasswordPage() {
       <div>
         <ResetPasswordForm />
         <p className="text-sm">
-          New to Gardenbook? <Link href="/signup">signup</Link>
+          Remember password? <Link href="/login">login</Link>
         </p>
       </div>
     </div>

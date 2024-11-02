@@ -123,11 +123,10 @@ export const forgetPassword = async (userData: string) => {
       return data;
     }
   } catch (error: any) {
-    // Throw the error with the response from the backend
-    if (error.response) {
-      throw new Error(JSON.stringify(error.response.data)); // Stringify the response for passing it as a string
-    }
-    throw new Error(error.message || "Something went wrong");
+    return {
+      success: false,
+      message: error?.response?.data?.message,
+    };
   }
 };
 
@@ -150,12 +149,14 @@ export const resetPassword = async (
       fetchOption
     );
 
-    if (!res.ok) {
-      throw new Error("Failed to reset password");
-    }
+    const resultLog = await res.json();
 
-    return res.json();
-  } catch (error) {
-    throw new Error("Failed to reset password");
+    return resultLog;
+  } catch (error: any) {
+    return {
+      success: false,
+      message: "failed to reset password",
+    };
+    // throw new Error("Failed to reset password");
   }
 };

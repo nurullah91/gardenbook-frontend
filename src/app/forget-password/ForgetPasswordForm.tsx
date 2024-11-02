@@ -7,27 +7,24 @@ import { forgetPasswordSchema } from "@/src/schema";
 import GBInput from "@/src/components/form/GBInput";
 import GBForm from "@/src/components/form/GBForm";
 import { useForgetPassword } from "@/src/hooks/user.hooks";
+import { useEffect } from "react";
 
 export interface IForgetPasswordFormProps {}
 export default function ForgetPasswordForm({}: IForgetPasswordFormProps) {
   const {
     mutate: handleEmailSend,
     isPending,
-    isError,
-    error,
     isSuccess,
     data,
   } = useForgetPassword();
-  // Parse the error message from the backend
-  const backendError =
-    isError && error instanceof Error ? JSON.parse(error.message) : null;
 
-  if (isError) {
-    toast.error(backendError.message || "Something went wrong");
-  }
-  if (isSuccess) {
-    toast.success(data.message);
-  }
+  useEffect(() => {
+    if (data && !data?.success) {
+      toast.error(data?.message as string);
+    } else if (data && data?.success) {
+      toast.success(data.message);
+    }
+  }, [data]);
   const handleSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleEmailSend(JSON.stringify(data));
   };
