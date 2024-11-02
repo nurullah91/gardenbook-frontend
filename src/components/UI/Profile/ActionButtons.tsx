@@ -140,7 +140,7 @@ export default function ActionButtons({ userData }: IActionButtonsProps) {
             footerCancelButtonText="Ok"
           >
             Sorry. Your are not eligible for verify your account. To verify your
-            account you need to gain at least 1 upvote for verify your account
+            account you need to gain at least 1 upvote.
           </GBModal>
 
           {/* Modal for update user  */}

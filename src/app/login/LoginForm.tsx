@@ -77,6 +77,8 @@ export default function LoginForm({}: ILoginFormProps) {
           radius="sm"
           size="sm"
           type="submit"
+          fullWidth
+          color="primary"
         >
           {isPending ? "Logging in..." : "Login"}
         </Button>

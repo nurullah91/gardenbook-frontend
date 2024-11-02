@@ -38,34 +38,49 @@ export default function SignupForm({}: ILoginFormProps) {
   return (
     <div>
       <GBForm resolver={zodResolver(signupSchema)} onSubmit={handleSubmit}>
-        <div className="relative">
-          <GBInput
-            required
-            label="Password"
-            name="password"
-            type={`${show ? "text" : "password"}`}
-          />
-          <button
-            type="button"
-            className="absolute top-5 right-2"
-            onClick={() => setShow(!show)}
-          >
-            {show ? <FaEyeSlash /> : <FaEye />}
-          </button>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+          <div className="relative">
+            <GBInput
+              required
+              label="Password"
+              name="password"
+              type={`${show ? "text" : "password"}`}
+            />
+            <button
+              type="button"
+              className="absolute bottom-5 right-2"
+              onClick={() => setShow(!show)}
+            >
+              {show ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+          <div>
+            <GBInput required label="First Name" name="name.firstName" />
+          </div>
+          <div>
+            <GBInput label="Middle Name" name="name.middleName" />
+          </div>
+          <div>
+            <GBInput required label="Last Name" name="name.lastName" />
+          </div>
+          <div className="lg:col-span-2">
+            <GBInput required label="Email" name="email" type="email" />
+          </div>
+          <div className="lg:col-span-2">
+            <GBInput required label="Phone" name="phone" />
+          </div>
+          <div className="lg:col-span-2">
+            <GBInput required label="Address" name="address" />
+          </div>
         </div>
-        <GBInput required label="First Name" name="name.firstName" />
-        <GBInput label="Middle Name" name="name.middleName" />
-        <GBInput required label="Last Name" name="name.lastName" />
-        <GBInput required label="Email" name="email" type="email" />
-        <GBInput required label="Phone" name="phone" />
-        <GBInput required label="Address" name="address" />
-
         <Button
           className="mt-3"
           isDisabled={isPending}
           radius="sm"
           size="sm"
           type="submit"
+          fullWidth
+          color="primary"
         >
           {isPending ? "Loading..." : "Signup"}
         </Button>
