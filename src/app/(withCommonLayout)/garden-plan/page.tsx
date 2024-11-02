@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 // Dynamically import the GardenBuilder component as it's client-side
@@ -8,6 +9,11 @@ const GardenBuilder = dynamic(
   }
 );
 
+export const metadata: Metadata = {
+  title: "Custom Plan",
+  description:
+    "Make your custom garden plan. And download the plan as jpg or pdf",
+};
 export default function Home() {
   return (
     <div className="page-container">

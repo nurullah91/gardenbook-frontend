@@ -57,8 +57,8 @@ const GardenBuilder = () => {
           y: 0,
           w: 2,
           h: 2,
-          minW: 0,
-          minH: 0,
+          minW: 1,
+          minH: 1,
         },
       };
 
@@ -168,7 +168,7 @@ const GardenBuilder = () => {
               })),
             }}
             breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-            cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+            cols={{ lg: 40, md: 40, sm: 40, xs: 40, xxs: 40 }}
             rowHeight={10}
             compactType={null}
             preventCollision={true}
