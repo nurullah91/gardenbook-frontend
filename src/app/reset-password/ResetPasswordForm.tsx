@@ -72,6 +72,7 @@ export default function ResetPasswordForm({}: IResetPasswordFormProps) {
           radius="sm"
           size="sm"
           type="submit"
+          color="primary"
         >
           {isPending ? "Loading..." : "Reset password"}
         </Button>

@@ -38,11 +38,12 @@ export default function ForgetPasswordForm({}: IForgetPasswordFormProps) {
         <GBInput required label="Email" name="email" type="email" />
 
         <Button
-          className="mt-3"
+          className="my-3"
           isDisabled={isPending}
           radius="sm"
           size="sm"
           type="submit"
+          color="primary"
         >
           {isPending ? "Sending..." : "Send Email"}
         </Button>
