@@ -12,6 +12,12 @@ import { TUser } from "@/src/types";
 import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
 import Image from "next/image";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
 
 export interface IDrawerProps {
   onlineUsers: TUser[];
@@ -84,6 +90,61 @@ const GBDrawer = ({ onlineUsers }: IDrawerProps) => {
     handlePremiumContent();
   }, [contentType, sortOrder]);
 
+  // {user?.plan === "premium" && (
+  //   <div className="flex flex-row md:flex-col gap-3 flex-wrap sm:flex-nowrap">
+  //     <Button
+  //       variant="shadow"
+  //       size="sm"
+  //       fullWidth
+  //       onClick={}
+  //     >
+  //       Premium content
+  //     </Button>
+  //     <Button
+  //       variant="shadow"
+  //       size="sm"
+  //       fullWidth
+  //       onClick={() => setContentType("free")}
+  //     >
+  //       Free content
+  //     </Button>
+  //
+  //   </div>
+  // )}
+
+  const basicFilter = [
+    {
+      key: "sortByUpvote",
+      label: "Sort by upvote",
+      event: () => setSortOrder("upvoteCount"),
+    },
+    {
+      key: "reset",
+      label: "Reset",
+      event: () => handleReset(),
+    },
+  ];
+  const premiumFilter = [
+    {
+      key: "premium",
+      label: "Premium Content",
+      event: () => setContentType("premium"),
+    },
+    {
+      key: "free",
+      label: "Free Content",
+      event: () => setContentType("free"),
+    },
+    {
+      key: "all",
+      label: "All Content",
+      event: () => setContentType("all"),
+    },
+  ];
+
+  const filterItems =
+    user?.plan === "premium" ? [...premiumFilter, ...basicFilter] : basicFilter;
+
   return (
     <div className="shadow-lg p-4 shadow-blue-600/30 md:h-screen h-fit md:w-60 w-full rounded-md">
       <div className="block md:hidden">
@@ -113,45 +174,25 @@ const GBDrawer = ({ onlineUsers }: IDrawerProps) => {
           />
         </div>
         <div className="flex flex-col gap-3 mt-5">
-          <div>
-            <Button
-              size="sm"
-              fullWidth
-              onClick={() => setSortOrder("upvoteCount")}
-            >
-              Sort by upvote
-            </Button>
-          </div>
-          {user?.plan === "premium" && (
-            <div className="flex flex-row md:flex-col gap-3 flex-wrap sm:flex-nowrap">
-              <Button
-                variant="shadow"
-                size="sm"
-                fullWidth
-                onClick={() => setContentType("premium")}
-              >
-                Premium content
+          <Dropdown>
+            <DropdownTrigger>
+              <Button variant="shadow" size="sm" fullWidth>
+                Sort by
               </Button>
-              <Button
-                variant="shadow"
-                size="sm"
-                fullWidth
-                onClick={() => setContentType("free")}
-              >
-                Free content
-              </Button>
-              <Button
-                variant="shadow"
-                size="sm"
-                fullWidth
-                onClick={() => setContentType("all")}
-              >
-                All content
-              </Button>
-            </div>
-          )}
-
-          <Button onClick={handleReset}>Reset</Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Dynamic Actions" items={filterItems}>
+              {(item) => (
+                <DropdownItem
+                  key={item.key}
+                  color={item.key === "reset" ? "danger" : "default"}
+                  className={item.key === "delete" ? "text-danger" : ""}
+                  onClick={item.event}
+                >
+                  {item.label}
+                </DropdownItem>
+              )}
+            </DropdownMenu>
+          </Dropdown>
         </div>
       </div>
 
