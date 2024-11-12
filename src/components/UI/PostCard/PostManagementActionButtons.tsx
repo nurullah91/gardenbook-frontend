@@ -6,10 +6,10 @@ import { TPost } from "@/src/types";
 import { Button } from "@nextui-org/button";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import GBModal from "../modal/GBModal";
+import GBModal from "../../modal/GBModal";
 import { Select, SelectItem } from "@nextui-org/select";
 import { categories } from "@/src/config/categories";
-import TextEditor from "../TextEditor/TextEditor";
+import TextEditor from "../../TextEditor/TextEditor";
 import { useDisclosure } from "@nextui-org/modal";
 import {
   Dropdown,

@@ -19,22 +19,48 @@ import { usePathname, useRouter } from "next/navigation";
 import CreatePostModal from "./posts/CreatePost";
 import Link from "next/link";
 import { FiPlus } from "react-icons/fi";
+import { useUpdateUserData } from "../hooks/user.hooks";
+import { toast } from "sonner";
+import { Spinner } from "@nextui-org/spinner";
+import { useEffect } from "react";
 
 export interface INavbarButtonsProps {}
 
 export default function NavbarButtons({}: INavbarButtonsProps) {
-  const { user, setIsLoading: userLoading } = useUser();
+  const {
+    user,
+    setIsLoading: setUserLoading,
+    isLoading: userLoading,
+  } = useUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
-    logout();
-    userLoading(true);
-    if (protectedRoutes.some((route) => pathname.match(route))) {
-      router.push("/login");
+  const {
+    mutate: updateUserData,
+    isPending: logoutPending,
+    data: updateData,
+  } = useUpdateUserData(user?._id);
+
+  const handleLogout = async () => {
+    try {
+      updateUserData(JSON.stringify({ isOnline: false }));
+    } catch (error) {
+      toast.error("Failed to logout");
     }
   };
+
+  useEffect(() => {
+    if (updateData && !logoutPending) {
+      logout();
+      setUserLoading(true);
+      if (protectedRoutes.some((route) => pathname.match(route))) {
+        router.push("/login");
+      }
+
+      toast.success("Logout success");
+    }
+  }, [updateData]);
 
   const handleOpen = () => {
     onOpen();
@@ -89,6 +115,8 @@ export default function NavbarButtons({}: INavbarButtonsProps) {
             </DropdownMenu>
           </Dropdown>
         </div>
+      ) : logoutPending || userLoading ? (
+        <Spinner size="lg" />
       ) : (
         <NextLink
           className={clsx(

@@ -29,7 +29,6 @@ export default function PostCardButtons({
   const upvoteCount = post?.upvoteCount;
   const downvoteCount = post?.downvoteCount;
   const commentCount = post?.commentCount;
-  const contentType = post?.contentType;
   const _id = post?._id;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
@@ -162,15 +161,6 @@ export default function PostCardButtons({
             >
               <FaFilePdf className="text-2xl" />
             </button>
-          </Tooltip>
-          <Tooltip
-            content={`${contentType === "free" ? "Free content" : "Premium content"}`}
-          >
-            <div
-              className={`text-gray-500 text-sm px-3 py-1 border-2 ${contentType === "free" ? "border-green-500" : "border-orange-500"} rounded-full`}
-            >
-              <span className="font-semibold">{contentType}</span>
-            </div>
           </Tooltip>
         </div>
       </div>

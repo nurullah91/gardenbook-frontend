@@ -2,14 +2,22 @@
 
 import { Input } from "@nextui-org/input";
 import React, { useEffect, useState } from "react";
-import { SearchIcon } from "../icons";
+import { SearchIcon, VerifyBadgeIcon } from "../icons";
 import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { getAllPosts } from "@/src/services/Post";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
+import { TUser } from "@/src/types";
+import Link from "next/link";
+import { Tooltip } from "@nextui-org/tooltip";
+import Image from "next/image";
 
-const GBDrawer: React.FC = () => {
+export interface IDrawerProps {
+  onlineUsers: TUser[];
+}
+
+const GBDrawer = ({ onlineUsers }: IDrawerProps) => {
   const { user, setPosts } = useUser();
   const [search, setSearch] = useState<string>("");
   const [contentType, setContentType] = useState<string>("free");
@@ -144,6 +152,42 @@ const GBDrawer: React.FC = () => {
           )}
 
           <Button onClick={handleReset}>Reset</Button>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="font-semibold my-2">Active users</h4>
+        <div>
+          {onlineUsers?.map((user) => (
+            <div key={user._id} className="my-2">
+              <div className="flex gap-2 items-center justify-start">
+                <div className="relative">
+                  <Image
+                    src={user.profilePhoto}
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                    alt="user"
+                  />
+                  <span className="min-w-[10px] min-h-[10px] rounded-full bg-green-600 absolute bottom-0 right-0 border" />
+                </div>
+                <Link href={`/profile/${user?._id}`}>
+                  <h4 className="text-xs cursor-pointer">
+                    {`${user?.name.firstName} ${user?.name?.middleName} ${user?.name.lastName}`}
+                  </h4>
+                </Link>
+                {user?.plan === "premium" && (
+                  <span>
+                    <Tooltip content="Verified premium user">
+                      <button>
+                        <VerifyBadgeIcon size={18} />
+                      </button>
+                    </Tooltip>
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

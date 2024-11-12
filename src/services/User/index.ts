@@ -2,6 +2,7 @@
 
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { TQueryParam } from "@/src/types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -32,6 +33,7 @@ export const getActiveUsers = async (): Promise<any> => {
       },
     };
 
+    // use fetch method to cache the data and pre render
     const res = await fetch(
       `${envConfig.baseApi}/users/active/get-all-users`,
       fetchOption
@@ -42,6 +44,37 @@ export const getActiveUsers = async (): Promise<any> => {
     throw new Error("Failed to get active users data");
   }
 };
+
+export const getAllOnlineUsers = async (args: TQueryParam[]): Promise<any> => {
+  const params = new URLSearchParams();
+
+  if (args) {
+    args.forEach((item: TQueryParam) => {
+      params.append(item.name, item.value as string);
+    });
+  }
+  try {
+    const fetchOption = {
+      next: {
+        tags: ["onlineUsers"],
+      },
+    };
+
+    const res = await fetch(
+      `${envConfig.baseApi}/users/online/all-online-users?${params}`,
+      fetchOption
+    );
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
+};
+
 export const getMonthlyPayments = async (): Promise<any> => {
   try {
     const cookieStore = cookies();

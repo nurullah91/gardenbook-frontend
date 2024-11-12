@@ -6,9 +6,11 @@ import Image from "next/image";
 import moment from "moment";
 import styles from "./postContent.module.css";
 import { VerifyBadgeIcon } from "../../icons";
+import premiumBadge from "@/src/assets/premiumBadge.png";
+import freeBadge from "@/src/assets/freeBadge.png";
 import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
-import PostManagementActionButtons from "../../posts/PostManagementActionButtons";
+import PostManagementActionButtons from "./PostManagementActionButtons";
 
 interface PostCardContentProps {
   postData: TPost;
@@ -20,6 +22,7 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
   const user = postData?.user;
   const category = postData?.category;
   const createdAt = postData?.createdAt;
+  const contentType = postData?.contentType;
   const formattedDate = createdAt
     ? moment(createdAt).format("Do MMM YY, h:mm a")
     : "";
@@ -66,7 +69,21 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
                 </p>
               </div>
             </div>
-            <PostManagementActionButtons postData={postData} />
+            <div className="flex gap-2 items-center justify-center">
+              <Tooltip
+                content={`${contentType === "premium" ? "Premium content" : "Free content"}`}
+              >
+                <div>
+                  <Image
+                    src={contentType === "premium" ? premiumBadge : freeBadge}
+                    alt="Badge"
+                    height={30}
+                    width={30}
+                  />
+                </div>
+              </Tooltip>
+              <PostManagementActionButtons postData={postData} />
+            </div>
           </div>
 
           {/* Post Content */}
