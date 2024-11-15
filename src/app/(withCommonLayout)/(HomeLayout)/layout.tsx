@@ -15,7 +15,7 @@ export default async function layout({
   return (
     <div className="relative flex gap-2  flex-col md:flex-row">
       <div className="md:fixed">
-        <GBDrawer onlineUsers={onlineUsers?.data} />
+        <GBDrawer onlineUsers={onlineUsers?.data} meta={onlineUsers.meta} />
       </div>
       <div className="md:ml-64 w-full">{children}</div>
     </div>

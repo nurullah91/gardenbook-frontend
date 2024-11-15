@@ -44,7 +44,7 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
       </Link>
       {/* Comment Content */}
       <div className="flex flex-col rounded-xl relative w-full max-w-[600px]">
-        <div className="">
+        <div className="bg-default-100 p-4 rounded-md">
           <div className="flex gap-2 items-center justify-start">
             <Link href={`/profile/${comment.user?._id}`}>
               <h4 className="text-lg font-semibold cursor-pointer">
@@ -96,7 +96,7 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
           </div>
         </div>
         {/* Comment actions */}
-        <div className="flex items-center space-x-2 mt-1 text-xs text-gray-500">
+        <div className="flex items-center space-x-2 mt-1 ml-4 text-xs text-gray-500">
           <span className="mr-2">{getTimeFromNow(comment.createdAt)}</span>
 
           <button className="hover:underline">

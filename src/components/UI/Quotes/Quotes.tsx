@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { quotesData } from "./QuotesData";
-import "./quotesStyles.css";
 
 const Quotes = () => {
   const [quote, setQuote] = useState({ text: "", author: "" });
@@ -27,9 +26,9 @@ const Quotes = () => {
   }, []);
 
   return (
-    <div className="gardening-quote w-full h-fit lg:h-[120px] mb-6">
-      <p>&quot;{quote.text}&quot;</p>
-      <h4>- {quote.author || "Unknown"}</h4>
+    <div className="w-full h-fit my-5 text-center p-2 rounded-md shadow-lg shadow-default-300 bg-default-50">
+      <p className="text-xs italic">&quot;{quote.text}&quot;</p>
+      <h4 className="text-xs font-bold mt-2">- {quote.author || "Unknown"}</h4>
     </div>
   );
 };

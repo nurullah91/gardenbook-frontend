@@ -7,10 +7,10 @@ import moment from "moment";
 import styles from "./postContent.module.css";
 import { VerifyBadgeIcon } from "../../icons";
 import premiumBadge from "@/src/assets/premiumBadge.png";
-import freeBadge from "@/src/assets/freeBadge.png";
 import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
 import PostManagementActionButtons from "./PostManagementActionButtons";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 interface PostCardContentProps {
   postData: TPost;
@@ -74,12 +74,16 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
                 content={`${contentType === "premium" ? "Premium content" : "Free content"}`}
               >
                 <div>
-                  <Image
-                    src={contentType === "premium" ? premiumBadge : freeBadge}
-                    alt="Badge"
-                    height={30}
-                    width={30}
-                  />
+                  {contentType === "premium" ? (
+                    <Image
+                      src={premiumBadge}
+                      alt="Badge"
+                      height={30}
+                      width={30}
+                    />
+                  ) : (
+                    <RiVerifiedBadgeFill className="text-3xl text-green-500" />
+                  )}
                 </div>
               </Tooltip>
               <PostManagementActionButtons postData={postData} />
