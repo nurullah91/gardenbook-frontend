@@ -272,95 +272,97 @@ const GBDrawer = ({ onlineUsers, meta }: IDrawerProps) => {
           </button>
         </div>
         <div className={`md:flex flex-col ${openDrawer ? "block" : "hidden"}`}>
-          <div className="text-xl font-bold">
-            <Input
-              classNames={{
-                base: "w-full h-6",
-                mainWrapper: "h-full",
-                input: "text-small",
-                inputWrapper:
-                  "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-              }}
-              placeholder="Type to search..."
-              size="sm"
-              startContent={<SearchIcon size={18} />}
-              onChange={(e) => setSearch(e.target.value)}
-              type="search"
-            />
-          </div>
-          <div className="flex flex-col gap-3 mt-5">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button
-                  variant="shadow"
-                  size="sm"
-                  fullWidth
-                  endContent={<IoIosArrowDown />}
-                >
-                  Sort by
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Dynamic Actions" items={filterItems}>
-                {(item) => (
-                  <DropdownItem
-                    key={item.key}
-                    color={item.key === "reset" ? "danger" : "default"}
-                    className={item.key === "delete" ? "text-danger" : ""}
-                    onClick={item.event}
-                  >
-                    {item.label}
-                  </DropdownItem>
-                )}
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        </div>
-
-        {/* Active users */}
-        <div>
-          <h4 className="font-semibold my-2">
-            Active users ({meta.total} Online)
-          </h4>
           <div>
-            {onlineUsers?.map((user) => (
-              <div key={user._id} className="my-2">
-                <div className="flex gap-2 items-center justify-start">
-                  <div className="relative">
-                    <Image
-                      src={user.profilePhoto}
-                      width={30}
-                      height={30}
-                      className="rounded-full"
-                      alt="user"
-                    />
-                    <span className="min-w-[10px] min-h-[10px] rounded-full bg-green-600 absolute bottom-0 right-0 border" />
-                  </div>
-                  <Link href={`/profile/${user?._id}`}>
-                    <h4 className="text-xs cursor-pointer">
-                      {`${user?.name.firstName} ${user?.name?.middleName} ${user?.name.lastName}`}
-                    </h4>
-                  </Link>
-                  {user?.plan === "premium" && (
-                    <span>
-                      <Tooltip content="Verified premium user">
-                        <button>
-                          <VerifyBadgeIcon size={18} />
-                        </button>
-                      </Tooltip>
-                    </span>
+            <div className="text-xl font-bold">
+              <Input
+                classNames={{
+                  base: "w-full h-6",
+                  mainWrapper: "h-full",
+                  input: "text-small",
+                  inputWrapper:
+                    "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+                }}
+                placeholder="Type to search..."
+                size="sm"
+                startContent={<SearchIcon size={18} />}
+                onChange={(e) => setSearch(e.target.value)}
+                type="search"
+              />
+            </div>
+            <div className="flex flex-col gap-3 mt-5">
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button
+                    variant="shadow"
+                    size="sm"
+                    fullWidth
+                    endContent={<IoIosArrowDown />}
+                  >
+                    Sort by
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu aria-label="Dynamic Actions" items={filterItems}>
+                  {(item) => (
+                    <DropdownItem
+                      key={item.key}
+                      color={item.key === "reset" ? "danger" : "default"}
+                      className={item.key === "delete" ? "text-danger" : ""}
+                      onClick={item.event}
+                    >
+                      {item.label}
+                    </DropdownItem>
                   )}
-                </div>
-              </div>
-            ))}
+                </DropdownMenu>
+              </Dropdown>
+            </div>
           </div>
-          <button className="underline" onClick={handleMoreOnlineUser}>
-            see more
-          </button>
-        </div>
+          {/* Active users */}
+          <div>
+            <div>
+              <h4 className="font-semibold my-2">
+                Active users ({meta?.total} Online)
+              </h4>
+              <div>
+                {onlineUsers?.map((user) => (
+                  <div key={user._id} className="my-2">
+                    <div className="flex gap-2 items-center justify-start">
+                      <div className="relative">
+                        <Image
+                          src={user.profilePhoto}
+                          width={30}
+                          height={30}
+                          className="rounded-full"
+                          alt="user"
+                        />
+                        <span className="min-w-[10px] min-h-[10px] rounded-full bg-green-600 absolute bottom-0 right-0 border" />
+                      </div>
+                      <Link href={`/profile/${user?._id}`}>
+                        <h4 className="text-xs cursor-pointer">
+                          {`${user?.name.firstName} ${user?.name?.middleName} ${user?.name.lastName}`}
+                        </h4>
+                      </Link>
+                      {user?.plan === "premium" && (
+                        <span>
+                          <Tooltip content="Verified premium user">
+                            <button>
+                              <VerifyBadgeIcon size={18} />
+                            </button>
+                          </Tooltip>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button className="underline" onClick={handleMoreOnlineUser}>
+                see more
+              </button>
+            </div>
 
-        {/* Quote */}
-        <div>
-          <Quotes />
+            {/* Quote */}
+
+            <Quotes />
+          </div>
         </div>
       </div>
     </div>
