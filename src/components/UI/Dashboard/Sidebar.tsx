@@ -8,7 +8,7 @@ export default function Sidebar() {
   const [show, setShow] = useState<boolean>(false);
 
   return (
-    <div className="fixed left-0 top-14 lg:h-screen px-4 py-6 z-20 backdrop-blur-md lg:w-60 w-full shadow-lg p-4 shadow-blue-600/30">
+    <div className="sticky top-16 lg:h-[calc(100vh-66px)] px-4 py-6 z-20 backdrop-blur-md lg:w-60 w-full shadow-lg p-4 shadow-blue-600/30 rounded-lg">
       <div className="block lg:hidden">
         <button onClick={() => setShow(!show)}>
           {show ? (
