@@ -17,7 +17,7 @@ export default function PostCard({ postData }: IPostCardProps) {
 
   return (
     <div
-      className="shadow-md shadow-default-300 rounded-lg overflow-hidden mb-4 px-8 py-8 bg-default-100"
+      className="shadow-md shadow-default-300 rounded-lg overflow-hidden mb-4 p-6 bg-default-100"
       id={postData._id}
     >
       <PostCardContent postData={postData} />

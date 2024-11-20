@@ -20,15 +20,23 @@ import Link from "next/link";
 import { useDisclosure } from "@nextui-org/modal";
 import GBModal from "../../modal/GBModal";
 import { Button } from "@nextui-org/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useDeleteUser, useUpdateUserData } from "@/src/hooks/user.hooks";
+import { getAllUsers } from "@/src/services/User";
+import { Input } from "@nextui-org/input";
+import { SearchIcon } from "../../icons";
 
 export default function UserManagementTable({ users }: { users: TUser[] }) {
   const [selectedUser, setSelectedUser] = useState("");
   const [statusToChange, setStatusToChange] = useState("");
   const [roleToChange, setRoleToChange] = useState("");
+  // search user functionality
+  const [search, setSearch] = useState<string>("");
+  const [usersToDisplay, setUsersToDisplay] = useState<TUser[]>(users);
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
+  // Modal opening states
   const {
     isOpen: isOpenForDelete,
     onOpen: onOpenForDelete,
@@ -54,6 +62,39 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
 
   const { mutate: handleDeleteUser, isPending: isDeleteUserPending } =
     useDeleteUser();
+
+  // Search user
+  const getSearchedUser = async () => {
+    const data = await getAllUsers([
+      { name: "searchTerm", value: debouncedSearch },
+      { name: "page", value: 1 },
+      { name: "limit", value: 20 },
+      { name: "sort", value: "-createdAt" },
+    ]);
+    const newUsers: TUser[] = data?.data;
+
+    setUsersToDisplay(newUsers);
+  };
+
+  // Search user
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
+
+  // Fetch online user if debounce search is available
+  useEffect(() => {
+    if (debouncedSearch) {
+      getSearchedUser();
+    } else {
+      setUsersToDisplay(users);
+    }
+  }, [debouncedSearch]);
 
   //Delete Functions
   const handleDeleteModal = (userId: string) => {
@@ -156,7 +197,22 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
       >
         Are you sure? You want to block this user?
       </GBModal>
-
+      <div className="text-xl font-bold mb-6">
+        <Input
+          classNames={{
+            base: "w-full h-6",
+            mainWrapper: "h-full",
+            input: "text-small",
+            inputWrapper:
+              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+          }}
+          placeholder="Type to search..."
+          size="sm"
+          startContent={<SearchIcon size={18} />}
+          onChange={(e) => setSearch(e.target.value)}
+          type="search"
+        />
+      </div>
       <Table isStriped aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>USER</TableColumn>
@@ -165,7 +221,7 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
           <TableColumn>ACTIONS</TableColumn>
         </TableHeader>
         <TableBody>
-          {users?.map((user: TUser) => (
+          {usersToDisplay?.map((user: TUser) => (
             <TableRow key={user?._id}>
               <TableCell>
                 <div className="flex gap-2 items-center">
@@ -173,11 +229,11 @@ export default function UserManagementTable({ users }: { users: TUser[] }) {
                     <Avatar src={user.profilePhoto} size="sm" />
                   </div>
                   <div>
-                    <p className="font-semibold">
+                    <p className="font-semibold cursor-default">
                       {user?.name?.firstName} {user?.name?.middleName}{" "}
                       {user?.name?.lastName}
                     </p>
-                    <p className="text-xs">{user.email}</p>
+                    <p className="text-xs cursor-default">{user.email}</p>
                   </div>
                 </div>{" "}
               </TableCell>

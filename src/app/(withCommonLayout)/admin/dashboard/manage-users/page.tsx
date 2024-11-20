@@ -5,12 +5,22 @@ import { TUser } from "@/src/types";
 export interface IManageUsersProps {}
 export default async function ManageUsers({}: IManageUsersProps) {
   try {
-    const data = await getAllUsers();
+    const data = await getAllUsers([
+      { name: "page", value: 1 },
+      { name: "limit", value: 20 },
+      { name: "sort", value: "-createdAt" },
+    ]);
     const users: TUser[] = data?.data;
 
     return (
       <div>
-        <h2 className="text-4xl text-center">Manage users</h2>
+        <div className="text-3xl text-center font-semibold mb-3">
+          Manage users
+          <span className="text-xl font-bold ml-1">
+            (Total: {data?.meta?.total})
+          </span>
+        </div>
+
         <UserManagementTable users={users} />
       </div>
     );

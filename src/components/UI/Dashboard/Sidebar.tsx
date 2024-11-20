@@ -8,7 +8,7 @@ export default function Sidebar() {
   const [show, setShow] = useState<boolean>(false);
 
   return (
-    <div className="sticky top-16 lg:h-[calc(100vh-66px)] px-4 py-6 z-20 backdrop-blur-md lg:w-60 w-full shadow-lg p-4 shadow-blue-600/30 rounded-lg">
+    <div className="sticky top-16 lg:h-[calc(100vh-66px)] px-2 py-4 z-20 backdrop-blur-md lg:w-60 w-full shadow-lg shadow-default-200 rounded-lg">
       <div className="block lg:hidden">
         <button onClick={() => setShow(!show)}>
           {show ? (
@@ -24,19 +24,19 @@ export default function Sidebar() {
         >
           <Link
             href={"/admin/dashboard/manage-users"}
-            className="shadow-md py-3 px-2 rounded shadow-blue-600/20"
+            className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
           >
             Manage users
           </Link>
           <Link
             href={"/admin/dashboard/manage-content"}
-            className="shadow-md py-3 px-2 rounded shadow-blue-600/20"
+            className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
           >
             Manage Content
           </Link>
           <Link
             href={"/admin/dashboard/analytics"}
-            className="shadow-md py-3 px-2 rounded shadow-blue-600/20"
+            className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
           >
             Analytics
           </Link>

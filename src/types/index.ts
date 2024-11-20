@@ -18,6 +18,8 @@ export type TUser = {
   coverPhoto: string;
   totalDownvoteGained: number;
   totalUpvoteGained: number;
+  totalFollowers: number;
+  totalFollowing: number;
   status: "active" | "blocked";
   createdAt: Date;
   updatedAt: Date;

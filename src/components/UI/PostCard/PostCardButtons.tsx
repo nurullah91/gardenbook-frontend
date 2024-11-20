@@ -99,7 +99,7 @@ export default function PostCardButtons({
       >
         To interact with post you need to sign in first
       </GBModal>
-      <div className="flex justify-between items-center p-4 border-t mt-2">
+      <div className="flex justify-between items-center pt-2 border-t mt-4">
         <div className="flex space-x-4">
           {/* upvote */}
           <Tooltip content="Upvote">

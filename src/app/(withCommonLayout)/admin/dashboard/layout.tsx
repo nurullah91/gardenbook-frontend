@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Dashboard",
   description:
-    "About our gardenbook. Share and explore your thoughts about gardening",
+    "Dashboard of gardenbook for admin. Manage users, post's, show analytics",
 };
 
 export default function layout({ children }: { children: React.ReactNode }) {

@@ -33,7 +33,7 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
         <div>
           <div className="flex justify-between items-start">
             {/* User Info Section */}
-            <div className="flex items-center p-4">
+            <div className="flex items-center">
               <Link href={`/profile/${user?._id}`}>
                 <Image
                   width={48}

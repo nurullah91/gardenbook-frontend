@@ -6,9 +6,17 @@ import { TQueryParam } from "@/src/types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-export const getAllUsers = async (): Promise<any> => {
+export const getAllUsers = async (args: TQueryParam[]): Promise<any> => {
+  const params = new URLSearchParams();
+
+  if (args) {
+    args.forEach((item: TQueryParam) => {
+      params.append(item.name, item.value as string);
+    });
+  }
+
   try {
-    const { data } = await axiosInstance.get(`/users`);
+    const { data } = await axiosInstance.get(`/users?${params}`);
 
     revalidateTag("users");
 

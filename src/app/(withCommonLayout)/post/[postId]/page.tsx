@@ -4,7 +4,13 @@ import DisplayComments from "@/src/components/UI/Comments/DisplayComments";
 
 import { getSinglePost, getSinglePostComments } from "@/src/services/Post";
 import { TComment } from "@/src/types";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Post",
+  description:
+    "Details of a post with display comment and create a comment on a post",
+};
 export interface IPostDetailsProps {
   params: { postId: string };
 }

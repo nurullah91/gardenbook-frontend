@@ -23,7 +23,7 @@ import Quotes from "../UI/Quotes/Quotes";
 import GBModal from "../modal/GBModal";
 import { useDisclosure } from "@nextui-org/modal";
 import { getAllOnlineUsers } from "@/src/services/User";
-import { Spinner } from "@nextui-org/spinner";
+import UserLoadingSkeleton from "../UI/UserLoadingSkeleton";
 
 export interface IDrawerProps {
   onlineUsers: TUser[];
@@ -90,6 +90,7 @@ const GBDrawer = ({ onlineUsers, meta }: IDrawerProps) => {
     };
   }, [onlineUserSearch]);
 
+  // Fetch online user if debounce search is available
   useEffect(() => {
     if (debouncedOnlineUserSearch) {
       searchMoreOnlineUser();
@@ -197,9 +198,7 @@ const GBDrawer = ({ onlineUsers, meta }: IDrawerProps) => {
         footerCancelButtonText="Okay"
       >
         {moreOnlineUserLoading ? (
-          <div className="flex items-center justify-center w-full min-h-full">
-            <Spinner size="lg" />
-          </div>
+          <UserLoadingSkeleton />
         ) : moreOnlineUser.length ? (
           <div>
             <div className="mb-5">

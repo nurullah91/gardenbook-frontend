@@ -44,7 +44,7 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
       </Link>
       {/* Comment Content */}
       <div className="flex flex-col rounded-xl relative w-full max-w-[600px]">
-        <div className="bg-default-100 p-4 rounded-md">
+        <div className="bg-default-100 p-4 rounded-[20px]">
           <div className="flex gap-2 items-center justify-start">
             <Link href={`/profile/${comment.user?._id}`}>
               <h4 className="text-lg font-semibold cursor-pointer">

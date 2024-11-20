@@ -8,9 +8,15 @@ import { getUserPosts } from "@/src/services/Post";
 import { getUsersFollower } from "@/src/services/User";
 import { TPost, TUser } from "@/src/types";
 import { Tooltip } from "@nextui-org/tooltip";
+import { Metadata } from "next";
 import Image from "next/image";
 import { FaLocationDot } from "react-icons/fa6";
 
+export const metadata: Metadata = {
+  title: "Profile",
+  description:
+    "Profile of a user. View details of a user and manage user's details like profile photo cover photo bio etc by the owner of the profile",
+};
 export interface IProfileProps {
   params: { userId: string };
 }
