@@ -16,6 +16,7 @@ import NavbarButtons from "./NavbarButtons";
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
 import logo from "@/src/assets/logo-transparent.png";
+import { Tooltip } from "@nextui-org/tooltip";
 
 export const Navbar = () => {
   return (
@@ -31,7 +32,7 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">Gardenbook</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="hidden lg:flex gap-4 justify-end ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -42,7 +43,7 @@ export const Navbar = () => {
                 color="foreground"
                 href={item.href}
               >
-                {item.label}
+                <Tooltip content={item.label}>{item.icon}</Tooltip>
               </NextLink>
             </NavbarItem>
           ))}
@@ -79,6 +80,7 @@ export const Navbar = () => {
                 color="blue"
                 href={item.href}
               >
+                {item.icon}
                 {item.label}
               </NextLink>
             </NavbarItem>

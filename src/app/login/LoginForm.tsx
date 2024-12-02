@@ -23,6 +23,20 @@ export default function LoginForm({}: ILoginFormProps) {
   const redirect = searchParams.get("redirect");
   const { setIsLoading: userLoading } = useUser();
   const { mutate: handleLogin, isPending, data } = useLoginUser();
+  const [loginCredentials, setLoginCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const adminCredentials = {
+    email: "admin.gardenbook@gmail.com",
+    password: "admin1234",
+  };
+
+  const userCredentials = {
+    email: "user.gardenbook@gmail.com",
+    password: "user1234",
+  };
 
   useEffect(() => {
     if (data && !data?.success) {
@@ -44,7 +58,35 @@ export default function LoginForm({}: ILoginFormProps) {
 
   return (
     <div>
-      <GBForm onSubmit={handleSubmit} resolver={zodResolver(loginSchema)}>
+      <div>
+        <h3 className="text-orange-600 my-2 text-sm">
+          For Testing purpose of the website, here is some credentials
+        </h3>
+        <Button
+          size="sm"
+          className="mr-2 mb-2"
+          variant="bordered"
+          color="primary"
+          radius="lg"
+          onClick={() => setLoginCredentials(adminCredentials)}
+        >
+          Admin credentials
+        </Button>
+        <Button
+          size="sm"
+          variant="bordered"
+          color="primary"
+          radius="lg"
+          onClick={() => setLoginCredentials(userCredentials)}
+        >
+          User credentials
+        </Button>
+      </div>
+      <GBForm
+        onSubmit={handleSubmit}
+        resolver={zodResolver(loginSchema)}
+        defaultValues={loginCredentials}
+      >
         <GBInput required label="Email" name="email" type="email" />
         <div className="relative">
           <GBInput

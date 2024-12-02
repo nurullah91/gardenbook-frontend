@@ -21,6 +21,7 @@ export type TUser = {
   totalFollowers: number;
   totalFollowing: number;
   status: "active" | "blocked";
+  isOnline: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

@@ -41,7 +41,7 @@ export default function BestGardeners() {
         <div className="flex flex-col gap-2">
           {gardenersToDisplay.map((user) => (
             <div className="flex items-center" key={user._id}>
-              <Link href={`/profile/${user?._id}`}>
+              <Link href={`/profile/${user?._id}`} className="relative">
                 <Image
                   width={48}
                   height={48}
@@ -49,6 +49,9 @@ export default function BestGardeners() {
                   src={user?.profilePhoto}
                   alt={`${user?.name.firstName} ${user?.name.lastName}`}
                 />
+                {user.isOnline && (
+                  <span className="size-3 rounded-full bg-green-600 absolute bottom-0 right-0 border" />
+                )}
               </Link>
               <div className="ml-3">
                 <div>

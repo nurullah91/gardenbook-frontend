@@ -1,3 +1,9 @@
+import { LuHome } from "react-icons/lu";
+import { LuContact2 } from "react-icons/lu";
+import { BsInfoCircle } from "react-icons/bs";
+import { RiGalleryLine } from "react-icons/ri";
+import { VscGitPullRequestCreate } from "react-icons/vsc";
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
@@ -6,23 +12,29 @@ export const siteConfig = {
   navItems: [
     {
       label: "Feed",
+      icon: <LuHome className="text-2xl" />,
       href: "/",
     },
-    {
-      label: "Contact",
-      href: "/contact",
-    },
-    {
-      label: "About",
-      href: "/about",
-    },
+
     {
       label: "Gallery",
+      icon: <RiGalleryLine className="text-2xl" />,
       href: "/latest-photos",
     },
     {
       label: "Garden Plan",
+      icon: <VscGitPullRequestCreate className="text-2xl" />,
       href: "/garden-plan",
+    },
+    {
+      label: "Contact",
+      icon: <LuContact2 className="text-2xl" />,
+      href: "/contact",
+    },
+    {
+      label: "About",
+      icon: <BsInfoCircle className="text-2xl" />,
+      href: "/about",
     },
   ],
   navMenuItems: [

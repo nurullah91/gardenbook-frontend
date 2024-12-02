@@ -34,7 +34,7 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
           <div className="flex justify-between items-start">
             {/* User Info Section */}
             <div className="flex items-center">
-              <Link href={`/profile/${user?._id}`}>
+              <Link href={`/profile/${user?._id}`} className="relative">
                 <Image
                   width={48}
                   height={48}
@@ -42,6 +42,9 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
                   src={user?.profilePhoto}
                   alt={`${user?.name.firstName} ${user?.name.lastName}`}
                 />
+                {user.isOnline && (
+                  <span className="size-3 rounded-full bg-green-600 absolute bottom-0 right-0 border" />
+                )}
               </Link>
               <div className="ml-3">
                 <div className="flex gap-2 items-center justify-start">

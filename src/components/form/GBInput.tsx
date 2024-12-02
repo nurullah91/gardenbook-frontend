@@ -23,12 +23,17 @@ export default function GBInput({
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext();
+
+  const value = getValues(name);
 
   return (
     <div className="mt-3">
       <Input
         {...register(name)}
+        value={value}
+        onChange={(e) => register(name).onChange(e)}
         errorMessage={errors?.[name] ? (errors?.[name]?.message as string) : ""}
         isInvalid={!!errors[name]}
         label={label}
