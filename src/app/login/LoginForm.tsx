@@ -60,7 +60,7 @@ export default function LoginForm({}: ILoginFormProps) {
     <div>
       <div>
         <h3 className="text-orange-600 my-2 text-sm">
-          For Testing purpose of the website, here is some credentials
+          For Testing purpose of the website, here are some credentials
         </h3>
         <Button
           size="sm"

@@ -17,6 +17,7 @@ import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
 import logo from "@/src/assets/logo-transparent.png";
 import { Tooltip } from "@nextui-org/tooltip";
+import NavbarLinkIcon from "./NavbarLinkIcon";
 
 export const Navbar = () => {
   return (
@@ -32,6 +33,8 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">Gardenbook</p>
           </NextLink>
         </NavbarBrand>
+      </NavbarContent>
+      <NavbarContent justify="center">
         <ul className="hidden lg:flex gap-4 justify-end ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
@@ -43,13 +46,12 @@ export const Navbar = () => {
                 color="foreground"
                 href={item.href}
               >
-                <Tooltip content={item.label}>{item.icon}</Tooltip>
+                <NavbarLinkIcon navItem={item} />
               </NextLink>
             </NavbarItem>
           ))}
         </ul>
       </NavbarContent>
-
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
@@ -60,11 +62,12 @@ export const Navbar = () => {
         </NavbarItem>
 
         <NavbarItem className="hidden md:flex" />
+        <NavbarMenuToggle className="hidden sm:flex lg:hidden" />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <NavbarButtons />
         <ThemeSwitch />
+        <NavbarButtons />
         <NavbarMenuToggle />
       </NavbarContent>
 
@@ -80,8 +83,7 @@ export const Navbar = () => {
                 color="blue"
                 href={item.href}
               >
-                {item.icon}
-                {item.label}
+                <Tooltip content={item.label}>{item.icon}</Tooltip>
               </NextLink>
             </NavbarItem>
           ))}
