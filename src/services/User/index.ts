@@ -14,15 +14,27 @@ export const getAllUsers = async (args: TQueryParam[]): Promise<any> => {
       params.append(item.name, item.value as string);
     });
   }
-
   try {
-    const { data } = await axiosInstance.get(`/users?${params}`);
+    const fetchOption = {
+      next: {
+        tags: ["users"],
+      },
+    };
 
-    revalidateTag("users");
+    const res = await fetch(
+      `${envConfig.baseApi}/users?${params}`,
+      fetchOption
+    );
+    const data = await res.json();
 
     return data;
   } catch (error) {
-    throw new Error("Failed to get all users");
+    return {
+      success: false,
+      error: error,
+      data: [],
+      meta: {},
+    };
   }
 };
 

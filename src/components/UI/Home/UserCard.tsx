@@ -3,22 +3,13 @@ import { Tooltip } from "@nextui-org/tooltip";
 import Image from "next/image";
 import Link from "next/link";
 import { VerifyBadgeIcon } from "../../icons";
-import { getUsersFollower } from "@/src/services/User";
 import FollowUnfollowButton from "../FollowUnfollowButton";
 
 export interface IUserCardProps {
   user: TUser;
   cardType: "general" | "upvoteGained";
 }
-export default async function UserCard({ user, cardType }: IUserCardProps) {
-  const followerData = await getUsersFollower(user._id);
-
-  const userData: { user: TUser; followers: TUser[]; following: TUser[] } = {
-    user: followerData?.data?.user,
-    followers: followerData?.data?.followers,
-    following: followerData?.data?.following,
-  };
-
+export default function UserCard({ user, cardType }: IUserCardProps) {
   return (
     <div className="flex items-start mb-1" key={user._id}>
       <Link href={`/profile/${user?._id}`} className="relative">
@@ -52,7 +43,7 @@ export default async function UserCard({ user, cardType }: IUserCardProps) {
               </span>
             )}
 
-            <FollowUnfollowButton userData={userData} />
+            <FollowUnfollowButton userId={user._id} />
           </div>
         </div>
 

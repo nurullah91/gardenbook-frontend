@@ -2,25 +2,51 @@
 
 import { useUser } from "@/src/context/user.provider";
 import { useFollowUser, useUnfollowUser } from "@/src/hooks/user.hooks";
+import { getUsersFollower } from "@/src/services/User";
 import { TUser } from "@/src/types";
+import { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 
 export interface IFollowUnfollowButtonProps {
-  userData: { user: TUser; followers: TUser[]; following: TUser[] };
+  userId: string;
 }
 export default function FollowUnfollowButton({
-  userData,
+  userId,
 }: IFollowUnfollowButtonProps) {
-  const { user } = useUser();
-
   const { mutate: followUser, isPending: followIsPending } = useFollowUser();
   const { mutate: unfollowUser, isPending: unfollowIsPending } =
     useUnfollowUser();
+  const { user } = useUser();
+  const [userData, setUserData] = useState<{
+    user: TUser;
+    followers: TUser[];
+    following: TUser[];
+  } | null>(null);
+
+  const handleFetchFollower = async () => {
+    const followerData = await getUsersFollower(userId);
+
+    const userFollowerData: {
+      user: TUser;
+      followers: TUser[];
+      following: TUser[];
+    } = {
+      user: followerData?.data?.user,
+      followers: followerData?.data?.followers,
+      following: followerData?.data?.following,
+    };
+
+    setUserData(userFollowerData);
+  };
+
+  useEffect(() => {
+    handleFetchFollower();
+  }, []);
 
   const handleFollow = () => {
     const followData = {
       userId: user?._id,
-      targetUserId: userData.user._id,
+      targetUserId: userData?.user._id,
     };
 
     followUser(JSON.stringify(followData));
@@ -29,13 +55,13 @@ export default function FollowUnfollowButton({
   const handleUnFollow = () => {
     const followData = {
       userId: user?._id,
-      targetUserId: userData.user._id,
+      targetUserId: userData?.user._id,
     };
 
     unfollowUser(JSON.stringify(followData));
   };
 
-  const isFollowingThisUser = userData?.followers.find(
+  const isFollowingThisUser = userData?.followers?.find(
     (follower) => follower._id === user?._id
   );
 

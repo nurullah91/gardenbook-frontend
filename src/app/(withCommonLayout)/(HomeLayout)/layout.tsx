@@ -1,9 +1,7 @@
 import GBDrawer from "@/src/components/GBDrawer/GBDrawer";
-import BestGardeners from "@/src/components/UI/Home/BestGardeners";
-import PopularGardeners from "@/src/components/UI/Home/PopularGardeners";
-import UserLoadingSkeleton from "@/src/components/UI/UserLoadingSkeleton";
-import { getAllOnlineUsers } from "@/src/services/User";
-import { Suspense } from "react";
+import UserCard from "@/src/components/UI/Home/UserCard";
+import { getAllOnlineUsers, getAllUsers } from "@/src/services/User";
+import { TUser } from "@/src/types";
 
 export default async function layout({
   children,
@@ -16,6 +14,20 @@ export default async function layout({
     { name: "sort", value: "-updatedAt" },
   ]);
 
+  const popularGardeners = await getAllUsers([
+    { name: "page", value: 1 },
+    { name: "limit", value: 3 },
+    { name: "sort", value: "-totalFollowers" },
+  ]);
+  const popularGardenersToDisplay: TUser[] = popularGardeners?.data || [];
+
+  const bestGardeners = await getAllUsers([
+    { name: "page", value: 1 },
+    { name: "limit", value: 3 },
+    { name: "sort", value: "-totalUpvoteGained" },
+  ]);
+  const bestGardenersToDisplay: TUser[] = bestGardeners?.data || [];
+
   return (
     <div className="relative flex gap-4  flex-col md:flex-row">
       <div className="md:fixed">
@@ -27,17 +39,19 @@ export default async function layout({
           <div>
             {/* Best user */}
             <h1 className="font-bold mb-2 text-lg">Best Gardeners</h1>
-            <Suspense fallback={<UserLoadingSkeleton />}>
-              {/* @ts-ignore */}
-              <BestGardeners />
-            </Suspense>
+            <div className="flex flex-col gap-2">
+              {bestGardenersToDisplay.map((user) => (
+                <UserCard key={user._id} user={user} cardType="upvoteGained" />
+              ))}
+            </div>
 
             {/* Popular user's */}
             <h1 className="font-bold mb-2 mt-6 text-lg">Popular Gardeners</h1>
-            <Suspense fallback={<UserLoadingSkeleton />}>
-              {/* @ts-ignore */}
-              <PopularGardeners />
-            </Suspense>
+            <div className="flex flex-col gap-2">
+              {popularGardenersToDisplay?.map((user) => (
+                <UserCard user={user} key={user._id} cardType="general" />
+              ))}
+            </div>
           </div>
         </div>
       </div>
