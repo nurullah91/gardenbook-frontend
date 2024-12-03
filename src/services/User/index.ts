@@ -18,6 +18,7 @@ export const getAllUsers = async (args: TQueryParam[]): Promise<any> => {
     const fetchOption = {
       next: {
         tags: ["users"],
+        revalidate: 3600,
       },
     };
 
@@ -77,6 +78,7 @@ export const getAllOnlineUsers = async (args: TQueryParam[]): Promise<any> => {
     const fetchOption = {
       next: {
         tags: ["onlineUsers"],
+        revalidate: 1200,
       },
     };
 
