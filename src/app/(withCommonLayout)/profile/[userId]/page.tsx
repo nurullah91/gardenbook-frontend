@@ -50,7 +50,7 @@ export default async function Profile({ params }: IProfileProps) {
         </div>
 
         {/* Profile photo */}
-        <div className="rounded-full absolute left-1/2  bottom-0 transform -translate-x-1/2 lg:left-[200px] translate-y-1/2 border-3">
+        <div className="rounded-full absolute left-1/2  bottom-0 transform -translate-x-1/2 lg:left-[200px] translate-y-1/2 border-3 border-default-50">
           <div className="relative">
             <div className="w-[250px] h-[250px] ">
               <Image
@@ -60,8 +60,11 @@ export default async function Profile({ params }: IProfileProps) {
                 height={250}
                 className="rounded-full w-full h-full"
               />
+              {userData.user.isOnline && (
+                <span className="size-6 rounded-full bg-green-600 absolute bottom-6 right-6 border-2 border-default-50 z-0" />
+              )}
             </div>
-            <div className="absolute bottom-4 right-4">
+            <div className="absolute bottom-4 right-4 z-10">
               <ChangeProfile userData={userData.user} />
             </div>
           </div>

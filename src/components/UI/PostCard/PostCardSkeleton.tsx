@@ -2,7 +2,7 @@ import { Skeleton } from "@nextui-org/skeleton";
 
 export default function PostCardSkeleton() {
   return (
-    <div className="border p-4 rounded-lg shadow-lg">
+    <div className="border p-4 rounded-lg shadow-lg w-full">
       {/* User Info Skeleton */}
       <div className="flex items-center mb-4">
         <Skeleton className="rounded-full w-12 h-12" />

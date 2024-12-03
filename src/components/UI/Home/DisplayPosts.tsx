@@ -89,14 +89,12 @@ export default function DisplayPosts() {
   }, [inView]);
 
   return (
-    <div>
+    <div className="w-full">
       {posts &&
-        posts.map((post: TPost, index: number) => (
-          <PostCard postData={post} key={index} />
-        ))}
+        posts.map((post: TPost) => <PostCard postData={post} key={post._id} />)}
 
       {/* The div that triggers infinite scroll */}
-      <div ref={ref} className="mb-20">
+      <div ref={ref} className="mb-20 w-full">
         <PostCardSkeleton />
       </div>
     </div>

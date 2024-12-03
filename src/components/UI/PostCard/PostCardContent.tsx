@@ -16,7 +16,7 @@ interface PostCardContentProps {
   postData: TPost;
 }
 
-const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
+export default function PostCardContent({ postData }: PostCardContentProps) {
   const post = postData?.post;
   const postPhotos = postData?.postPhotos;
   const user = postData?.user;
@@ -128,6 +128,4 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ postData }) => {
       )}
     </div>
   );
-};
-
-export default PostCardContent;
+}

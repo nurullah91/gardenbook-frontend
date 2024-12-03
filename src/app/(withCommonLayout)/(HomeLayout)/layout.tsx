@@ -28,12 +28,14 @@ export default async function layout({
             {/* Best user */}
             <h1 className="font-bold mb-2 text-lg">Best Gardeners</h1>
             <Suspense fallback={<UserLoadingSkeleton />}>
+              {/* @ts-ignore */}
               <BestGardeners />
             </Suspense>
 
             {/* Popular user's */}
             <h1 className="font-bold mb-2 mt-6 text-lg">Popular Gardeners</h1>
             <Suspense fallback={<UserLoadingSkeleton />}>
+              {/* @ts-ignore */}
               <PopularGardeners />
             </Suspense>
           </div>
