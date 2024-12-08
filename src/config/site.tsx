@@ -12,28 +12,28 @@ export const siteConfig = {
   navItems: [
     {
       label: "Feed",
-      icon: <LuHome className="text-2xl" />,
+      icon: <LuHome className="text-3xl" />,
       href: "/",
     },
 
     {
       label: "Gallery",
-      icon: <RiGalleryLine className="text-2xl" />,
+      icon: <RiGalleryLine className="text-3xl" />,
       href: "/latest-photos",
     },
     {
       label: "Garden Plan",
-      icon: <VscGitPullRequestCreate className="text-2xl" />,
+      icon: <VscGitPullRequestCreate className="text-3xl" />,
       href: "/garden-plan",
     },
     {
       label: "Contact",
-      icon: <LuContact2 className="text-2xl" />,
+      icon: <LuContact2 className="text-3xl" />,
       href: "/contact",
     },
     {
       label: "About",
-      icon: <BsInfoCircle className="text-2xl" />,
+      icon: <BsInfoCircle className="text-3xl" />,
       href: "/about",
     },
   ],

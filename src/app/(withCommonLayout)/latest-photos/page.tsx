@@ -1,4 +1,4 @@
-import ImageGallery from "@/src/components/ImageGallery/ImageGallery";
+import RecentImageGallery from "@/src/components/ImageGallery/RecentImageGallery";
 import { getLatestPhotos } from "@/src/services/Post";
 
 export default async function LatestPhotos() {
@@ -9,7 +9,7 @@ export default async function LatestPhotos() {
       <h1 className="text-3xl font-bold text-center my-4">
         Latest gardening photos
       </h1>
-      <ImageGallery images={photosData?.data} />
+      <RecentImageGallery images={photosData?.data} />
     </div>
   );
 }
