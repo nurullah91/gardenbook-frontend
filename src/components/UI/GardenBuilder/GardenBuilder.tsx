@@ -35,7 +35,7 @@ interface DragItem {
 
 const GardenBuilder = () => {
   const [gardenElements, setGardenElements] = useState<GardenElement[]>([]);
-  const [nextId, setNextId] = useState(0); // Keeps track of IDs for elements
+  const [nextId, setNextId] = useState(0);
   const gardenRef = useRef<HTMLDivElement>(null);
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -82,7 +82,7 @@ const GardenBuilder = () => {
     }, [drag]);
 
     return (
-      <div ref={ref} className="plant-icon cursor-pointer p-2">
+      <div ref={ref} className="plant-icon bg-success-200 cursor-pointer p-2">
         {content}
       </div>
     );
@@ -103,7 +103,7 @@ const GardenBuilder = () => {
     }, [drag]);
 
     return (
-      <div ref={ref} className="text-icon cursor-pointer p-2">
+      <div ref={ref} className="text-icon bg-success-200 cursor-pointer p-2">
         {content}
       </div>
     );
@@ -143,6 +143,10 @@ const GardenBuilder = () => {
     }
   };
 
+  const resetGarden = () => {
+    setGardenElements([]);
+  };
+
   return (
     <div className="garden-builder-container p-4">
       <div className="toolbar flex gap-4 mb-4">
@@ -155,8 +159,15 @@ const GardenBuilder = () => {
 
       <div
         ref={dropRef}
-        className="garden-canvas border border-dashed border-gray-300 p-4  relative"
+        className="garden-canvas bg-default-200 border border-dashed border-default-500 p-4 relative"
       >
+        {gardenElements.length === 0 && (
+          <div className="my-8 text-default-500 text-2xl text-center">
+            Drag and drop elements here and resize or move anywhere you need to
+            build your garden!
+          </div>
+        )}
+
         <div ref={gardenRef}>
           <ResponsiveGridLayout
             className="layout"
@@ -180,8 +191,6 @@ const GardenBuilder = () => {
                   return {
                     ...el,
                     layout: layoutItem,
-                    minW: el.layout.minW,
-                    minH: el.layout.minH,
                   };
                 }
 
@@ -194,7 +203,7 @@ const GardenBuilder = () => {
             {gardenElements.map((el) => (
               <div
                 key={el.id}
-                className={`garden-item border-2 border-gray-600 flex items-center justify-center w-full h-full ${el.content === "Footpath" ? "bg-gray-400" : "bg-green-200"} overflow-hidden`}
+                className={`garden-item border-2 border-default-600 flex items-center justify-center w-full h-full ${el.content === "Footpath" ? "bg-default-400" : "bg-success-200"} cursor-move overflow-hidden`}
                 data-grid={el.layout}
               >
                 {el.content}
@@ -204,15 +213,15 @@ const GardenBuilder = () => {
         </div>
       </div>
 
-      <div className="actions mt-4">
-        <button
-          onClick={downloadGardenAsImage}
-          className="btn btn-primary mr-4"
-        >
+      <div className="actions mt-4 flex gap-4">
+        <button onClick={downloadGardenAsImage} className="btn btn-primary">
           Download as Image
         </button>
         <button onClick={downloadGardenAsPDF} className="btn btn-secondary">
           Download as PDF
+        </button>
+        <button onClick={resetGarden} className="btn btn-warning">
+          Reset Garden
         </button>
       </div>
     </div>

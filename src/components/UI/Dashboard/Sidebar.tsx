@@ -23,6 +23,12 @@ export default function Sidebar() {
           className={`flex lg:flex flex-col gap-2 ${show ? "block" : "hidden"}`}
         >
           <Link
+            href={"/admin/dashboard"}
+            className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
+          >
+            Analytics
+          </Link>
+          <Link
             href={"/admin/dashboard/manage-users"}
             className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
           >
@@ -33,12 +39,6 @@ export default function Sidebar() {
             className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
           >
             Manage Content
-          </Link>
-          <Link
-            href={"/admin/dashboard/analytics"}
-            className="shadow-md py-3 px-2 rounded shadow-default-200 bg-default-100 w-full text-center"
-          >
-            Analytics
           </Link>
         </div>
       </div>

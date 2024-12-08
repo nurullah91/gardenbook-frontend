@@ -38,8 +38,8 @@ export default async function Profile({ params }: IProfileProps) {
         <div>
           {/* Cover Photo */}
           <Image
-            src={userData.user.coverPhoto}
-            alt={`Cover Photo of ${userData.user.name?.firstName} ${userData.user.name?.middleName} ${userData.user.name?.lastName}`}
+            src={userData?.user?.coverPhoto}
+            alt={`Cover Photo of ${userData.user?.name?.firstName} ${userData.user?.name?.middleName} ${userData.user?.name?.lastName}`}
             width={1250}
             height={700}
             className="w-full max-h-[300px]"
@@ -54,18 +54,18 @@ export default async function Profile({ params }: IProfileProps) {
           <div className="relative">
             <div className="w-[250px] h-[250px] ">
               <Image
-                src={userData.user.profilePhoto}
-                alt={`Profile Photo of ${userData.user.name?.firstName} ${userData.user.name?.middleName} ${userData.user.name?.lastName}`}
+                src={userData?.user?.profilePhoto}
+                alt={`Profile Photo of ${userData?.user?.name?.firstName} ${userData?.user?.name?.middleName} ${userData?.user?.name?.lastName}`}
                 width={250}
                 height={250}
                 className="rounded-full w-full h-full"
               />
-              {userData.user.isOnline && (
+              {userData?.user?.isOnline && (
                 <span className="size-6 rounded-full bg-green-600 absolute bottom-6 right-6 border-2 border-default-50 z-0" />
               )}
             </div>
             <div className="absolute bottom-4 right-4 z-10">
-              <ChangeProfile userData={userData.user} />
+              <ChangeProfile userData={userData?.user} />
             </div>
           </div>
         </div>
