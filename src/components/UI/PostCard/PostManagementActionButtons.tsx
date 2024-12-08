@@ -178,7 +178,7 @@ export default function PostManagementActionButtons({
         <div className="flex flex-col gap-2">
           <Dropdown>
             <DropdownTrigger>
-              <Button variant="flat" size="sm">
+              <Button variant="ghost" size="sm" radius="full">
                 ...
               </Button>
             </DropdownTrigger>

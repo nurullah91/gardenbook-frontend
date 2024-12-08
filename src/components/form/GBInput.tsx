@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@nextui-org/input";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 interface IProps {
   variant?: "flat" | "bordered" | "faded" | "underlined";
@@ -21,26 +21,29 @@ export default function GBInput({
   name,
 }: IProps) {
   const {
-    register,
+    control,
     formState: { errors },
-    getValues,
   } = useFormContext();
-
-  const value = getValues(name);
 
   return (
     <div className="mt-3">
-      <Input
-        {...register(name)}
-        value={value}
-        onChange={(e) => register(name).onChange(e)}
-        errorMessage={errors?.[name] ? (errors?.[name]?.message as string) : ""}
-        isInvalid={!!errors[name]}
-        label={label}
-        required={required}
-        size={size}
-        type={type}
-        variant={variant}
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            errorMessage={
+              errors?.[name] ? (errors?.[name]?.message as string) : ""
+            }
+            isInvalid={!!errors[name]}
+            label={label}
+            required={required}
+            size={size}
+            type={type}
+            variant={variant}
+          />
+        )}
       />
     </div>
   );

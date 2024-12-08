@@ -3,6 +3,13 @@ import React from "react";
 
 import SignupForm from "./SignupForm";
 import SignupAnimation from "@/src/components/UI/SignupAnimation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Signup",
+  description:
+    "About our gardenbook. Share and explore your thoughts about gardening",
+};
 
 const Singnup = () => {
   return (
