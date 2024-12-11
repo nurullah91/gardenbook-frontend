@@ -14,7 +14,7 @@ export default function Contact({}: IContactProps) {
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 mb-12 w-full">
         <div className="mt-8">
-          <h3 className="text-2xl font-semibold mb-2">Get in Touch</h3>
+          <h3 className="text-2xl font-semibold mb-4">Get in Touch</h3>
           <p className="text-md text-gray-600">
             Email:{" "}
             <a
