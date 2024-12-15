@@ -19,7 +19,7 @@ export default function NavbarLinkIcon({ navItem }: INavbarLinkIconProps) {
     <>
       <Tooltip content={navItem.label}>
         <button
-          className={`py-3 px-8 hover:bg-default-300 hover:rounded-lg ${activeRoute ? "border-b-3 text-blue-500 border-blue-500" : "text-default-600"}`}
+          className={`py-3 px-8 ${activeRoute ? "border-b-3 text-blue-500 border-blue-500" : "text-default-600 hover:rounded-lg hover:bg-default-300"}`}
         >
           {navItem.icon}
         </button>

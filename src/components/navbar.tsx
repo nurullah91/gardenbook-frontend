@@ -16,7 +16,6 @@ import NavbarButtons from "./NavbarButtons";
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
 import logo from "@/src/assets/logo-transparent.png";
-import { Tooltip } from "@nextui-org/tooltip";
 import NavbarLinkIcon from "./NavbarLinkIcon";
 
 export const Navbar = () => {
@@ -83,7 +82,7 @@ export const Navbar = () => {
                 color="blue"
                 href={item.href}
               >
-                <Tooltip content={item.label}>{item.icon}</Tooltip>
+                <NavbarLinkIcon navItem={item} />
               </NextLink>
             </NavbarItem>
           ))}

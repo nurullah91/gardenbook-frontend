@@ -35,16 +35,19 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
   return (
     <div key={comment._id} className="flex items-start space-x-3">
       {/* User Avatar */}
-      <Link href={`/profile/${comment.user?._id}`}>
+      <Link
+        href={`/profile/${comment.user?._id}`}
+        className="size-10 rounded-full"
+      >
         <img
           src={comment.user.profilePhoto}
           alt={`${comment.user?.name?.firstName} ${comment.user?.name?.middleName} ${comment.user?.name?.lastName}`}
-          className="w-10 h-10 rounded-full"
+          className="w-full rounded-full"
         />
       </Link>
       {/* Comment Content */}
       <div className="flex flex-col rounded-xl relative w-full max-w-[600px]">
-        <div className="bg-default-100 p-4 rounded-[20px]">
+        <div className="bg-default-100 px-4 py-3 rounded-[20px]">
           <div className="flex gap-2 items-center justify-start">
             <Link href={`/profile/${comment.user?._id}`}>
               <h4 className="text-lg font-semibold cursor-pointer">
@@ -65,7 +68,7 @@ export default function DisplayComments({ comment }: IDisplayCommentsProps) {
           <div>
             {/* Update comment field */}
             {commentFocus ? (
-              <div className="my-2 relative w-full">
+              <div className="relative w-full">
                 <GBForm
                   onSubmit={handleCommentPost}
                   resolver={zodResolver(CommentSchema)}

@@ -3,7 +3,6 @@
 import { useUser } from "@/src/context/user.provider";
 import { useDeleteComment } from "@/src/hooks/post.hook";
 import { TComment } from "@/src/types";
-import { Button } from "@nextui-org/button";
 import {
   Dropdown,
   DropdownItem,
@@ -32,9 +31,9 @@ export default function CommentActionButtons({
       {user?._id === comment?.user?._id && (
         <Dropdown>
           <DropdownTrigger>
-            <Button variant="flat" size="sm">
+            <button className="py-1 px-2 rounded-full hover:bg-default-300">
               ...
-            </Button>
+            </button>
           </DropdownTrigger>
 
           <DropdownMenu aria-label="Static Actions">
