@@ -178,9 +178,9 @@ export default function PostManagementActionButtons({
         <div className="flex flex-col gap-2">
           <Dropdown>
             <DropdownTrigger>
-              <Button variant="ghost" size="sm" radius="full">
+              <button className="py-1 px-2 rounded-full hover:bg-default-300">
                 ...
-              </Button>
+              </button>
             </DropdownTrigger>
 
             <DropdownMenu aria-label="Static Actions">
