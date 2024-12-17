@@ -3,12 +3,16 @@ import Link from "next/link";
 import { FaFacebook } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import { Metadata } from "next";
 
-export interface IContactProps {}
-export default function Contact({}: IContactProps) {
+export const metadata: Metadata = {
+  title: "Support",
+  description: "Support and details of contact information",
+};
+export default function SupportPage() {
   return (
     <section>
-      <div className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <div className="flex flex-col items-center justify-center gap-4">
         <ContactForm />
       </div>
 

@@ -8,7 +8,7 @@ import { useDisclosure } from "@nextui-org/modal";
 import { useUser } from "@/src/context/user.provider";
 import GBModal from "../../modal/GBModal";
 import { Button } from "@nextui-org/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GBForm from "../../form/GBForm";
 import { FieldValues } from "react-hook-form";
 import GBInput from "../../form/GBInput";
@@ -54,6 +54,9 @@ export default function PostDetailsCard({ postData }: IPostDetailsCardProps) {
     };
 
     handleCommentOnPost(JSON.stringify(commentData));
+  };
+
+  useEffect(() => {
     if (isCommentOnPostSuccess) {
       toast.success("Comment added");
       setCommentFocus(false);
@@ -61,7 +64,7 @@ export default function PostDetailsCard({ postData }: IPostDetailsCardProps) {
     if (isError) {
       toast.error("Failed to add comment");
     }
-  };
+  }, [isCommentOnPostSuccess]);
 
   return (
     <div>
@@ -94,7 +97,7 @@ export default function PostDetailsCard({ postData }: IPostDetailsCardProps) {
               disabled={isCommentOnPostPending}
             >
               <IoIosSend
-                className={`${isCommentOnPostPending ? "text-gray-500" : "text-blue-500"} text-2xl`}
+                className={`${isCommentOnPostPending ? "text-gray-500 cursor-wait" : "text-blue-500"} text-2xl`}
               />
             </button>
           </GBForm>

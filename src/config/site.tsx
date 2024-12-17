@@ -1,9 +1,8 @@
 import { LuHome } from "react-icons/lu";
-import { LuContact2 } from "react-icons/lu";
 import { BsInfoCircle } from "react-icons/bs";
 import { RiGalleryLine } from "react-icons/ri";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
-
+import { BiSupport } from "react-icons/bi";
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
@@ -27,9 +26,9 @@ export const siteConfig = {
       href: "/garden-plan",
     },
     {
-      label: "Contact",
-      icon: <LuContact2 className="text-3xl" />,
-      href: "/contact",
+      label: "Support",
+      icon: <BiSupport className="text-3xl" />,
+      href: "/support",
     },
     {
       label: "About",

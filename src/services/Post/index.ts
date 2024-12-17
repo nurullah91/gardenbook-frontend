@@ -211,7 +211,7 @@ export const createComment = async (commentData: any): Promise<any> => {
     });
 
     revalidateTag("posts");
-    revalidateTag("comment");
+    revalidateTag("singlePostComments");
 
     return data;
   } catch (error) {
@@ -233,7 +233,7 @@ export const updateComment = async (
       }
     );
 
-    revalidateTag("comment");
+    revalidateTag("singlePostComments");
 
     return data;
   } catch (error) {
@@ -246,7 +246,7 @@ export const getSinglePostComments = async (postId: string): Promise<any> => {
     const { data } = await axiosInstance.get(`/comment/${postId}`);
 
     revalidateTag("posts");
-    revalidateTag("comment");
+    revalidateTag("singlePostComments");
 
     return data;
   } catch (error) {
