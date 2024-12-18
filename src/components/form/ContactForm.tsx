@@ -12,7 +12,7 @@ export default function ContactForm({}: IContactFormProps) {
   };
 
   return (
-    <div className="inline-block max-w-lg justify-center">
+    <div>
       <GBModal
         isOpen={isOpen}
         onClose={onClose}
@@ -23,13 +23,13 @@ export default function ContactForm({}: IContactFormProps) {
         letter.
       </GBModal>
 
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto">
         <h1 className="text-3xl font-bold mb-4 text-center">Contact Us</h1>
         <p className="mb-8 text-center">
           We&apos;d love to hear from you! Please fill out the form below and
           we&apos;ll get in touch with you shortly.
         </p>
-        <div className="shadow-md shadow-blue-600/20 rounded p-6">
+        <div className="shadow-md shadow-blue-600/20 rounded p-4">
           <form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="name">

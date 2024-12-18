@@ -7,6 +7,8 @@ import { Metadata } from "next";
 import FAQAccordion from "@/src/components/Accordion/FAQAccordion";
 import Image from "next/image";
 import FAQImage from "@/src/assets/Question.png";
+import contactImage from "@/src/assets/contactImage.png";
+
 export const metadata: Metadata = {
   title: "Support",
   description: "Support and details of contact information",
@@ -45,7 +47,13 @@ export default function SupportPage() {
       </div>
 
       {/* Contact form section */}
-      <div className="flex flex-col items-center justify-center gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+        <Image
+          src={contactImage}
+          alt="Contact Image"
+          width={500}
+          className="w-full max-w-[500px] mx-auto"
+        />
         <ContactForm />
       </div>
 
