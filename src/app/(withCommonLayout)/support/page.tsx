@@ -4,7 +4,9 @@ import { FaFacebook } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { Metadata } from "next";
-
+import FAQAccordion from "@/src/components/Accordion/FAQAccordion";
+import Image from "next/image";
+import FAQImage from "@/src/assets/Question.png";
 export const metadata: Metadata = {
   title: "Support",
   description: "Support and details of contact information",
@@ -12,6 +14,37 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <section>
+      <h2 className="text-3xl font-semibold text-end mb-6 px-2">Help center</h2>
+      <div className="px-2 mb-6">
+        <h3 className="text-2xl font-bold">
+          Need Help? We&apos;re Here for You!
+        </h3>
+        <p className="w-full max-w-[800px]">
+          We&apos;re committed to providing the best experience possible. Check
+          out our FAQs for quick answers, share your feedback to help us
+          improve, or use the form below to get in touch with our team. Connect
+          with us on social media for updates and more!
+        </p>
+      </div>
+
+      {/* FAQ */}
+      <div className="flex lg:flex-row flex-col-reverse gap-4 justify-between items-center">
+        <div className="w-full lg:w-2/3">
+          <FAQAccordion />
+        </div>
+        <div className="w-full lg:w-1/3 mb-4 lg:mb-0">
+          <h3 className="font-bold text-xl">Frequently Asked Questions</h3>
+          <p>Find answers to common questions and solve issues instantly</p>
+          <Image
+            src={FAQImage}
+            alt="FAQ Image"
+            width={500}
+            className="w-full max-w-[500px] mx-auto"
+          />
+        </div>
+      </div>
+
+      {/* Contact form section */}
       <div className="flex flex-col items-center justify-center gap-4">
         <ContactForm />
       </div>
