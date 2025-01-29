@@ -12,7 +12,7 @@ import { FieldValues } from "react-hook-form";
 import { useState } from "react";
 import { useUpdateComment } from "@/src/hooks/post.hook";
 import GBTextarea from "../../form/GBTextarea";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import { VerifyBadgeIcon } from "../../icons";
 
 export interface IDisplayCommentsProps {

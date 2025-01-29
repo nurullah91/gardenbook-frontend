@@ -1,16 +1,16 @@
 "use client";
 
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import React, { useEffect, useState } from "react";
 import { SearchIcon, VerifyBadgeIcon } from "../icons";
 import { useUser } from "@/src/context/user.provider";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { getAllPosts } from "@/src/services/Post";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import { TUser } from "@/src/types";
 import Link from "next/link";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 import {
@@ -18,10 +18,10 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 import Quotes from "../UI/Quotes/Quotes";
 import GBModal from "../modal/GBModal";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import { getAllOnlineUsers } from "@/src/services/User";
 import UserLoadingSkeleton from "../UI/UserLoadingSkeleton";
 

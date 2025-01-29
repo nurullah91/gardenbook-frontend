@@ -2,9 +2,9 @@
 
 import { IoCamera } from "react-icons/io5";
 import GBModal from "../../modal/GBModal";
-import { Button } from "@nextui-org/button";
-import { useDisclosure } from "@nextui-org/modal";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Button } from "@heroui/button";
+import { useDisclosure } from "@heroui/modal";
+import { Tooltip } from "@heroui/tooltip";
 import { useState } from "react";
 import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";

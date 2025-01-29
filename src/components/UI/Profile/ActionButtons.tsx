@@ -2,13 +2,13 @@
 
 import { useUser } from "@/src/context/user.provider";
 import { TUser } from "@/src/types";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import GBModal from "../../modal/GBModal";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { FaEdit } from "react-icons/fa";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import GBForm from "../../form/GBForm";
 import GBInput from "../../form/GBInput";
 import { zodResolver } from "@hookform/resolvers/zod";

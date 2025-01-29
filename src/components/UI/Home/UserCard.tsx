@@ -1,5 +1,5 @@
 import { TUser } from "@/src/types";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import Image from "next/image";
 import Link from "next/link";
 import { VerifyBadgeIcon } from "../../icons";

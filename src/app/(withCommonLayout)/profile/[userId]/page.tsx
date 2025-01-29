@@ -7,7 +7,7 @@ import DisplayFlowerFlowing from "@/src/components/UI/Profile/DisplayFlowerFlowi
 import { getUserPosts } from "@/src/services/Post";
 import { getUsersFollower } from "@/src/services/User";
 import { TPost, TUser } from "@/src/types";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import { Metadata } from "next";
 import Image from "next/image";
 import { FaLocationDot } from "react-icons/fa6";

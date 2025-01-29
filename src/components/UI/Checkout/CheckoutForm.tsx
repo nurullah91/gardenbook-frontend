@@ -3,7 +3,7 @@
 import { useUser } from "@/src/context/user.provider";
 import { useMakePayment } from "@/src/hooks/payment.hooks";
 import { getDateThirtyDaysFromToday } from "@/src/utils/getDateThirtyDaysFromToday";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useRouter } from "next/navigation";
 import LoadingAnimation from "../LoadingAnimation";
 

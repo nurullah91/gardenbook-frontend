@@ -1,7 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation"; // To handle redirection
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import GBForm from "@/src/components/form/GBForm";
 import { useUser } from "@/src/context/user.provider";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { useLoginUser } from "@/src/hooks/user.hooks";
 
 export interface ILoginFormProps {}

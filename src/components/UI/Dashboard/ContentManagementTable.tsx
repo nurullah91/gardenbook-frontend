@@ -1,6 +1,6 @@
 "use client";
 import { TPost } from "@/src/types";
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { MdDeleteForever } from "react-icons/md";
 import {
   Table,
@@ -9,13 +9,13 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@nextui-org/table";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Avatar } from "@nextui-org/avatar";
+} from "@heroui/table";
+import { Tooltip } from "@heroui/tooltip";
+import { Avatar } from "@heroui/avatar";
 import Link from "next/link";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import GBModal from "../../modal/GBModal";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useState } from "react";
 import { useDeletePost } from "@/src/hooks/post.hook";
 import { FaEye } from "react-icons/fa";

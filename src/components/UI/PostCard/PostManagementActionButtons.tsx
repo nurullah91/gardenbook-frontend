@@ -3,20 +3,20 @@
 import { useUser } from "@/src/context/user.provider";
 import { useDeletePost, useUpdatePost } from "@/src/hooks/post.hook";
 import { TPost } from "@/src/types";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import GBModal from "../../modal/GBModal";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Select, SelectItem } from "@heroui/select";
 import { categories } from "@/src/config/categories";
 import TextEditor from "../../TextEditor/TextEditor";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 
 export interface IPostManagementActionButtonsProps {
   postData: TPost;

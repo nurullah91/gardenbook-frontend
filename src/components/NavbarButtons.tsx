@@ -1,19 +1,19 @@
 "use client";
 import NextLink from "next/link";
 import { clsx } from "clsx";
-import { link as linkStyles } from "@nextui-org/theme";
+import { link as linkStyles } from "@heroui/theme";
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 
 import { logout } from "../services/Auth";
 import { useUser } from "../context/user.provider";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { useDisclosure } from "@nextui-org/modal";
+import { Avatar } from "@heroui/avatar";
+import { Button } from "@heroui/button";
+import { useDisclosure } from "@heroui/modal";
 import { protectedRoutes } from "../constants";
 import { usePathname, useRouter } from "next/navigation";
 import CreatePostModal from "./posts/CreatePost";
@@ -21,7 +21,7 @@ import Link from "next/link";
 import { FiPlus } from "react-icons/fi";
 import { useUpdateUserData } from "../hooks/user.hooks";
 import { toast } from "sonner";
-import { Spinner } from "@nextui-org/spinner";
+import { Spinner } from "@heroui/spinner";
 import { useEffect } from "react";
 
 export interface INavbarButtonsProps {}

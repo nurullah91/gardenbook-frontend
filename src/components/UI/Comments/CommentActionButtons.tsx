@@ -8,7 +8,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
+} from "@heroui/dropdown";
 import { Dispatch, SetStateAction } from "react";
 export interface ICommentActionButtonsProps {
   comment: TComment;

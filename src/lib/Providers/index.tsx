@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { NextUIProvider } from "@nextui-org/system";
+import { HeroUIProvider } from "@heroui/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
@@ -23,12 +23,12 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <UserProvider>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider navigate={router.push}>
+        <HeroUIProvider navigate={router.push}>
           <Toaster richColors position="top-center" />
           <DndProvider backend={HTML5Backend}>
             <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
           </DndProvider>
-        </NextUIProvider>
+        </HeroUIProvider>
       </QueryClientProvider>
     </UserProvider>
   );

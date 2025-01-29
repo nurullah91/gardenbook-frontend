@@ -1,6 +1,6 @@
 "use client";
 
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import GBModal from "../modal/GBModal";
 
 export interface IContactFormProps {}

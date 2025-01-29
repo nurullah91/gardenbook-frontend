@@ -4,7 +4,7 @@ import { TComment, TPost } from "@/src/types";
 import PostCardButtons from "./PostCardButtons";
 import PostCardContent from "./PostCardContent";
 import GBModal from "../../modal/GBModal";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import PostDetailsCard from "../PostDetailsPage/PostDetailsCard";
 import { useState } from "react";
 import UserLoadingSkeleton from "../UserLoadingSkeleton";

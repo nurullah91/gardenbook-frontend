@@ -1,6 +1,6 @@
 "use client";
 import { TUser } from "@/src/types";
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 import { FaAngleDoubleUp, FaEye } from "react-icons/fa";
 import { GoBlocked } from "react-icons/go";
 import { MdDeleteForever } from "react-icons/md";
@@ -13,18 +13,18 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@nextui-org/table";
-import { Tooltip } from "@nextui-org/tooltip";
-import { Avatar } from "@nextui-org/avatar";
+} from "@heroui/table";
+import { Tooltip } from "@heroui/tooltip";
+import { Avatar } from "@heroui/avatar";
 import Link from "next/link";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import GBModal from "../../modal/GBModal";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useDeleteUser, useUpdateUserData } from "@/src/hooks/user.hooks";
 import { getAllUsers } from "@/src/services/User";
-import { Input } from "@nextui-org/input";
+import { Input } from "@heroui/input";
 import { SearchIcon } from "../../icons";
 
 export default function UserManagementTable({ users }: { users: TUser[] }) {

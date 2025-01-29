@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import ForgetPasswordForm from "./ForgetPasswordForm";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import ForgetAnimation from "@/src/components/UI/ForgetAnimation";
 
 export const metadata: Metadata = {

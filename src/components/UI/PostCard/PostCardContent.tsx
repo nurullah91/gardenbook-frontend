@@ -8,7 +8,7 @@ import styles from "./postContent.module.css";
 import { VerifyBadgeIcon } from "../../icons";
 import premiumBadge from "@/src/assets/premiumBadge.png";
 import Link from "next/link";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import PostManagementActionButtons from "./PostManagementActionButtons";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 

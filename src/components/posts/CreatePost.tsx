@@ -5,9 +5,9 @@ import { FieldValues } from "react-hook-form";
 import GBModal from "../modal/GBModal";
 
 import TextEditor from "../TextEditor/TextEditor";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Select, SelectItem } from "@heroui/select";
 import { categories } from "@/src/config/categories";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { toast } from "sonner";
 
 export interface ICreatePostProps {

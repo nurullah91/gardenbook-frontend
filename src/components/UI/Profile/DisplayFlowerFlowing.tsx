@@ -2,10 +2,10 @@
 
 import { TUser } from "@/src/types";
 import GBModal from "../../modal/GBModal";
-import { useDisclosure } from "@nextui-org/modal";
+import { useDisclosure } from "@heroui/modal";
 import Image from "next/image";
 import Link from "next/link";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import { VerifyBadgeIcon } from "../../icons";
 
 export interface IDisplayFlowerFlowingProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Tooltip } from "@nextui-org/tooltip";
+import { Tooltip } from "@heroui/tooltip";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
