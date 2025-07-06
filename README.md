@@ -98,10 +98,12 @@ npm install
 npm run dev
 ```
 
-Then it will run on your localhost 5000 port.
+Then it will run on your localhost 3000 port.
 
 > - Here is the Live link of backend [Link](https://gardenbook-server.vercel.app)
 > - Here is the Live link of backend-code [Link](https://github.com/nurullah91/gardenbook-server)
 > - Here is an explanation of frontend video [Link](https://drive.google.com/file/d/1I5kKOzEZyiRUMcxBxlrDMVn0W3SR14Hg/view?usp=drive_link)
+
+# Note: Due to node.js version update and and packages to run it smoothly, It is highly recommended to use yarn for package manager and bun for run the project. Node version: v20.13.1, yarn version: 1.22.22, bun version: 1.1.27
 
 ## Live link of the Server: https://gardenbook-client.vercel.app
