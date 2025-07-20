@@ -25,7 +25,7 @@ export const Navbar = () => {
       position="sticky"
       className="backdrop-blur-sm fixed top-0 z-30"
     >
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+      <NavbarContent className="basis-1/5 sm:basis-full px-0" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Image alt="logo" className="size-8" src={logo} />
