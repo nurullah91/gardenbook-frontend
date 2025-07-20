@@ -1,7 +1,8 @@
 "use client";
 
-import { TPost } from "@/src/types";
+import { TPost, TUser } from "@/src/types";
 import likeImage from "@/src/assets/like.svg";
+import likedImage from "@/src/assets/liked.svg";
 import commentImage from "@/src/assets/comment.svg";
 import Image from "next/image";
 import { RiShareForwardLine } from "react-icons/ri";
@@ -15,16 +16,25 @@ import { toast } from "sonner";
 import { useDownvotePost, useUpvotePost } from "@/src/hooks/post.hook";
 import { generatePDF } from "@/src/utils/generatePDF";
 import { FaFilePdf } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { getSinglePostVoter } from "@/src/services/Post";
 
 export interface IPostCardButtonsProps {
   post: TPost;
   commentHandler: () => void;
 }
+
+export type TVoters = {
+  upVoters: TUser[];
+  downVoters: TUser[];
+};
+
 export default function PostCardButtons({
   post,
   commentHandler,
 }: IPostCardButtonsProps) {
   // get comment Handler as props so that it can be handled for redirect or comment.
+  const [voters, setVoters] = useState<TVoters | null>(null);
 
   const upvoteCount = post?.upvoteCount;
   const downvoteCount = post?.downvoteCount;
@@ -42,6 +52,23 @@ export default function PostCardButtons({
   const handleModalOpen = () => {
     onOpen();
   };
+
+  const handleFetchVoters = async () => {
+    const votersData = await getSinglePostVoter(post?._id);
+
+    if (votersData?.data) {
+      setVoters(votersData?.data as TVoters);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchVoters();
+  }, []);
+
+  const isUpvoted = voters?.upVoters.some((voter) => voter._id === user?._id);
+  const isDownvoted = voters?.downVoters.some(
+    (voter) => voter._id === user?._id
+  );
 
   const handleRedirect = () => {
     router.push("/login");
@@ -108,7 +135,12 @@ export default function PostCardButtons({
               onClick={() => handleUpvote(_id)}
               disabled={isUpvotePending}
             >
-              <Image src={likeImage} alt="vote" width={40} height={40} />
+              <Image
+                src={isUpvoted ? likedImage : likeImage}
+                alt="vote"
+                width={40}
+                height={40}
+              />
               <span>{upvoteCount}</span>
             </button>
           </Tooltip>
@@ -121,7 +153,7 @@ export default function PostCardButtons({
               disabled={isDownvotePending}
             >
               <Image
-                src={likeImage}
+                src={isDownvoted ? likedImage : likeImage}
                 alt="vote"
                 width={40}
                 height={40}
